@@ -10,13 +10,8 @@
 
 #include "zf_pwm.h"
 
-#define Center 1.5
-#define MaxAngle 30
-#define TurnSpeed 0.14 //Deprecated
-
 
 void servo_init(void);
 void servo_set_position(uint16 position);
-uint16 servo_get_position(void);
 
 #endif // SERVO_H

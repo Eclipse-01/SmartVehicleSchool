@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  SEEKFREE_DL1B                                                      31/10/24  14:40:03  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1B                                                      01/11/24  21:14:27  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_DL1B
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_DL1B.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_DL1B.c XSMALL WARNINGLEVE
                     -L(3) OPTIMIZE(0,SPEED) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfr
-                    -ee_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components) DEBUG PRINT(.\Out_File\SEEKFREE_DL1B.
-                    -lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_DL1B.obj) 
+                    -ee_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT(.\O
+                    -ut_File\SEEKFREE_DL1B.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_DL1B.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    51          
    52          //-------------------------------------------------------------------------------------------------------
              -------------
-C251 COMPILER V5.60.0,  SEEKFREE_DL1B                                                      31/10/24  14:40:03  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1B                                                      01/11/24  21:14:27  PAGE 2   
 
    53          //  @brief      模拟IIC延时
    54          //  @return     void            
@@ -134,7 +134,7 @@ stmt  level    source
   115   2              DL1B_SCL_LOW();
   116   2              return 0;
   117   2          }
-C251 COMPILER V5.60.0,  SEEKFREE_DL1B                                                      31/10/24  14:40:03  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1B                                                      01/11/24  21:14:27  PAGE 3   
 
   118   1      
   119   1          DL1B_SCL_LOW();
@@ -202,7 +202,7 @@ stmt  level    source
   180          // 函数简介     软件 IIC 接口传输 8bit 数组 先写后读取
   181          // 参数说明     *write_data     发送数据存放缓冲区
   182          // 参数说明     write_len       发送缓冲区长度
-C251 COMPILER V5.60.0,  SEEKFREE_DL1B                                                      31/10/24  14:40:03  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1B                                                      01/11/24  21:14:27  PAGE 4   
 
   183          // 参数说明     *read_data      读取数据存放缓冲区
   184          // 参数说明     read_len        读取缓冲区长度
@@ -270,7 +270,7 @@ stmt  level    source
   242   3                  if(0x89 == data_buffer[2])
   243   3                  {
   244   4                      data_buffer[0] = DL1B_RESULT__FINAL_CROSSTALK_CORRECTED_RANGE_MM_SD0 >> 8;
-C251 COMPILER V5.60.0,  SEEKFREE_DL1B                                                      31/10/24  14:40:03  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1B                                                      01/11/24  21:14:27  PAGE 5   
 
   245   4                      data_buffer[1] = DL1B_RESULT__FINAL_CROSSTALK_CORRECTED_RANGE_MM_SD0 & 0xFF;
   246   4                      dl1b_transfer_8bit_array(data_buffer, 2, data_buffer, 2);
@@ -338,7 +338,7 @@ stmt  level    source
   306   3              }
   307   2      
   308   2              data_buffer[0] = DL1B_I2C_SLAVE__DEVICE_ADDRESS >> 8;
-C251 COMPILER V5.60.0,  SEEKFREE_DL1B                                                      31/10/24  14:40:03  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_DL1B                                                      01/11/24  21:14:27  PAGE 6   
 
   309   2              data_buffer[1] = DL1B_I2C_SLAVE__DEVICE_ADDRESS & 0xFF;
   310   2              memcpy(&data_buffer[2], (uint8 *)dl1b_default_configuration, sizeof(dl1b_default_configuration));

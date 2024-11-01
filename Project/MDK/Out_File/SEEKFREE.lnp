@@ -34,7 +34,10 @@
 ".\Out_File\isr.obj",
 ".\Out_File\main.obj",
 ".\Out_File\seekfree_assistant.obj",
-".\Out_File\seekfree_assistant_inface.obj" 
+".\Out_File\seekfree_assistant_inface.obj",
+".\Out_File\drv8701_dual.obj",
+".\Out_File\servo.obj",
+".\Out_File\battery.obj" 
 TO ".\Out_File\SEEKFREE" 
 PRINT(".\Out_File\SEEKFREE.map") CASE DISABLEWARNING (16,57) 
 REMOVEUNUSED 

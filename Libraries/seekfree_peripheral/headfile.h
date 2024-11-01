@@ -56,4 +56,38 @@
 //------用户头文件
 #include "servo.h" //舵机
 #include "drv8701_dual.h" //电机驱动
+#include "battery.h" //电池
+
+
+//------小车机械状态
+typedef enum {          //电池状态
+    FULL = 0,//100%
+    NEARLY_FULL = 1,//>90%
+    HIGH = 2,//>70%
+    HALF = 3,//>50%
+    LOW = 4,//>30%
+    NEARLY_EMPTY = 5,//>10%
+    EMPTY = 6//<10%
+} Battery_Level;
+
+typedef enum {          //充电状态
+    CHARGING = 0,
+    DISCHARGING = 1
+} Charge_Status;
+
+extern uint16 battery_voltage; //电池电压
+extern uint16 battery_percentage; //电池电量百分比
+extern uint16 servo_position; //舵机位置
+
+//参数
+#define Servo_MaxAngle 30
+#define Servo_Center 1.5
+
+#define motor_max_duty 60 //电机最大占空比
+
+#define LOW_BATTERY_VOLTAGE 3200 // 触发低电压保护的最低电压，单位为mV
+#define BATTERY_GROUP_NUM 3     // 电池组数量，代表有几个电池串联
+#define ENABLE_LOW_BATTERY_PROTECTION 1 // 是否启用低电压保护，1为启用，0为禁用
+
+
 #endif

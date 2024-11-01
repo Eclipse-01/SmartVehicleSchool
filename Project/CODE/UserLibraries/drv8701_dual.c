@@ -18,12 +18,6 @@
 #include "drv8701_dual.h"
 #include "headfile.h"
 
-typedef enum {
-    MOTOR_L,
-    MOTOR_R,
-    MOTOR_BOTH
-} Motor_Select;
-
 // 定义DRV8701的相关引脚
 #define DIR_1_PIN      P2_4            // 电机1方向控制引脚
 #define PWM_1_CHANNEL  PWMA_CH4P_P26   // 电机1 PWM通道
@@ -75,6 +69,7 @@ void drv8701_init(void)
  */
 void drv8701_control(Motor_Select motor_select, int speed)
 {
+    int16 mapped_speed; 
     // 限制速度值在-100到100范围内
     if(speed < -100)
         speed = -100;
@@ -82,7 +77,7 @@ void drv8701_control(Motor_Select motor_select, int speed)
         speed = 100;
 
     // 将速度从-100到100映射到-10000到10000
-    int mapped_speed = (speed * PWM_DUTY_MAX) / 100;
+    mapped_speed = (speed * PWM_DUTY_MAX) / 100;
 
     // 根据选择的电机进行控制
     switch(motor_select)

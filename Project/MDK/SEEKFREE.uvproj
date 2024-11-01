@@ -774,6 +774,16 @@
               <FileType>1</FileType>
               <FilePath>..\CODE\UserLibraries\servo.c</FilePath>
             </File>
+            <File>
+              <FileName>battery.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\UserLibraries\battery.c</FilePath>
+            </File>
+            <File>
+              <FileName>battery.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\UserLibraries\battery.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

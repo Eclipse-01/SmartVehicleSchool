@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  zf_eeprom                                                          31/10/24  14:40:01  PAGE 1   
+C251 COMPILER V5.60.0,  zf_eeprom                                                          01/11/24  21:14:25  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE zf_eeprom
 OBJECT MODULE PLACED IN .\Out_File\zf_eeprom.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_libraries\zf_eeprom.c XSMALL WARNINGLEVEL(3) 
                     -OPTIMIZE(0,SPEED) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_pe
-                    -ripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components) DEBUG PRINT(.\Out_File\zf_eeprom.lst) TABS
-                    -(2) OBJECT(.\Out_File\zf_eeprom.obj) 
+                    -ripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT(.\Out_Fi
+                    -le\zf_eeprom.lst) TABS(2) OBJECT(.\Out_File\zf_eeprom.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    49          //  @return     void
    50          //  Sample usage:           
    51          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  zf_eeprom                                                          31/10/24  14:40:01  PAGE 2   
+C251 COMPILER V5.60.0,  zf_eeprom                                                          01/11/24  21:14:25  PAGE 2   
 
              -------------
    52          void iap_init(void)
@@ -134,7 +134,7 @@ stmt  level    source
   107          //                将0x00-0x0A地址中的数据，读取到str中。
   108          //-------------------------------------------------------------------------------------------------------
              -------------
-C251 COMPILER V5.60.0,  zf_eeprom                                                          31/10/24  14:40:01  PAGE 3   
+C251 COMPILER V5.60.0,  zf_eeprom                                                          01/11/24  21:14:25  PAGE 3   
 
   109          void iap_read_bytes(uint32 addr, uint8 *buf, uint16 len)
   110          {
@@ -202,7 +202,7 @@ stmt  level    source
   168   1        IAP_CMD = 3;        //设置 IAP 擦除命令
   169   1        IAP_ADDRL = addr;       //设置 IAP 低地址
   170   1        IAP_ADDRH = addr >> 8;    //设置 IAP 高地址
-C251 COMPILER V5.60.0,  zf_eeprom                                                          31/10/24  14:40:01  PAGE 4   
+C251 COMPILER V5.60.0,  zf_eeprom                                                          01/11/24  21:14:25  PAGE 4   
 
   171   1        IAP_ADDRE = addr >> 16;   //设置 IAP 最高地址
   172   1          eeprom_trig();  

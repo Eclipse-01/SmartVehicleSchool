@@ -26,8 +26,6 @@
  * 如果需要使用P54引脚,可以在board.c文件中的board_init()函数中删除SET_P54_RESRT即可
  */
 
-// 添加全局变量
-uint16 ServoAngle;
 
 /**
  *@brief  舵机初始化
@@ -35,7 +33,7 @@ uint16 ServoAngle;
  */
 void servo_init(void)
 {
-    uint32 duty = (uint32)(Center * 10000 / 20); // Center = 1 代表输出1ms的PWM信号
+    uint32 duty = (uint32)(Servo_Center * 10000 / 20); // Center = 1 代表输出1ms的PWM信号
     pwm_init(PWMB_CH3_P33, 50, duty);            // PWM频率是50Hz，即20ms。
 }
 
@@ -49,24 +47,16 @@ void servo_init(void)
  */
 void servo_set_position(uint16 angle)
 {
-    uint32 pulseWide = Center;
-    if (angle > MaxAngle)
+    uint32 pulseWide = Servo_Center;
+    if (angle > Servo_MaxAngle)
     {
-        angle = MaxAngle;
+        angle = Servo_MaxAngle;
     }
-    if (angle < -MaxAngle)
+    if (angle < -Servo_MaxAngle)
     {
-        angle = -MaxAngle;
+        angle = -Servo_MaxAngle;
     }
     pulseWide += angle * (2 / 180); // 这个算式的含义：每1ms对应角度是90°，再用角度乘以(1ms/90°)得到对应的ms数，再加上Center得到最终的ms数
     pwm_duty(PWMB_CH3_P33, pulseWide);
-    ServoAngle = angle;
-}
-
-/**
- * @brief 获取当前舵机的角度，以度为单位。
- */
-uint16 servo_get_angle(void)
-{
-    return ServoAngle;
+    servo_position = angle;
 }

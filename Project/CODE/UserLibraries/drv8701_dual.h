@@ -16,6 +16,12 @@
 
 #include "headfile.h"
 
+typedef enum {
+    MOTOR_L = 0,
+    MOTOR_R = 1,
+    MOTOR_BOTH = 2
+} Motor_Select;
+
 void drv8701_init(void);
 void drv8701_control(Motor_Select motor_select, int speed);
 void drv8701_stop(Motor_Select motor_select);

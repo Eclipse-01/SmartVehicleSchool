@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_IPS200_SPI
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_IPS200_SPI.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_IPS200_SPI.c XSMALL WARNI
                     -NGLEVEL(3) OPTIMIZE(0,SPEED) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\
-                    -seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components) DEBUG PRINT(.\Out_File\SEEKFREE
-                    -_IPS200_SPI.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_IPS200_SPI.obj) 
+                    -seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRI
+                    -NT(.\Out_File\SEEKFREE_IPS200_SPI.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_IPS200_SPI.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    52          static uint16 ips200_x_max = 240;
    53          static uint16 ips200_y_max = 320;
    54          
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 2   
 
    55          //-------------------------------------------------------------------------------------------------------
              -------------
@@ -134,7 +134,7 @@ stmt  level    source
   111          // ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ ÓÃ»§ÎÞÐè¹ØÐÄ
   112          //-------------------------------------------------------------------------------------------------------
              -------------
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 3   
 
   113          static void ips200_write_8bit_data (const uint8 dat)
   114          {
@@ -202,7 +202,7 @@ stmt  level    source
   170          {
   171   1          uint16 i, j;
   172   1        IPS200_CS(0);
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 4   
 
   173   1      
   174   1          ips200_set_region(0, 0, ips200_x_max - 1, ips200_y_max - 1);
@@ -270,7 +270,7 @@ stmt  level    source
   231   2              ips200_y_max = 240;
   232   2          }
   233   1      }
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 5   
 
   234          
   235          //-------------------------------------------------------------------------------------------------------
@@ -338,7 +338,7 @@ stmt  level    source
   287          // ²ÎÊýËµÃ÷     x_end           ×ø±êx·½ÏòµÄÖÕµã [0, ips200_x_max-1]
   288          // ²ÎÊýËµÃ÷     y_end           ×ø±êy·½ÏòµÄÖÕµã [0, ips200_y_max-1]
   289          // ²ÎÊýËµÃ÷     color           ÑÕÉ«¸ñÊ½ RGB565 »òÕß¿ÉÒÔÊ¹ÓÃ zf_common_font.h ÄÚ rgb565_color_enum Ã¶¾ÙÖµ
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 6   
 
              -»òÕß×ÔÐÐÐ´Èë
   290          // ·µ»Ø²ÎÊý     void
@@ -406,7 +406,7 @@ stmt  level    source
   349          void ips200_show_char (uint16 x, uint16 y, const char dat)
   350          {
   351   1          uint8 i, j;
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 7   
 
   352   1        uint8 temp_top;
   353   1        uint8 temp_bottom;
@@ -474,7 +474,7 @@ stmt  level    source
   415   2          }
   416   1      
   417   1        IPS200_CS(1);
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 8   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 8   
 
   418   1      
   419   1      }
@@ -542,7 +542,7 @@ stmt  level    source
   477   2              {
   478   3                  offset *= 10;
   479   3              }
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 9   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 9   
 
   480   2              dat_temp %= offset;
   481   2          }
@@ -610,7 +610,7 @@ stmt  level    source
   538   1      
   539   1          if(num < 10)
   540   1          {
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 10  
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 10  
 
   541   2              for(; num > 0; num --)
   542   2              {
@@ -678,7 +678,7 @@ stmt  level    source
   600          // ²ÎÊýËµÃ÷     size            È¡Ä£µÄÊ±ºòÉèÖÃµÄºº×Ö×ÖÌå´óÐ¡ Ò²¾ÍÊÇÒ»¸öºº×ÖÕ¼ÓÃµÄµãÕó³¤¿íÎª¶àÉÙ¸öµã È¡Ä£µ
              -ÄÊ±ºòÐèÒª³¤¿íÊÇÒ»ÑùµÄ
   601          // ²ÎÊýËµÃ÷     *chinese_buffer ÐèÒªÏÔÊ¾µÄºº×ÖÊý×é
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 11  
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 11  
 
   602          // ²ÎÊýËµÃ÷     number          ÐèÒªÏÔÊ¾¶àÉÙÎ»
   603          // ²ÎÊýËµÃ÷     color           ÑÕÉ«¸ñÊ½ RGB565 »òÕß¿ÉÒÔÊ¹ÓÃ zf_common_font.h ÄÚ rgb565_color_enum Ã¶¾ÙÖµ
@@ -746,7 +746,7 @@ stmt  level    source
              -------------
   660          void ips200_init_spi ()
   661          {
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 12  
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 12  
 
   662   1        IPS200_BL(1);
   663   1        IPS200_DC(0);
@@ -814,7 +814,7 @@ stmt  level    source
   724   1      
   725   1          ips200_write_command(0xC3);            
   726   1          ips200_write_8bit_data(0x19);                                               // GVDD=4.8V 
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 13  
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 13  
 
   727   1                                                                  
   728   1          ips200_write_command(0xC4);            
@@ -883,7 +883,7 @@ Module Information          Static   Overlayable
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                31/10/24  15:12:15  PAGE 14  
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                01/11/24  21:14:28  PAGE 14  
 
   edata size           =       246     ------
   bit size             =    ------     ------

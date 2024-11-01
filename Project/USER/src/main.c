@@ -25,7 +25,6 @@
 
 void main()
 {
-    char str[30];
 	clock_init(SYSTEM_CLOCK_52M);	// 初始化系统频率,勿删除此句代码。
 	board_init();					// 初始化寄存器,勿删除此句代码。
 

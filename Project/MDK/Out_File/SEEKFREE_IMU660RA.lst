@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  31/10/24  14:40:04  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  01/11/24  21:14:28  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_IMU660RA
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_IMU660RA.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_IMU660RA.c XSMALL WARNING
                     -LEVEL(3) OPTIMIZE(0,SPEED) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\se
-                    -ekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components) DEBUG PRINT(.\Out_File\SEEKFREE_I
-                    -MU660RA.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_IMU660RA.obj) 
+                    -ekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT
+                    -(.\Out_File\SEEKFREE_IMU660RA.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_IMU660RA.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    52          
    53          int16 imu660ra_gyro_x = 0, imu660ra_gyro_y = 0, imu660ra_gyro_z = 0;            // ÈýÖáÍÓÂÝÒÇÊý¾Ý   gyro 
              -(ÍÓÂÝÒÇ)
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  31/10/24  14:40:04  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  01/11/24  21:14:28  PAGE 2   
 
    54          int16 imu660ra_acc_x = 0, imu660ra_acc_y = 0, imu660ra_acc_z = 0;               // ÈýÖá¼ÓËÙ¶È¼ÆÊý¾Ý acc  
              -(accelerometer ¼ÓËÙ¶È¼Æ)
@@ -134,7 +134,7 @@ stmt  level    source
                    IMU660RA_SCL_LOW();
                    imu660ra_simiic_delay();
                }
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  31/10/24  14:40:04  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  01/11/24  21:14:28  PAGE 3   
 
                
                
@@ -202,7 +202,7 @@ stmt  level    source
                        c<<=1;
                        if(GET_IMU660RA_SDA) 
                        {
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  31/10/24  14:40:04  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  01/11/24  21:14:28  PAGE 4   
 
                            c+=1;   //¶ÁÊý¾ÝÎ»£¬½«½ÓÊÕµÄÊý¾Ý´æc
                        }
@@ -270,7 +270,7 @@ stmt  level    source
                //  @param      type      Ñ¡ÔñÍ¨ÐÅ·½Ê½ÊÇIIC  »¹ÊÇ SCCB
                //  @return     uint8     ·µ»Ø¼Ä´æÆ÷µÄÊý¾Ý      
                //  @since      v1.0
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  31/10/24  14:40:04  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  01/11/24  21:14:28  PAGE 5   
 
                //  Sample usage:       
                //-------------------------------------------------------------------------------------------------------
@@ -338,7 +338,7 @@ stmt  level    source
   301          
   302          
   303          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  31/10/24  14:40:04  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  01/11/24  21:14:28  PAGE 6   
 
              -------------
   304          //  @brief      Í¨¹ýSPIÐ´Ò»¸öbyte,Í¬Ê±¶ÁÈ¡Ò»¸öbyte
@@ -406,7 +406,7 @@ stmt  level    source
   360          //  @brief      ¶ÁÈ¡cmdËù¶ÔÓ¦µÄ¼Ä´æÆ÷µØÖ·
   361          //  @param      cmd         ÃüÁî×Ö
   362          //  @param      *val        ´æ´¢¶ÁÈ¡µÄÊý¾ÝµØÖ·
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  31/10/24  14:40:04  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  01/11/24  21:14:28  PAGE 7   
 
   363          //  @since      v1.0
   364          //  Sample usage:
@@ -474,7 +474,7 @@ stmt  level    source
   418          static void imu660ra_write_registers(uint8 reg, const uint8 *dat, uint32 len)
   419          {
   420   1          IMU660RA_CS(0);
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  31/10/24  14:40:04  PAGE 8   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  01/11/24  21:14:28  PAGE 8   
 
   421   1      
   422   1          imu660ra_simspi_w_reg_bytes(reg | IMU660RA_SPI_W, dat, len);
@@ -542,7 +542,7 @@ stmt  level    source
   478   2              delay_ms(1);
   479   2          }while(0x24 != dat);                                                        // ¶ÁÈ¡Éè±¸IDÊÇ·ñµÈÓÚ0X24
              -£¬Èç¹û²»ÊÇ0X24ÔòÈÏÎªÃ»¼ì²âµ½Éè±¸
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  31/10/24  14:40:04  PAGE 9   
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  01/11/24  21:14:28  PAGE 9   
 
   480   1          return return_state;
   481   1      }
@@ -610,7 +610,7 @@ stmt  level    source
   535          // º¯Êý¼ò½é     ½« IMU660RA ¼ÓËÙ¶È¼ÆÊý¾Ý×ª»»ÎªÊµ¼ÊÎïÀíÊý¾Ý
   536          // ²ÎÊýËµÃ÷     gyro_value      ÈÎÒâÖáµÄ¼ÓËÙ¶È¼ÆÊý¾Ý
   537          // ·µ»Ø²ÎÊý     void
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  31/10/24  14:40:04  PAGE 10  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  01/11/24  21:14:28  PAGE 10  
 
   538          // Ê¹ÓÃÊ¾Àý     float dat = imu660ra_acc_transition(imu660ra_acc_x);           // µ¥Î»Îª g(m/s^2)
   539          // ±¸×¢ÐÅÏ¢
@@ -678,7 +678,7 @@ stmt  level    source
   587   1        
   588   1          delay_ms(20);                                                           // µÈ´ýÉè±¸ÉÏµç³É¹¦
   589   1      
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  31/10/24  14:40:04  PAGE 11  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  01/11/24  21:14:28  PAGE 11  
 
   590   1      //#if IMU660RA_USE_SOFT_IIC 
   591   1      
@@ -746,7 +746,7 @@ stmt  level    source
              -µÄÊý¾Ý µ¥Î»£ºg(m/s^2)
   642   2              // ÉèÖÃÎª:0x03 ¼ÓËÙ¶È¼ÆÁ¿³ÌÎª:¡À16g        »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 2048    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»
              -µÄÊý¾Ý µ¥Î»£ºg(m/s^2)
-C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  31/10/24  14:40:04  PAGE 12  
+C251 COMPILER V5.60.0,  SEEKFREE_IMU660RA                                                  01/11/24  21:14:28  PAGE 12  
 
   643   2          
   644   2              imu660ra_write_register(IMU660RA_GYR_RANGE, IMU660RA_GYR_SAMPLE);       // ÍÓÂÝÒÇÁ¿³ÌÅäÖÃ ÅäÖÃÁ¿³

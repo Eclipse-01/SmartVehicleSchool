@@ -1,11 +1,12 @@
-C251 COMPILER V5.60.0,  main                                                               01/11/24  00:34:16  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               01/11/24  21:35:43  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
 OBJECT MODULE PLACED IN .\Out_File\main.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\USER\src\main.c XSMALL WARNINGLEVEL(3) OPTIMIZE(0,SPEED) BROWSE INC
                     -DIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc
-                    -;..\USER\src;..\..\Libraries\seekfree_components) DEBUG PRINT(.\Out_File\main.lst) TABS(2) OBJECT(.\Out_File\main.obj) 
+                    -;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT(.\Out_File\main.lst) TABS(2) OBJECT(
+                    -.\Out_File\main.obj) 
 
 stmt  level    source
 
@@ -36,54 +37,39 @@ stmt  level    source
    23          // 在board_init中,已经将P54引脚设置为复位
    24          // 如果需要使用P54引脚,可以在board.c文件中的board_init()函数中删除SET_P54_RESRT即可
    25          
-   26          #define DIR P35
-   27          int16 dat = 0;
-   28          void main()
-   29          {
-   30   1          char str[30];
-   31   1        clock_init(SYSTEM_CLOCK_52M); // 初始化系统频率,勿删除此句代码。
-   32   1        board_init();         // 初始化寄存器,勿删除此句代码。
-   33   1      
-   34   1          // 此处编写用户代码 例如外设初始化代码等
-   35   1        ctimer_count_init(CTIM0_P34);
-   36   1          ips200_init_spi();
-   37   1          // 此处编写用户代码 例如外设初始化代码等
-   38   1      
-   39   1          while(1)
-   40   1          {
-   41   2          // 此处编写需要循环执行的代码
-   42   2          if(DIR == 1)
-   43   2          {
-   44   3            dat = ctimer_count_read(CTIM0_P34);
-   45   3          }
-   46   2          else
-   47   2          {
-   48   3            dat = ctimer_count_read(CTIM0_P34) * -1;
-   49   3          }
-   50   2          ctimer_count_clean(CTIM0_P34);
-   51   2              sprintf(str, "dat = %d", dat);
-   52   2          ips200_show_string(0, 0, str);
-   53   2          delay_ms(100);
-   54   2              // 此处编写需要循环执行的代码
-   55   2          }
-C251 COMPILER V5.60.0,  main                                                               01/11/24  00:34:16  PAGE 2   
-
-   56   1      }
-   57          
-   58          
-   59          
+   26          void main()
+   27          {
+   28   1        clock_init(SYSTEM_CLOCK_52M); // 初始化系统频率,勿删除此句代码。
+   29   1        board_init();         // 初始化寄存器,勿删除此句代码。
+   30   1      
+   31   1          // 此处编写用户代码 例如外设初始化代码等
+   32   1          ips200_init_spi();
+   33   1          // 此处编写用户代码 例如外设初始化代码等
+   34   1      
+   35   1          while(1)
+   36   1          {
+   37   2          // 此处编写需要循环执行的代码
+   38   2          
+   39   2              // 此处编写需要循环执行的代码
+   40   2          }
+   41   1      }
+   42          
+   43          
+   44          
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       106     ------
+  code size            =        20     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =        32     ------
+C251 COMPILER V5.60.0,  main                                                               01/11/24  21:35:43  PAGE 2   
+
+  edata size           =    ------     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -91,7 +77,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        15     ------
+  hconst size          =    ------     ------
 End of Module Information.
 
 
