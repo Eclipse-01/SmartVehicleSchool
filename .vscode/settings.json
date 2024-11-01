@@ -1,0 +1,18 @@
+{
+    "files.encoding": "utf8",
+    "[c]": {
+        "files.encoding": "gb2312"
+    },
+    "[cpp]": {
+        "files.encoding": "gb2312"
+    },
+    "[h]": {
+        "files.encoding": "gb2312"
+    },
+    "files.associations": {
+        "headfile.h": "c",
+        "seekfree_font.h": "c",
+        "drv8701_dual.h": "c",
+        "seekfree_bluetooth_ch9141.h": "c"
+    }
+}
