@@ -30,6 +30,16 @@ void main()
 
     // 此处编写用户代码 例如外设初始化代码等
     ips200_init_spi();
+    ips200_show_string(0,0,"Vehicle Booting...");
+    battery_init();
+    ips200_show_string(16,0,"Battery OK, percentage:");
+    ips200_show_string(16,100,battery_percentage);
+    servo_init();
+    ips200_show_string(32,0,"Servo OK, position:");
+    ips200_show_string(32,100,servo_position);
+    drv8701_init();
+    ips200_show_string(48,0,"Motor OK");
+
     // 此处编写用户代码 例如外设初始化代码等
 
     while(1)
