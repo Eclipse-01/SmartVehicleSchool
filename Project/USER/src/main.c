@@ -45,8 +45,21 @@ void main()
     while(1)
     {
 		// 此处编写需要循环执行的代码
-		
-        // 此处编写需要循环执行的代码
+        update_battery_status();
+        sprintf(string_buffer, "Battery: %dmV, %d%%", battery_voltage, battery_percentage);
+        ips200_show_string(0, 0, string_buffer);
+
+        Line_read_raw();
+        sprintf(string_buffer, "ADC1: %d", adc_value.ADC1);
+        ips200_show_string(16, 0, string_buffer);
+        sprintf(string_buffer, "ADC2: %d", adc_value.ADC2);
+        ips200_show_string(32, 0, string_buffer);
+        sprintf(string_buffer, "ADC3: %d", adc_value.ADC3);
+        ips200_show_string(48, 0, string_buffer);
+        sprintf(string_buffer, "ADC4: %d", adc_value.ADC4);
+        ips200_show_string(64, 0, string_buffer);
+
+        delay_ms(500); // 延时500ms
     }
 }
 
