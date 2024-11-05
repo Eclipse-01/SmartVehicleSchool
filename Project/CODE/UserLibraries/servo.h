@@ -10,6 +10,8 @@
 
 #include "zf_pwm.h"
 
+extern int8 servo_position; //¶æ»úÎ»ÖÃ
+
 void servo_init(void);
 void servo_set_position(int16 position);
 

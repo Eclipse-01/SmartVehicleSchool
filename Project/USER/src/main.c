@@ -24,23 +24,22 @@
 // 如果需要使用P54引脚,可以在board.c文件中的board_init()函数中删除SET_P54_RESRT即可
 
 void main()
-{
+{   
+    char string_buffer[50];
 	clock_init(SYSTEM_CLOCK_52M);	// 初始化系统频率,勿删除此句代码。
 	board_init();					// 初始化寄存器,勿删除此句代码。
 
     // 此处编写用户代码 例如外设初始化代码等
     ips200_init_spi();
-    ips200_show_string(0,0,(far char*)"Vehicle Booting...");
+    ips200_show_string(0, 0, "Vehicle Booting...");
     battery_init();
-    ips200_show_string(16,0,(far char*)"Battery OK, percentage:");
-    ips200_show_string(16,100,(far char*)battery_percentage);
+    sprintf(string_buffer, "Battery OK, percentage:%d", battery_percentage);
+    ips200_show_string(16, 0, string_buffer);
     servo_init();
-    ips200_show_string(32,0,(far char*)"Servo OK, position:");
-    ips200_show_string(32,100,(far char*)servo_position);
+    sprintf(string_buffer, "Servo OK, position:%d", servo_position);
+    ips200_show_string(32, 0, string_buffer);
     drv8701_init();
-    ips200_show_string(48,0,(far char*)"Motor OK");
-    //(far char*)是强制类型转换，将字符串转换为far类型，far类型是指针类型，指向存储在外部存储器中的数据
-    //为什么要使用far char*呢？因为默认指针只能访问特定范围的内存地址，而 far 指针可以访问更大的内存空间。
+    ips200_show_string(48, 0, "Motor OK");
     // 此处编写用户代码 例如外设初始化代码等
 
     while(1)

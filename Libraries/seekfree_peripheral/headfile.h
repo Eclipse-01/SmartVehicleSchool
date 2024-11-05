@@ -63,24 +63,6 @@
 
 
 //------小车机械状态
-typedef enum {          //充电状态
-    CHARGING = 0,
-    DISCHARGING = 1
-} Charge_Status;
-extern Charge_Status charge_status;
-
-typedef struct {        //电磁传感器
-    uint16 ADC1;
-    uint16 ADC2;
-    uint16 ADC3;
-    uint16 ADC4;
-} ADC_Value;
-
-extern ADC_Value adc_value;
-
-extern uint16 battery_voltage; //电池电压
-extern uint16 battery_percentage; //电池电量百分比
-extern int8 servo_position; //舵机位置
 
 //参数
 #define Servo_MaxAngle 30

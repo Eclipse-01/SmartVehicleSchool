@@ -18,6 +18,7 @@
         "servo.h": "c",
         "zf_iic.h": "c",
         "stdio.h": "c",
-        "battery.h": "c"
+        "battery.h": "c",
+        "line.h": "c"
     }
 }
