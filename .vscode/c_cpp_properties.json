@@ -14,6 +14,7 @@
                 "C:\\Keil_v5\\C251\\INC",
                 "C:\\Keil_v5\\C251\\INC\\STC",
                 "d:\\SmartVehicle\\SmartVehicalSchool\\Libraries\\doc",
+                "d:\\SmartVehicle\\SmartVehicalSchool\\Project\\CODE\\Algorithms",
                 "${default}",
                 "${workspaceFolder}/**"
             ],

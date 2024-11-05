@@ -811,6 +811,21 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>algo</GroupName>
+          <Files>
+            <File>
+              <FileName>straight.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\Algorithms\straight.c</FilePath>
+            </File>
+            <File>
+              <FileName>straight.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\Algorithms\straight.h</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
   </Targets>

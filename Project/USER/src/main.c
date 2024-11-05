@@ -40,6 +40,11 @@ void main()
     ips200_show_string(32, 0, string_buffer);
     drv8701_init();
     ips200_show_string(48, 0, "Motor OK");
+    encoder_init();
+    ips200_show_string(64, 0, "Encoder OK");
+    Line_init();
+    ips200_show_string(80, 0, "Line OK");
+    
     // 此处编写用户代码 例如外设初始化代码等
 
     while(1)

@@ -1,0 +1,81 @@
+C251 COMPILER V5.60.0,  line                                                               05/11/24  20:15:42  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE line
+OBJECT MODULE PLACED IN .\Out_File\line.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\UserLibraries\line.c XSMALL WARNINGLEVEL(3) OPTIMIZE(0,SPEED) 
+                    -BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;.
+                    -.\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT(.\Out_File\line.lst) TABS(
+                    -2) OBJECT(.\Out_File\line.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          #include "line.h"
+    3          
+    4          ADC_Value adc_value;  // 仅在此处定义
+    5          
+    6          void Line_init(){
+    7   1          adc_init(ADC_P06, 0);                        // P00引脚        具体通道与引脚对应关系可以查看zf_adc.h
+             -文件
+    8   1          adc_init(ADC_P11, 0);                        // P01引脚        具体通道与引脚对应关系可以查看zf_adc.h
+             -文件
+    9   1          adc_init(ADC_P14, 0);                        // P05引脚        具体通道与引脚对应关系可以查看zf_adc.h
+             -文件
+   10   1          adc_init(ADC_P15, 0);                        // P06引脚        具体通道与引脚对应关系可以查看zf_adc.h
+             -文件
+   11   1      }                           
+   12          
+   13          void Line_read_raw(){  
+   14   1              adc_value.ADC1 = adc_once(ADC_P06, ADC_8BIT);    // 采集ADC_P00电压，精度12位
+   15   1              adc_value.ADC2 = adc_once(ADC_P11, ADC_8BIT);    // 采集ADC_P01电压，精度12位
+   16   1              adc_value.ADC3 = adc_once(ADC_P14, ADC_8BIT);    // 采集ADC_P05电压，精度12位
+   17   1              adc_value.ADC4 = adc_once(ADC_P15, ADC_8BIT);    // 采集ADC_P06电压，精度12位
+   18   1      }
+   19          
+   20          int Line_calculate_position(){
+   21   1          int adc1, adc2, adc3, adc4;
+   22   1          int position;
+   23   1          
+   24   1          Line_read_raw();
+   25   1          adc1 = adc_value.ADC1;
+   26   1          adc2 = adc_value.ADC2;
+   27   1          adc3 = adc_value.ADC3;
+   28   1          adc4 = adc_value.ADC4;
+   29   1          
+   30   1          // 判断线的大致位置，使用两个传感器的值,adc1 和 adc2
+   31   1          if(adc1 > 100 && adc2 > 100)
+   32   1              return 999;
+   33   1          if((adc1 + adc4) == 0)
+   34   1              return 998;
+   35   1          if ((adc1 + adc4) < 10)
+   36   1              return 997;
+   37   1          position = (adc1 - adc4) * 100 / (adc1 + adc4);//差比和算法
+   38   1          return position;
+   39   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       243     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        18     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+C251 COMPILER V5.60.0,  line                                                               05/11/24  20:15:42  PAGE 2   
+
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =    ------     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

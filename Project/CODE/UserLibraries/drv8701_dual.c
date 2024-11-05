@@ -78,6 +78,7 @@ void drv8701_control(Motor_Select motor_select, int speed)
 
     // 将速度从-100到100映射到-10000到10000
     mapped_speed = (speed * PWM_DUTY_MAX) / 100;
+    mapped_speed = motor_max_duty * mapped_speed / 100;
 
     // 根据选择的电机进行控制
     switch(motor_select)
