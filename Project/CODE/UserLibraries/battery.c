@@ -22,8 +22,10 @@
 #define BAT_VOL_PIN ADC_P05
 
 uint16 ad_result = 0;           // 引脚电压
-uint16 battery_voltage = 0;     // 电池电压
 uint32 temp;
+
+uint16 battery_voltage = 0;     // 电池电压
+uint16 battery_percentage = 0;  // 电池电量百分比
 
 /**
  * @brief 初始化电池电压检测模块
@@ -70,27 +72,6 @@ uint16 get_battery_percentage(void){
     return percentage;
 }
 
-typedef enum {          //电池状态
-    FULL = 0,           // 100%
-    NEARLY_FULL = 1,    // >90%
-    HIGH = 2,           // >70%
-    HALF = 3,           // >50%
-    LOW = 4,            // >30%
-    NEARLY_EMPTY = 5,   // >10%
-    EMPTY = 6           // <10%
-} Battery_Level;
-
-typedef enum {          //充电状态
-    CHARGING = 0,
-    DISCHARGING = 1
-} Charge_Status;
-
-extern uint16 battery_voltage; //电池电压
-extern uint16 battery_percentage; //电池电量百分比
-
-Battery_Level battery_level;
-Charge_Status charge_status;
-
 /**
  * @brief 更新电池状态
  * 
@@ -98,29 +79,6 @@ Charge_Status charge_status;
  */
 void update_battery_status(void) {
     battery_percentage = get_battery_percentage();
-    
-    if (battery_percentage == 100) {
-        battery_level = FULL;
-    } else if (battery_percentage > 90) {
-        battery_level = NEARLY_FULL;
-    } else if (battery_percentage > 70) {
-        battery_level = HIGH;
-    } else if (battery_percentage > 50) {
-        battery_level = HALF;
-    } else if (battery_percentage > 30) {
-        battery_level = LOW;
-    } else if (battery_percentage > 10) {
-        battery_level = NEARLY_EMPTY;
-    } else {
-        battery_level = EMPTY;
-    }
-
-    // 假设有一个函数 is_charging() 返回是否正在充电
-    if (is_charging()) {
-        charge_status = CHARGING;
-    } else {
-        charge_status = DISCHARGING;
-    }
 }
 
 

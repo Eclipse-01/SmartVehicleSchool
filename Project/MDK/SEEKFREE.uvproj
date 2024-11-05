@@ -504,6 +504,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\Libraries\seekfree_libraries\zf_fifo.h</FilePath>
             </File>
+            <File>
+              <FileName>globals.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Libraries\seekfree_peripheral\globals.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -783,6 +788,26 @@
               <FileName>battery.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\CODE\UserLibraries\battery.h</FilePath>
+            </File>
+            <File>
+              <FileName>encoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\UserLibraries\encoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>line.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\UserLibraries\line.c</FilePath>
+            </File>
+            <File>
+              <FileName>encoder.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\UserLibraries\encoder.h</FilePath>
+            </File>
+            <File>
+              <FileName>line.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\UserLibraries\line.h</FilePath>
             </File>
           </Files>
         </Group>

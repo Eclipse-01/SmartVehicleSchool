@@ -13,6 +13,11 @@
         "headfile.h": "c",
         "seekfree_font.h": "c",
         "drv8701_dual.h": "c",
-        "seekfree_bluetooth_ch9141.h": "c"
+        "seekfree_bluetooth_ch9141.h": "c",
+        "intrins.h": "c",
+        "servo.h": "c",
+        "zf_iic.h": "c",
+        "stdio.h": "c",
+        "battery.h": "c"
     }
 }

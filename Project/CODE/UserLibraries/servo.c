@@ -26,6 +26,14 @@
  * 如果需要使用P54引脚,可以在board.c文件中的board_init()函数中删除SET_P54_RESRT即可
  */
 
+int8 servo_position = 0;  // 舵机位置
+
+// 定义Kp和Kd参数
+float servo_Kp = 1.0f;
+float servo_Kd = 0.1f;
+
+// 定义前一次的误差
+static int16 previous_error = 0;
 
 /**
  *@brief  舵机初始化
@@ -45,7 +53,7 @@ void servo_init(void)
  *
  * @param angle 要设置的舵机角度，以度为单位。
  */
-void servo_set_position(uint16 angle)
+void servo_set_position(int16 angle)
 {
     uint32 pulseWide = Servo_Center;
     if (angle > Servo_MaxAngle)
@@ -56,7 +64,10 @@ void servo_set_position(uint16 angle)
     {
         angle = -Servo_MaxAngle;
     }
-    pulseWide += angle * (2 / 180); // 这个算式的含义：每1ms对应角度是90°，再用角度乘以(1ms/90°)得到对应的ms数，再加上Center得到最终的ms数
+    pulseWide += angle * (2 / 180); // 每1ms对应角度是90°，再用角度乘以(1ms/90°)得到对应的ms数，再加上Center得到最终的ms数
     pwm_duty(PWMB_CH3_P33, pulseWide);
     servo_position = angle;
 }
+
+
+

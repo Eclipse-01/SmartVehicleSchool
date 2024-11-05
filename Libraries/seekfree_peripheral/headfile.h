@@ -57,37 +57,41 @@
 #include "servo.h" //舵机
 #include "drv8701_dual.h" //电机驱动
 #include "battery.h" //电池
+#include "encoder.h" //编码器
+#include "line.h" //寻线
+
 
 
 //------小车机械状态
-typedef enum {          //电池状态
-    FULL = 0,//100%
-    NEARLY_FULL = 1,//>90%
-    HIGH = 2,//>70%
-    HALF = 3,//>50%
-    LOW = 4,//>30%
-    NEARLY_EMPTY = 5,//>10%
-    EMPTY = 6//<10%
-} Battery_Level;
-
 typedef enum {          //充电状态
     CHARGING = 0,
     DISCHARGING = 1
 } Charge_Status;
+extern Charge_Status charge_status;
+
+typedef struct {        //电磁传感器
+    uint16 ADC1;
+    uint16 ADC2;
+    uint16 ADC3;
+    uint16 ADC4;
+} ADC_Value;
+
+extern ADC_Value adc_value;
 
 extern uint16 battery_voltage; //电池电压
 extern uint16 battery_percentage; //电池电量百分比
-extern uint16 servo_position; //舵机位置
+extern int8 servo_position; //舵机位置
 
 //参数
 #define Servo_MaxAngle 30
 #define Servo_Center 1.5
 
-#define motor_max_duty 60 //电机最大占空比
+#define motor_max_duty 60 //电机最大占空比，不应该大于60
 
 #define LOW_BATTERY_VOLTAGE 3200 // 触发低电压保护的最低电压，单位为mV
 #define BATTERY_GROUP_NUM 3     // 电池组数量，代表有几个电池串联
 #define ENABLE_LOW_BATTERY_PROTECTION 1 // 是否启用低电压保护，1为启用，0为禁用
-
+#define encoder_swap //如果左右编码器接反，取消注释此行
+#define encoder_time 10 //编码器读取时间间隔，单位ms
 
 #endif

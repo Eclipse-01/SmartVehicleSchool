@@ -10,8 +10,7 @@
 
 #include "zf_pwm.h"
 
-
 void servo_init(void);
-void servo_set_position(uint16 position);
+void servo_set_position(int16 position);
 
 #endif // SERVO_H
