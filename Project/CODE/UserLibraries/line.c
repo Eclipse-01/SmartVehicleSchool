@@ -18,16 +18,23 @@ void Line_read_raw(){
 }
 
 int Line_calculate_position(){
-    // 读取ADC值
-    int adc1 = adc_value.ADC1;
-    int adc2 = adc_value.ADC2;
-    int adc3 = adc_value.ADC3;
-    int adc4 = adc_value.ADC4;
+    int adc1, adc2, adc3, adc4;
+    int position;
+    float left_ratio, right_ratio;
     
-    // 定义位置权重
-    int position = 0;
-    int total = 0;
+    Line_read_raw();
+    adc1 = adc_value.ADC1;
+    adc2 = adc_value.ADC2;
+    adc3 = adc_value.ADC3;
+    adc4 = adc_value.ADC4;
     
+    // 判断线的大致位置，使用两个传感器的值,adc1 和 adc2
+    if(adc1 > 100 && adc2 > 100)
+        return 999;
+    if((adc1 + adc4) == 0)
+        return 998;
+    if ((adc1 + adc4) < 10)
+        return 997;
+    position = (adc1 - adc4) * 100 / (adc1 + adc4);//差比和算法
     return position;
 }
-

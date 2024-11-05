@@ -60,10 +60,6 @@
 #include "encoder.h" //编码器
 #include "line.h" //寻线
 
-
-
-//------小车机械状态
-
 //参数
 #define Servo_MaxAngle 30
 #define Servo_Center 1.5
