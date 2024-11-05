@@ -20,7 +20,6 @@ void Line_read_raw(){
 int Line_calculate_position(){
     int adc1, adc2, adc3, adc4;
     int position;
-    float left_ratio, right_ratio;
     
     Line_read_raw();
     adc1 = adc_value.ADC1;
