@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  isr                                                                05/11/24  20:15:40  PAGE 1   
+C251 COMPILER V5.60.0,  isr                                                                10/11/24  18:24:47  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE isr
@@ -31,6 +31,8 @@ stmt  level    source
    18          // ******************************************************************************************************
              -**************/
    19          #include "headfile.h"
+*** ERROR C318 IN LINE 62 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'straight.h'
+*** ERROR C318 IN LINE 63 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'ring.h'
    20          
    21          //UART1中断
    22          void UART1_Isr() interrupt 4
@@ -64,10 +66,10 @@ stmt  level    source
    50          {
    51   1          if(UART2_GET_TX_FLAG)
    52   1        {
+C251 COMPILER V5.60.0,  isr                                                                10/11/24  18:24:47  PAGE 2   
+
    53   2              UART2_CLEAR_TX_FLAG;
    54   2          busy[2] = 0;
-C251 COMPILER V5.60.0,  isr                                                                05/11/24  20:15:40  PAGE 2   
-
    55   2        }
    56   1          if(UART2_GET_RX_FLAG)
    57   1        {
@@ -132,10 +134,10 @@ stmt  level    source
   116   1      }
   117          void INT3_Isr() interrupt 11
   118          {
+C251 COMPILER V5.60.0,  isr                                                                10/11/24  18:24:47  PAGE 3   
+
   119   1        INT3_CLEAR_FLAG;  //清除中断标志
   120   1      }
-C251 COMPILER V5.60.0,  isr                                                                05/11/24  20:15:40  PAGE 3   
-
   121          
   122          void INT4_Isr() interrupt 16
   123          {
@@ -192,28 +194,4 @@ stmt  level    source
   174          //void  PWM1_Isr()  interrupt 26;
   175          //void  PWM2_Isr()  interrupt 27;
 
-
-Module Information          Static   Overlayable
-------------------------------------------------
-  code size            =       314     ------
-  ecode size           =    ------     ------
-  data size            =    ------     ------
-  idata size           =    ------     ------
-  pdata size           =    ------     ------
-  xdata size           =    ------     ------
-  xdata-const size     =    ------     ------
-  edata size           =         2     ------
-C251 COMPILER V5.60.0,  isr                                                                05/11/24  20:15:40  PAGE 4   
-
-  bit size             =    ------     ------
-  ebit size            =    ------     ------
-  bitaddressable size  =    ------     ------
-  ebitaddressable size =    ------     ------
-  far data size        =    ------     ------
-  huge data size       =    ------     ------
-  const size           =    ------     ------
-  hconst size          =    ------     ------
-End of Module Information.
-
-
-C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C251 COMPILATION COMPLETE.  0 WARNING(S),  2 ERROR(S)

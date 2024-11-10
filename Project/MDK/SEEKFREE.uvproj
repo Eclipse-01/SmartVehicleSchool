@@ -824,6 +824,16 @@
               <FileType>5</FileType>
               <FilePath>..\CODE\Algorithms\straight.h</FilePath>
             </File>
+            <File>
+              <FileName>ring.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\Algorithms\ring.c</FilePath>
+            </File>
+            <File>
+              <FileName>ring.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\CODE\Algorithms\ring.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

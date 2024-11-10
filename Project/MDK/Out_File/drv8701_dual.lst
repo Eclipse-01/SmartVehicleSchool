@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  drv8701_dual                                                       05/11/24  20:15:41  PAGE 1   
+C251 COMPILER V5.60.0,  drv8701_dual                                                       10/11/24  18:24:48  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE drv8701_dual
@@ -30,6 +30,8 @@ stmt  level    source
              -************/
    17          
    18          #include "drv8701_dual.h"
+*** ERROR C318 IN LINE 62 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'straight.h'
+*** ERROR C318 IN LINE 63 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'ring.h'
    19          #include "headfile.h"
    20          
    21          // 定义DRV8701的相关引脚
@@ -64,10 +66,10 @@ stmt  level    source
    50          
    51          /**
    52           * @brief 初始化DRV8701库，包括PWM和GPIO的初始化
+C251 COMPILER V5.60.0,  drv8701_dual                                                       10/11/24  18:24:48  PAGE 2   
+
    53           */
    54          void drv8701_init(void)
-C251 COMPILER V5.60.0,  drv8701_dual                                                       05/11/24  20:15:41  PAGE 2   
-
    55          {
    56   1          // 初始化PWM通道
    57   1          pwm_init(PWM_1_CHANNEL, 17000, 0); // 初始化PWM1，频率17kHz，初始占空比0
@@ -94,60 +96,38 @@ stmt  level    source
    78   1      
    79   1          // 将速度从-100到100映射到-10000到10000
    80   1          mapped_speed = (speed * PWM_DUTY_MAX) / 100;
-   81   1      
-   82   1          // 根据选择的电机进行控制
-   83   1          switch(motor_select)
-   84   1          {
-   85   2              case MOTOR_L:
-   86   2                  set_motor(DIR_1_PIN, PWM_1_CHANNEL, mapped_speed);
-   87   2                  break;
-   88   2      
-   89   2              case MOTOR_R:
-   90   2                  set_motor(DIR_2_PIN, PWM_2_CHANNEL, mapped_speed);
-   91   2                  break;
-   92   2      
-   93   2              case MOTOR_BOTH:
-   94   2                  set_motor(DIR_1_PIN, PWM_1_CHANNEL, mapped_speed);
-   95   2                  set_motor(DIR_2_PIN, PWM_2_CHANNEL, mapped_speed);
-   96   2                  break;
-   97   2      
-   98   2              default:
-   99   2                  // 选择无效
-  100   2                  break;
-  101   2          }
-  102   1      }
-  103          
-  104          /**
-  105           * @brief 停止DRV8701电机
-  106           * @param motor_select 电机选择，MOTOR_L、MOTOR_R 或 MOTOR_BOTH
-  107           */
-  108          void drv8701_stop(Motor_Select motor_select)
-  109          {
-  110   1          drv8701_control(motor_select, 0);
-  111   1      }
+   81   1          mapped_speed = motor_max_duty * mapped_speed / 100;
+*** ERROR C67 IN LINE 81 OF ..\CODE\UserLibraries\drv8701_dual.c: 'motor_max_duty': undefined identifier
+   82   1      
+   83   1          // 根据选择的电机进行控制
+   84   1          switch(motor_select)
+   85   1          {
+   86   2              case MOTOR_L:
+   87   2                  set_motor(DIR_1_PIN, PWM_1_CHANNEL, mapped_speed);
+   88   2                  break;
+   89   2      
+   90   2              case MOTOR_R:
+   91   2                  set_motor(DIR_2_PIN, PWM_2_CHANNEL, mapped_speed);
+   92   2                  break;
+   93   2      
+   94   2              case MOTOR_BOTH:
+   95   2                  set_motor(DIR_1_PIN, PWM_1_CHANNEL, mapped_speed);
+   96   2                  set_motor(DIR_2_PIN, PWM_2_CHANNEL, mapped_speed);
+   97   2                  break;
+   98   2      
+   99   2              default:
+  100   2                  // 选择无效
+  101   2                  break;
+  102   2          }
+  103   1      }
+  104          
+  105          /**
+  106           * @brief 停止DRV8701电机
+  107           * @param motor_select 电机选择，MOTOR_L、MOTOR_R 或 MOTOR_BOTH
+  108           */
+  109          void drv8701_stop(Motor_Select motor_select)
+  110          {
+  111   1          drv8701_control(motor_select, 0);
+  112   1      }
 
-
-Module Information          Static   Overlayable
-------------------------------------------------
-  code size            =       274     ------
-  ecode size           =    ------     ------
-  data size            =    ------     ------
-  idata size           =    ------     ------
-  pdata size           =    ------     ------
-  xdata size           =    ------     ------
-C251 COMPILER V5.60.0,  drv8701_dual                                                       05/11/24  20:15:41  PAGE 3   
-
-  xdata-const size     =    ------     ------
-  edata size           =        12     ------
-  bit size             =    ------     ------
-  ebit size            =    ------     ------
-  bitaddressable size  =    ------     ------
-  ebitaddressable size =    ------     ------
-  far data size        =    ------     ------
-  huge data size       =    ------     ------
-  const size           =    ------     ------
-  hconst size          =    ------     ------
-End of Module Information.
-
-
-C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C251 COMPILATION COMPLETE.  0 WARNING(S),  3 ERROR(S)

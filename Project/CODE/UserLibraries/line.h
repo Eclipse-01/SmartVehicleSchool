@@ -14,6 +14,7 @@ extern ADC_Value adc_value;
 
 void Line_init(void);
 void Line_read_raw(void);
-int Line_calculate_position(void);
+//int Line_calculate_position(void);
+void Get_ADC_Range(void);
 
 #endif // LINE_H

@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               05/11/24  20:15:41  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               10/11/24  18:24:48  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -32,6 +32,8 @@ stmt  level    source
    19           ********************************************************************************************************
              -************/
    20          #include "headfile.h"
+*** ERROR C318 IN LINE 62 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'straight.h'
+*** ERROR C318 IN LINE 63 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'ring.h'
    21          
    22          // 关于内核频率的设定，可以查看board.h文件
    23          // 在board_init中,已经将P54引脚设置为复位
@@ -46,62 +48,38 @@ stmt  level    source
    32   1          // 此处编写用户代码 例如外设初始化代码等
    33   1          ips200_init_spi();
    34   1          ips200_show_string(0, 0, "Vehicle Booting...");
-   35   1          battery_init();
-   36   1          sprintf(string_buffer, "Battery OK, percentage:%d", battery_percentage);
-   37   1          ips200_show_string(16, 0, string_buffer);
-   38   1          servo_init();
-   39   1          sprintf(string_buffer, "Servo OK, position:%d", servo_position);
-   40   1          ips200_show_string(32, 0, string_buffer);
-   41   1          drv8701_init();
-   42   1          ips200_show_string(48, 0, "Motor OK");
-   43   1          // 此处编写用户代码 例如外设初始化代码等
-   44   1      
-   45   1          while(1)
-   46   1          {
-   47   2          // 此处编写需要循环执行的代码
-   48   2              update_battery_status();
-   49   2              sprintf(string_buffer, "Battery: %dmV, %d%%", battery_voltage, battery_percentage);
-   50   2              ips200_show_string(0, 0, string_buffer);
-   51   2      
-   52   2              Line_read_raw();
-   53   2              sprintf(string_buffer, "ADC1: %d", adc_value.ADC1);
-   54   2              ips200_show_string(16, 0, string_buffer);
-C251 COMPILER V5.60.0,  main                                                               05/11/24  20:15:41  PAGE 2   
+   35   1          servo_init();
+   36   1          sprintf(string_buffer, "Servo OK, position:%d", servo_position);
+   37   1          ips200_show_string(32, 0, string_buffer);
+   38   1          drv8701_init();
+   39   1          ips200_show_string(48, 0, "Motor OK");
+   40   1          encoder_init();
+   41   1          ips200_show_string(64, 0, "Encoder OK");
+   42   1          Line_init();
+   43   1          ips200_show_string(80, 0, "Line OK");
+   44   1          
+   45   1          // 此处编写用户代码 例如外设初始化代码等
+   46   1      
+   47   1          while(1)
+   48   1          {
+   49   2          // 此处编写需要循环执行的代码
+   50   2              Line_read_raw();
+   51   2              sprintf(string_buffer, "ADC1: %d", adc_value.ADC1);
+   52   2              ips200_show_string(16, 0, string_buffer);
+C251 COMPILER V5.60.0,  main                                                               10/11/24  18:24:48  PAGE 2   
 
-   55   2              sprintf(string_buffer, "ADC2: %d", adc_value.ADC2);
-   56   2              ips200_show_string(32, 0, string_buffer);
-   57   2              sprintf(string_buffer, "ADC3: %d", adc_value.ADC3);
-   58   2              ips200_show_string(48, 0, string_buffer);
-   59   2              sprintf(string_buffer, "ADC4: %d", adc_value.ADC4);
-   60   2              ips200_show_string(64, 0, string_buffer);
-   61   2      
-   62   2              delay_ms(500); // 延时500ms
-   63   2          }
-   64   1      }
+   53   2              sprintf(string_buffer, "ADC2: %d", adc_value.ADC2);
+   54   2              ips200_show_string(32, 0, string_buffer);
+   55   2              sprintf(string_buffer, "ADC3: %d", adc_value.ADC3);
+   56   2              ips200_show_string(48, 0, string_buffer);
+   57   2              sprintf(string_buffer, "ADC4: %d", adc_value.ADC4);
+   58   2              ips200_show_string(64, 0, string_buffer);
+   59   2      
+   60   2              delay_ms(500); // 延时500ms
+   61   2          }
+   62   1      }
+   63          
+   64          
    65          
-   66          
-   67          
 
-
-Module Information          Static   Overlayable
-------------------------------------------------
-  code size            =       335     ------
-  ecode size           =    ------     ------
-  data size            =    ------     ------
-  idata size           =    ------     ------
-  pdata size           =    ------     ------
-  xdata size           =    ------     ------
-  xdata-const size     =    ------     ------
-  edata size           =        50     ------
-  bit size             =    ------     ------
-  ebit size            =    ------     ------
-  bitaddressable size  =    ------     ------
-  ebitaddressable size =    ------     ------
-  far data size        =    ------     ------
-  huge data size       =    ------     ------
-  const size           =    ------     ------
-  hconst size          =       132     ------
-End of Module Information.
-
-
-C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C251 COMPILATION COMPLETE.  0 WARNING(S),  2 ERROR(S)

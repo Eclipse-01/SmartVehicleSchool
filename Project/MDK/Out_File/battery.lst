@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  battery                                                            05/11/24  20:15:42  PAGE 1   
+C251 COMPILER V5.60.0,  battery                                                            10/11/24  18:24:49  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE battery
@@ -32,6 +32,8 @@ stmt  level    source
              -************/
    19          
    20          #include "headfile.h"
+*** ERROR C318 IN LINE 62 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'straight.h'
+*** ERROR C318 IN LINE 63 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'ring.h'
    21          
    22          #define BAT_VOL_PIN ADC_P05
    23          
@@ -64,13 +66,15 @@ stmt  level    source
    49   1          temp = (((uint32)ad_result * 3300) / 4095);  //计算出当前adc引脚的电压 计算公式为 ad_result*VCC/ADC分
              -辨率    VCC单位为mv
    50   1          battery_voltage =  temp * 11; //根据引脚电压  和分压电阻的阻值计算电池电压 计算公司为   引脚电压*(R2+
+C251 COMPILER V5.60.0,  battery                                                            10/11/24  18:24:49  PAGE 2   
+
              -R3)/R3   R3为接地端电阻
    51   1          while (battery_voltage < LOW_BATTERY_VOLTAGE){
-C251 COMPILER V5.60.0,  battery                                                            05/11/24  20:15:42  PAGE 2   
-
+*** ERROR C67 IN LINE 51 OF ..\CODE\UserLibraries\battery.c: 'LOW_BATTERY_VOLTAGE': undefined identifier
    52   2              ips200_show_string(120,200,"LOW BATTERY");
    53   2              drv8701_stop(MOTOR_BOTH); //停止电机防止电池过放
    54   2              while(ENABLE_LOW_BATTERY_PROTECTION)
+*** ERROR C67 IN LINE 54 OF ..\CODE\UserLibraries\battery.c: 'ENABLE_LOW_BATTERY_PROTECTION': undefined identifier
    55   2              delay_ms(10000); // 卡死程序防止程序启动
    56   2          }
    57   1          
@@ -79,7 +83,10 @@ stmt  level    source
    60          
    61          uint16 get_battery_percentage(void){
    62   1          int max_voltage = 4200 * BATTERY_GROUP_NUM;
+*** ERROR C67 IN LINE 62 OF ..\CODE\UserLibraries\battery.c: 'BATTERY_GROUP_NUM': undefined identifier
    63   1          int min_voltage = LOW_BATTERY_VOLTAGE * BATTERY_GROUP_NUM;
+*** ERROR C67 IN LINE 63 OF ..\CODE\UserLibraries\battery.c: 'LOW_BATTERY_VOLTAGE': undefined identifier
+*** ERROR C67 IN LINE 63 OF ..\CODE\UserLibraries\battery.c: 'BATTERY_GROUP_NUM': undefined identifier
    64   1          int current_voltage = get_battery_voltage();
    65   1          int percentage = (current_voltage - min_voltage) * 100 / (max_voltage - min_voltage);
    66   1          if (percentage > 100){
@@ -102,26 +109,4 @@ stmt  level    source
    83          
    84          
 
-
-Module Information          Static   Overlayable
-------------------------------------------------
-  code size            =       217     ------
-  ecode size           =    ------     ------
-  data size            =    ------     ------
-  idata size           =    ------     ------
-  pdata size           =    ------     ------
-  xdata size           =    ------     ------
-  xdata-const size     =    ------     ------
-  edata size           =        18     ------
-  bit size             =    ------     ------
-  ebit size            =    ------     ------
-  bitaddressable size  =    ------     ------
-  ebitaddressable size =    ------     ------
-  far data size        =    ------     ------
-  huge data size       =    ------     ------
-  const size           =    ------     ------
-  hconst size          =        30     ------
-End of Module Information.
-
-
-C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C251 COMPILATION COMPLETE.  0 WARNING(S),  7 ERROR(S)

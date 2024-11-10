@@ -17,13 +17,16 @@
  * @date       		2023-07-27
 
  ********************************************************************************************************************/
+
 #include "headfile.h"
 
-#ifdef encoder_swap
-#define encoder_Left encoder_read1
-#define encoder_Right encoder_read2
-#endif
+static uint16 TravelDistanceL = 0, TravelDistanceR = 0, TravelDistance = 0;
 
+/**
+ * @brief 初始化编码器
+ * 
+ * 初始化编码器1和编码器2的计数引脚和方向引脚
+ */
 void encoder_init(void)
 {
     // 初始化编码器1，引脚CTIM0_P34（LSB1），方向引脚P35（DIR1）
@@ -32,12 +35,19 @@ void encoder_init(void)
     ctimer_count_init(CTIM3_P04);
 }
 
+/**
+ * @brief 读取编码器1的值
+ * 
+ * 清除计数器，延时后根据方向引脚读取编码器1的计数值
+ * 
+ * @return int16 编码器1的计数值
+ */
 int16 encoder_read1(void)
 {
     int16 dat;
     ctimer_count_clean(CTIM0_P34);
     delay_ms(encoder_time);
-    if(P35 == 1) // DIR1
+    if(P35 == 0) // DIR1 注意出于安装原因，左侧编码器方向与右侧编码器方向相反
     {
         dat = ctimer_count_read(CTIM0_P34);
     }
@@ -45,9 +55,17 @@ int16 encoder_read1(void)
     {
         dat = -ctimer_count_read(CTIM0_P34);
     }
+    TravelDistanceL += dat;
     return dat;
 }
 
+/**
+ * @brief 读取编码器2的值
+ * 
+ * 清除计数器，延时后根据方向引脚读取编码器2的计数值
+ * 
+ * @return int16 编码器2的计数值
+ */
 int16 encoder_read2(void)
 {
     int16 dat;
@@ -61,5 +79,31 @@ int16 encoder_read2(void)
     {
         dat = -ctimer_count_read(CTIM3_P04);
     }
+    TravelDistanceR += dat;
     return dat;
+}
+
+/**
+ * @brief 获取平均行驶距离
+ * 
+ * 计算左侧和右侧编码器的平均行驶距离
+ * 
+ * @return int16 平均行驶距离
+ */
+int16 get_encoder_distance(void)
+{
+    TravelDistance = (TravelDistanceL + TravelDistanceR) / 2;
+    return TravelDistance;
+}
+
+/**
+ * @brief 清除编码器行驶距离
+ * 
+ * 将左侧、右侧和总行驶距离清零
+ */
+void clear_encoder_distance(void)
+{
+    TravelDistanceL = 0;
+    TravelDistanceR = 0;
+    TravelDistance = 0;
 }

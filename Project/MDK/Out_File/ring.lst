@@ -1,0 +1,43 @@
+C251 COMPILER V5.60.0,  ring                                                               10/11/24  18:24:50  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE ring
+OBJECT MODULE PLACED IN .\Out_File\ring.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\Algorithms\ring.c XSMALL WARNINGLEVEL(3) OPTIMIZE(0,SPEED) BRO
+                    -WSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\U
+                    -SER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT(.\Out_File\ring.lst) TABS(2) 
+                    -OBJECT(.\Out_File\ring.obj) 
+
+stmt  level    source
+
+    1          #include "headfile.h"
+    2          
+    3          void Left_Ring(void){
+    4   1          ips200_clear();
+    5   1          ips200_show_string(0,0,"Car is going in ring");
+    6   1          
+    7   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =        19     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =    ------     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        21     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

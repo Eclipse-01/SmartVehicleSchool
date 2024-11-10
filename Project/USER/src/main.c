@@ -32,9 +32,6 @@ void main()
     // 此处编写用户代码 例如外设初始化代码等
     ips200_init_spi();
     ips200_show_string(0, 0, "Vehicle Booting...");
-    battery_init();
-    sprintf(string_buffer, "Battery OK, percentage:%d", battery_percentage);
-    ips200_show_string(16, 0, string_buffer);
     servo_init();
     sprintf(string_buffer, "Servo OK, position:%d", servo_position);
     ips200_show_string(32, 0, string_buffer);
@@ -50,10 +47,6 @@ void main()
     while(1)
     {
 		// 此处编写需要循环执行的代码
-        update_battery_status();
-        sprintf(string_buffer, "Battery: %dmV, %d%%", battery_voltage, battery_percentage);
-        ips200_show_string(0, 0, string_buffer);
-
         Line_read_raw();
         sprintf(string_buffer, "ADC1: %d", adc_value.ADC1);
         ips200_show_string(16, 0, string_buffer);
