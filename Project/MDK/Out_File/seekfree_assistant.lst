@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 10/11/24  18:24:48  PAGE 1   
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 14/11/24  19:52:38  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE seekfree_assistant
 OBJECT MODULE PLACED IN .\Out_File\seekfree_assistant.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_components\seekfree_assistant.c XSMALL WARNIN
                     -GLEVEL(3) OPTIMIZE(0,SPEED) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\s
-                    -eekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRIN
-                    -T(.\Out_File\seekfree_assistant.lst) TABS(2) OBJECT(.\Out_File\seekfree_assistant.obj) 
+                    -eekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\CODE\Alg
+                    -orithms) DEBUG PRINT(.\Out_File\seekfree_assistant.lst) TABS(2) OBJECT(.\Out_File\seekfree_assistant.obj) 
 
 stmt  level    source
 
@@ -33,8 +33,6 @@ stmt  level    source
    19           
    20          
    21          #include "seekfree_assistant.h"
-*** ERROR C318 IN LINE 62 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'straight.h'
-*** ERROR C318 IN LINE 63 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'ring.h'
    22          
    23          static seekfree_assistant_camera_struct         seekfree_assistant_camera_data = {0};   
    24          seekfree_assistant_oscilloscope_struct          seekfree_assistant_oscilloscope_data = {0};              
@@ -66,10 +64,10 @@ stmt  level    source
    43   1          while(length--)
    44   1          {
    45   2              temp_sum += *buffer++;
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 10/11/24  18:24:48  PAGE 2   
-
    46   2          }
    47   1      
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 14/11/24  19:52:38  PAGE 2   
+
    48   1          return temp_sum;
    49   1      }
    50          
@@ -134,10 +132,10 @@ stmt  level    source
   102          //-------------------------------------------------------------------------------------------------------
              -------------
   103          // 函数简介     逐飞助手图像信息配置函数
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 10/11/24  18:24:48  PAGE 3   
-
   104          // 参数说明     camera_type     图像类型
   105          // 参数说明     image_addr      图像地址    如果传递NULL参数则表示只发送边线信息到上位机
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 14/11/24  19:52:38  PAGE 3   
+
   106          // 参数说明     width           图像宽度
   107          // 参数说明     height          图像高度
   108          // 返回参数     void
@@ -202,10 +200,10 @@ stmt  level    source
   160   1          temp_oscilloscope.check_sum    = seekfree_assistant_sum((uint8 *)&temp_oscilloscope, packet_size);
   161   1      
   162   1          // 数据在调用本函数之前，由用户将需要发送的数据写入temp_oscilloscope.data[]
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 10/11/24  18:24:48  PAGE 4   
-
   163   1      
   164   1          seekfree_assistant_transfer((const uint8 *)&temp_oscilloscope, packet_size);
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 14/11/24  19:52:38  PAGE 4   
+
   165   1      }
   166          
   167          void seekfree_assistant_camera_dot_send (seekfree_assistant_camera_buffer_struct *buffer)
@@ -270,10 +268,10 @@ stmt  level    source
   219   1          uint8 boundary_num = 0;
   220   1          uint8 boundary_data_type = 0;
   221   1      
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 10/11/24  18:24:48  PAGE 5   
-
   222   1          seekfree_assistant_camera_dot_data.dot_num    = ((((uint16)dot_num << 8)&0xFF00) | ((uint16)dot_num >
              -> 8));;
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 14/11/24  19:52:38  PAGE 5   
+
   223   1          seekfree_assistant_camera_dot_data.valid_flag = 0;
   224   1          for(i = 0; i < 3; i++)
   225   1          {
@@ -338,10 +336,10 @@ stmt  level    source
   284   3              }break;
   285   2      
   286   2              case XY_BOUNDARY:
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 10/11/24  18:24:48  PAGE 6   
-
   287   2              {
   288   3                  if((NULL != dot_x1) && (NULL != dot_y1))
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 14/11/24  19:52:38  PAGE 6   
+
   289   3                  {
   290   4                      boundary_num++;
   291   4                      seekfree_assistant_camera_dot_data.valid_flag |= 1 << 0;
@@ -406,10 +404,10 @@ stmt  level    source
   346   1          {
   347   2              read_length = sizeof(seekfree_assistant_parameter_struct);
   348   2              fifo_read_buffer(&seekfree_assistant_fifo, (uint8 *)temp_buffer, &read_length, FIFO_READ_ONLY);
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 10/11/24  18:24:48  PAGE 7   
-
   349   2              if(SEEKFREE_ASSISTANT_RECEIVE_HEAD != ((uint8 *)temp_buffer)[0])
   350   2              {
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 14/11/24  19:52:38  PAGE 7   
+
   351   3                  // 没有帧头则从FIFO中去掉第一个数据
   352   3                  read_length = 1;
   353   3              }
@@ -474,10 +472,10 @@ stmt  level    source
              -------------
   401          // 函数简介     逐飞助手 初始化
   402          // 参数说明
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 10/11/24  18:24:48  PAGE 8   
-
   403          // 返回参数     void
   404          // 使用示例
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 14/11/24  19:52:38  PAGE 8   
+
   405          //-------------------------------------------------------------------------------------------------------
              -------------
   406          void seekfree_assistant_init ()
@@ -488,4 +486,26 @@ stmt  level    source
   410          
   411          
 
-C251 COMPILATION COMPLETE.  0 WARNING(S),  2 ERROR(S)
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =      2413     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =       572     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =       349     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

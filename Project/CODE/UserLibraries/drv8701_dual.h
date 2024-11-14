@@ -23,7 +23,7 @@ typedef enum {
 } Motor_Select;
 
 void drv8701_init(void);
-void drv8701_control(Motor_Select motor_select, int speed);
+void drv8701_control(Motor_Select motor_select, int32 speed);
 void drv8701_stop(Motor_Select motor_select);
 
 #endif // _DRV8701_DUAL_H_

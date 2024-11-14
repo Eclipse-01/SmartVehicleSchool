@@ -3,19 +3,13 @@
 
 ADC_Value adc_value; // 仅在此处定义
 
-//返回的线的位置是根据adc1和adc4的值计算的
+// 返回的线的位置是根据adc1和adc4的值计算的
 
 #define FILTER_SIZE 5
 
-int filter_buffer1[FILTER_SIZE] = {0};
-int filter_buffer2[FILTER_SIZE] = {0};
-int filter_buffer3[FILTER_SIZE] = {0};
-int filter_buffer4[FILTER_SIZE] = {0};
-int filter_index = 0;
-
 /**
  * @brief 初始化ADC通道
- * 
+ *
  * 初始化与线传感器连接的ADC通道。
  */
 void Line_init()
@@ -28,42 +22,35 @@ void Line_init()
 
 /**
  * @brief 读取原始ADC值并进行滤波处理
- * 
+ *
  * 从ADC通道读取原始数据，并使用简单的滑动窗口滤波器对数据进行滤波。
  */
 void Line_read_raw()
 {
-    filter_buffer1[filter_index] = adc_once(ADC_P06, ADC_12BIT); // 采集ADC_P00电压，精度12位
-    filter_buffer2[filter_index] = adc_once(ADC_P11, ADC_12BIT); // 采集ADC_P01电压，精度12位
-    filter_buffer3[filter_index] = adc_once(ADC_P14, ADC_12BIT); // 采集ADC_P05电压，精度12位
-    filter_buffer4[filter_index] = adc_once(ADC_P15, ADC_12BIT); // 采集ADC_P06电压，精度12位
-
-    filter_index = (filter_index + 1) % FILTER_SIZE;
-
-    adc_value.ADC1 = 0;
-    adc_value.ADC2 = 0;
-    adc_value.ADC3 = 0;
-    adc_value.ADC4 = 0;
-
-    for (int i = 0; i < FILTER_SIZE; i++)
+    int i;
+    int filter_buffer1 = 0;
+    int filter_buffer2 = 0;
+    int filter_buffer3 = 0;
+    int filter_buffer4 = 0;
+    for (i = 0; i < FILTER_SIZE; i++)//对数据进行滤波
     {
-        adc_value.ADC1 += filter_buffer1[i];
-        adc_value.ADC2 += filter_buffer2[i];
-        adc_value.ADC3 += filter_buffer3[i];
-        adc_value.ADC4 += filter_buffer4[i];
+        filter_buffer1 += adc_once(ADC_P06, ADC_12BIT);
+        filter_buffer2 += adc_once(ADC_P11, ADC_12BIT);
+        filter_buffer3 += adc_once(ADC_P14, ADC_12BIT);
+        filter_buffer4 += adc_once(ADC_P15, ADC_12BIT);
     }
-
-    adc_value.ADC1 /= FILTER_SIZE;
-    adc_value.ADC2 /= FILTER_SIZE;
-    adc_value.ADC3 /= FILTER_SIZE;
-    adc_value.ADC4 /= FILTER_SIZE;
+    // 将滤波后的值存入结构体
+    adc_value.ADC1 = filter_buffer1 / FILTER_SIZE;
+    adc_value.ADC2 = filter_buffer2 / FILTER_SIZE;
+    adc_value.ADC3 = filter_buffer3 / FILTER_SIZE;
+    adc_value.ADC4 = filter_buffer4 / FILTER_SIZE;
 }
 
 // /**
 //  * @brief 计算线的位置
-//  * 
+//  *
 //  * 根据滤波后的ADC值计算线的位置。
-//  * 
+//  *
 //  * @return int 线的位置，或错误代码
 //  * @warning 小心使用
 //  */
@@ -84,7 +71,7 @@ void Line_read_raw()
 //         return 999; // 系统错误
 //     if ((adc1 + adc4) == 0)
 //         return 998; // 除零错误
-//     if ((adc1 + adc4) < 100)
+//     if ((adc1 + adc4) < 100U) // 将常量改为无符号类型
 //         return 997; // 线丢失
 //     if (adc1 > 800 && adc2 > 800)
 //         return 996;                                 // 十字线
@@ -110,16 +97,21 @@ void Line_read_raw()
 
 /**
  * @brief 获取ADC值的范围
- * 
+ *
  * 持续读取ADC值并显示每个通道的最小值和最大值。
  */
 void Get_ADC_Range()
 {
-    int min_adc1 = 4095, max_adc1 = 0;
-    int min_adc2 = 4095, max_adc2 = 0;
-    int min_adc3 = 4095, max_adc3 = 0;
-    int min_adc4 = 4095, max_adc4 = 0;
+    // 删除未使用的变量 'i'
+    // int i;
+
+    // 将变量定义为无符号整数
+    unsigned int min_adc1 = 4095, max_adc1 = 0;
+    unsigned int min_adc2 = 4095, max_adc2 = 0;
+    unsigned int min_adc3 = 4095, max_adc3 = 0;
+    unsigned int min_adc4 = 4095, max_adc4 = 0;
     char buffer[30];
+
     while (1)
     {
         Line_read_raw();
@@ -158,20 +150,13 @@ void Get_ADC_Range()
         sprintf(buffer, "Max ADC4: %d    ", max_adc4);
         ips200_show_string(0, 140, buffer);
         // 显示当前值
-        sprintf(buffer, "ADC1: %d    ", adc_value.ADC1);
+        sprintf(buffer, "ADC1: %d    ", adc_once(ADC_P06, ADC_12BIT));
         ips200_show_string(0, 160, buffer);
-        sprintf(buffer, "ADC2: %d    ", adc_value.ADC2);
+        sprintf(buffer, "ADC2: %d    ", adc_once(ADC_P11, ADC_12BIT));
         ips200_show_string(0, 180, buffer);
-        sprintf(buffer, "ADC3: %d    ", adc_value.ADC3);
+        sprintf(buffer, "ADC3: %d    ", adc_once(ADC_P14, ADC_12BIT));
         ips200_show_string(0, 200, buffer);
+        sprintf(buffer, "ADC4: %d    ", adc_once(ADC_P15, ADC_12BIT));
+        ips200_show_string(0, 220, buffer);
     }
-}
-
-void filter_line_data() {
-    // 定义变量 i
-    for (int i = 0; i < FILTER_SIZE; i++) {
-        filter_buffer1[i] = /* 过滤逻辑 */;
-        // 其他操作
-    }
-    // ... existing code ...
 }

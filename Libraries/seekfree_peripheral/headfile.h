@@ -59,10 +59,12 @@
 #include "battery.h" //电池
 #include "encoder.h" //编码器
 #include "line.h" //寻线
+#include "straight.h" //直行
+//#include "ring.h" //转弯
 
 //参数
-#define Servo_MaxAngle 30
-#define Servo_Center 1.5
+#define Servo_MaxAngle 50
+#define Servo_Center 585
 
 #define motor_max_duty 60 //电机最大占空比，不应该大于60
 

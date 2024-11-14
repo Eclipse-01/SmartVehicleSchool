@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  zf_delay                                                           05/11/24  20:15:36  PAGE 1   
+C251 COMPILER V5.60.0,  zf_delay                                                           11/11/24  18:19:53  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE zf_delay
 OBJECT MODULE PLACED IN .\Out_File\zf_delay.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_libraries\zf_delay.c XSMALL WARNINGLEVEL(3) O
                     -PTIMIZE(0,SPEED) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_per
-                    -ipheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT(.\Out_Fil
-                    -e\zf_delay.lst) TABS(2) OBJECT(.\Out_File\zf_delay.obj) 
+                    -ipheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\CODE\Algorithms) DE
+                    -BUG PRINT(.\Out_File\zf_delay.lst) TABS(2) OBJECT(.\Out_File\zf_delay.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    48   1        vuint16 i;
    49   1        do {
    50   2            i = zf_delay_ms;
-C251 COMPILER V5.60.0,  zf_delay                                                           05/11/24  20:15:36  PAGE 2   
+C251 COMPILER V5.60.0,  zf_delay                                                           11/11/24  18:19:53  PAGE 2   
 
    51   2            while(--i);
    52   2           }while(--ms);

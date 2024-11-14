@@ -11,10 +11,10 @@
                 "d:\\SmartVehicle\\SmartVehicalSchool\\Project\\USER\\src",
                 "d:\\SmartVehicle\\SmartVehicalSchool\\Libraries\\seekfree_components",
                 "d:\\SmartVehicle\\SmartVehicalSchool\\Project\\CODE\\UserLibraries",
+                "d:\\SmartVehicle\\SmartVehicalSchool\\Project\\CODE\\Algorithms",
                 "C:\\Keil_v5\\C251\\INC",
                 "C:\\Keil_v5\\C251\\INC\\STC",
                 "d:\\SmartVehicle\\SmartVehicalSchool\\Libraries\\doc",
-                "d:\\SmartVehicle\\SmartVehicalSchool\\Project\\CODE\\Algorithms",
                 "${default}",
                 "${workspaceFolder}/**"
             ],

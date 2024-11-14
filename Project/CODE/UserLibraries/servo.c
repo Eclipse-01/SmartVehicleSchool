@@ -41,7 +41,7 @@ static int16 previous_error = 0;
  */
 void servo_init(void)
 {
-    uint32 duty = (uint32)(Servo_Center * 10000 / 20); // Center = 1 代表输出1ms的PWM信号
+    uint32 duty = Servo_Center; // 初始化为中间位置，宏定义了占空比
     pwm_init(PWMB_CH3_P33, 50, duty);            // PWM频率是50Hz，即20ms。
 }
 
@@ -51,7 +51,7 @@ void servo_init(void)
  * 此函数接受一个以度为单位的角度，并将舵机调整到相应的位置。
  * 角度应在舵机支持的有效范围内，见MaxAngle的宏定义。
  *
- * @param angle 要设置的舵机角度，以度为单位。
+ * @param angle 要设置的舵机角度，以占空比为单位。
  */
 void servo_set_position(int16 angle)
 {
@@ -64,7 +64,7 @@ void servo_set_position(int16 angle)
     {
         angle = -Servo_MaxAngle;
     }
-    pulseWide += angle * (2 / 180); // 每1ms对应角度是90°，再用角度乘以(1ms/90°)得到对应的ms数，再加上Center得到最终的ms数
+    pulseWide = (Servo_Center + angle);
     pwm_duty(PWMB_CH3_P33, pulseWide);
     servo_position = angle;
 }

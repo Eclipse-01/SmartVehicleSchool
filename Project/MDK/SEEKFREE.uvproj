@@ -272,7 +272,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries</IncludePath>
+              <IncludePath>..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\CODE\Algorithms</IncludePath>
             </VariousControls>
           </C251>
           <Ax51>

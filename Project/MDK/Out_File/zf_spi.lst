@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  zf_spi                                                             05/11/24  20:15:37  PAGE 1   
+C251 COMPILER V5.60.0,  zf_spi                                                             11/11/24  18:19:54  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE zf_spi
 OBJECT MODULE PLACED IN .\Out_File\zf_spi.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_libraries\zf_spi.c XSMALL WARNINGLEVEL(3) OPT
                     -IMIZE(0,SPEED) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_perip
-                    -heral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT(.\Out_File\
-                    -zf_spi.lst) TABS(2) OBJECT(.\Out_File\zf_spi.obj) 
+                    -heral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\CODE\Algorithms) DEBU
+                    -G PRINT(.\Out_File\zf_spi.lst) TABS(2) OBJECT(.\Out_File\zf_spi.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    48   1        if(sck_pin != SPI_NULL_PIN)
    49   1        {
    50   2          gpio_mode(sck_pin & 0xFF,GPIO);
-C251 COMPILER V5.60.0,  zf_spi                                                             05/11/24  20:15:37  PAGE 2   
+C251 COMPILER V5.60.0,  zf_spi                                                             11/11/24  18:19:54  PAGE 2   
 
    51   2        }
    52   1        
@@ -134,7 +134,7 @@ stmt  level    source
   114          
   115          //-------------------------------------------------------------------------------------------------------
              -------------
-C251 COMPILER V5.60.0,  zf_spi                                                             05/11/24  20:15:37  PAGE 3   
+C251 COMPILER V5.60.0,  zf_spi                                                             11/11/24  18:19:54  PAGE 3   
 
   116          //  @brief      SPI发送接收函数
   117          //  @param      dat           发送的数据
@@ -202,7 +202,7 @@ stmt  level    source
   176   2          case SPI_CH3:
   177   2              P_SW1 |= (0x02<<2);
   178   2              break;
-C251 COMPILER V5.60.0,  zf_spi                                                             05/11/24  20:15:37  PAGE 4   
+C251 COMPILER V5.60.0,  zf_spi                                                             11/11/24  18:19:54  PAGE 4   
 
   179   2          case SPI_CH4:
   180   2              P_SW1 |= (0x03<<2);

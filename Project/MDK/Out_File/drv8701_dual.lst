@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  drv8701_dual                                                       10/11/24  18:24:48  PAGE 1   
+C251 COMPILER V5.60.0,  drv8701_dual                                                       14/11/24  19:56:37  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE drv8701_dual
 OBJECT MODULE PLACED IN .\Out_File\drv8701_dual.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\UserLibraries\drv8701_dual.c XSMALL WARNINGLEVEL(3) OPTIMIZE(0
                     -,SPEED) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;.
-                    -.\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT(.\Out_File\drv8701
-                    -_dual.lst) TABS(2) OBJECT(.\Out_File\drv8701_dual.obj) 
+                    -.\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\CODE\Algorithms) DEBUG PRINT
+                    -(.\Out_File\drv8701_dual.lst) TABS(2) OBJECT(.\Out_File\drv8701_dual.obj) 
 
 stmt  level    source
 
@@ -30,104 +30,114 @@ stmt  level    source
              -************/
    17          
    18          #include "drv8701_dual.h"
-*** ERROR C318 IN LINE 62 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'straight.h'
-*** ERROR C318 IN LINE 63 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'ring.h'
    19          #include "headfile.h"
    20          
-   21          // 定义DRV8701的相关引脚
-   22          #define DIR_1_PIN      P2_4            // 电机1方向控制引脚
-   23          #define PWM_1_CHANNEL  PWMA_CH4P_P26   // 电机1 PWM通道
+   21          // 更新为与示例代码一致的引脚定义
+   22          #define PWM_1  PWMA_CH4P_P26   // 电机1 PWM通道
+   23          #define PWM_2  PWMA_CH2N_P13   // 电机2 PWM通道
    24          
-   25          #define DIR_2_PIN      P1_0            // 电机2方向控制引脚
-   26          #define PWM_2_CHANNEL  PWMA_CH2N_P13   // 电机2 PWM通道
-   27          
+   25          #define DIR_1 P24    // 电机1方向控制引脚
+   26          #define DIR_2 P10    // 电机2方向控制引脚
+   27              
    28          /**
-   29           * @brief 设置单个电机的方向和速度
-   30           * @param dir_pin 引脚定义宏
-   31           * @param motor_pwm_channel PWM通道定义宏
-   32           * @param speed_mapped 映射后的速度值（-10000到10000）
-   33           */
-   34          static void set_motor(uint8 dir_pin, uint8 motor_pwm_channel, int speed_mapped)
-   35          {
-   36   1          // 设置方向
-   37   1          if(speed_mapped >= 0)
-   38   1          {
-   39   2              dir_pin = 0;  // 正转
-   40   2          }
-   41   1          else
-   42   1          {
-   43   2              dir_pin = 1;  // 反转
-   44   2              speed_mapped = -speed_mapped;  // 取绝对值
-   45   2          }
-   46   1      
-   47   1          // 设置PWM占空比
-   48   1          pwm_duty(motor_pwm_channel, (uint32)speed_mapped);
-   49   1      }
-   50          
-   51          /**
-   52           * @brief 初始化DRV8701库，包括PWM和GPIO的初始化
-C251 COMPILER V5.60.0,  drv8701_dual                                                       10/11/24  18:24:48  PAGE 2   
+   29           * @brief 初始化DRV8701电机驱动，包括PWM和GPIO的初始化
+   30           */
+   31          void drv8701_init(void)
+   32          {
+   33   1          // 初始化PWM通道，使用17kHz频率，占空比为0
+   34   1          pwm_init(PWM_1, 17000, 0);
+   35   1          pwm_init(PWM_2, 17000, 0);
+   36   1      
+   37   1          // 初始化方向控制引脚为推挽输出模式
+   38   1          gpio_mode(DIR_1, GPO_PP);
+   39   1          gpio_mode(DIR_2, GPO_PP);
+   40   1      }
+   41          
+   42          /**
+   43           * @brief 控制DRV8701电机的方向和速度
+   44           * @param motor_select 电机选择，MOTOR_L、MOTOR_R 或 MOTOR_BOTH
+   45           * @param speed 速度值，范围-100到100
+   46           */
+   47          void drv8701_control(Motor_Select motor_select, int32 speed)//speed范围-100到100
+   48          {
+   49   1          if (speed > 100) // 限制速度范围
+   50   1          {
+   51   2              speed = 100;
+   52   2          }
+   53   1          else if (speed < -100)
+   54   1          {
+C251 COMPILER V5.60.0,  drv8701_dual                                                       14/11/24  19:56:37  PAGE 2   
 
-   53           */
-   54          void drv8701_init(void)
-   55          {
-   56   1          // 初始化PWM通道
-   57   1          pwm_init(PWM_1_CHANNEL, 17000, 0); // 初始化PWM1，频率17kHz，初始占空比0
-   58   1          pwm_init(PWM_2_CHANNEL, 17000, 0); // 初始化PWM2，频率17kHz，初始占空比0
-   59   1      
-   60   1          // 初始化GPIO为推挽输出模式
-   61   1          gpio_mode(DIR_1_PIN, GPO_PP); // 电机1方向控制引脚设置为推挽输出
-   62   1          gpio_mode(DIR_2_PIN, GPO_PP); // 电机2方向控制引脚设置为推挽输出
-   63   1      }
-   64          
-   65          /**
-   66           * @brief 控制DRV8701电机的方向和速度
-   67           * @param motor_select 电机选择，MOTOR_L、MOTOR_R 或 MOTOR_BOTH
-   68           * @param speed 速度值，范围-100到100
-   69           */
-   70          void drv8701_control(Motor_Select motor_select, int speed)
-   71          {
-   72   1          int16 mapped_speed; 
-   73   1          // 限制速度值在-100到100范围内
-   74   1          if(speed < -100)
-   75   1              speed = -100;
-   76   1          else if(speed > 100)
-   77   1              speed = 100;
-   78   1      
-   79   1          // 将速度从-100到100映射到-10000到10000
-   80   1          mapped_speed = (speed * PWM_DUTY_MAX) / 100;
-   81   1          mapped_speed = motor_max_duty * mapped_speed / 100;
-*** ERROR C67 IN LINE 81 OF ..\CODE\UserLibraries\drv8701_dual.c: 'motor_max_duty': undefined identifier
-   82   1      
-   83   1          // 根据选择的电机进行控制
-   84   1          switch(motor_select)
-   85   1          {
-   86   2              case MOTOR_L:
-   87   2                  set_motor(DIR_1_PIN, PWM_1_CHANNEL, mapped_speed);
-   88   2                  break;
-   89   2      
-   90   2              case MOTOR_R:
-   91   2                  set_motor(DIR_2_PIN, PWM_2_CHANNEL, mapped_speed);
-   92   2                  break;
-   93   2      
-   94   2              case MOTOR_BOTH:
-   95   2                  set_motor(DIR_1_PIN, PWM_1_CHANNEL, mapped_speed);
-   96   2                  set_motor(DIR_2_PIN, PWM_2_CHANNEL, mapped_speed);
-   97   2                  break;
-   98   2      
-   99   2              default:
-  100   2                  // 选择无效
-  101   2                  break;
-  102   2          }
-  103   1      }
-  104          
-  105          /**
-  106           * @brief 停止DRV8701电机
-  107           * @param motor_select 电机选择，MOTOR_L、MOTOR_R 或 MOTOR_BOTH
-  108           */
-  109          void drv8701_stop(Motor_Select motor_select)
-  110          {
-  111   1          drv8701_control(motor_select, 0);
-  112   1      }
+   55   2              speed = -100;
+   56   2          }
+   57   1          speed = ((speed * PWM_DUTY_MAX) / 200); // 将速度值转换为PWM占空比
+   58   1          if (motor_select == MOTOR_L || motor_select == MOTOR_BOTH)//控制左边舵机
+   59   1          {
+   60   2              if (speed >= 0)
+   61   2              {
+   62   3                  DIR_1 = 1;
+   63   3                  pwm_duty(PWM_1, speed);
+   64   3              }
+   65   2              else
+   66   2              {
+   67   3                  DIR_1 = 0;
+   68   3                  pwm_duty(PWM_1, -speed);
+   69   3              }
+   70   2          }
+   71   1          if (motor_select == MOTOR_R || motor_select == MOTOR_BOTH)//控制右边舵机
+   72   1          {
+   73   2              if (speed >= 0)
+   74   2              {
+   75   3                  DIR_2 = 1;
+   76   3                  pwm_duty(PWM_2, speed);
+   77   3              }
+   78   2              else
+   79   2              {
+   80   3                  DIR_2 = 0;
+   81   3                  pwm_duty(PWM_2, -speed);
+   82   3              }
+   83   2          }
+   84   1      }
+   85          
+   86          /**
+   87           * @brief 停止DRV8701电机
+   88           * @param motor_select 电机选择，MOTOR_L、MOTOR_R 或 MOTOR_BOTH
+   89           */
+   90          void drv8701_stop(Motor_Select motor_select)
+   91          {
+   92   1          if (motor_select == MOTOR_L || motor_select == MOTOR_BOTH)
+   93   1          {
+   94   2              pwm_duty(PWM_1, 0);
+   95   2          }
+   96   1      
+   97   1          if (motor_select == MOTOR_R || motor_select == MOTOR_BOTH)
+   98   1          {
+   99   2              pwm_duty(PWM_2, 0);
+  100   2          }
+  101   1      }
 
-C251 COMPILATION COMPLETE.  0 WARNING(S),  3 ERROR(S)
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       345     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =         8     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =    ------     ------
+C251 COMPILER V5.60.0,  drv8701_dual                                                       14/11/24  19:56:37  PAGE 3   
+
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

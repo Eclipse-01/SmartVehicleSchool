@@ -1,219 +1,202 @@
-C251 COMPILER V5.60.0,  line                                                               10/11/24  18:24:49  PAGE 1   
+C251 COMPILER V5.60.0,  line                                                               14/11/24  19:52:39  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE line
 OBJECT MODULE PLACED IN .\Out_File\line.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\UserLibraries\line.c XSMALL WARNINGLEVEL(3) OPTIMIZE(0,SPEED) 
                     -BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;.
-                    -.\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT(.\Out_File\line.lst) TABS(
-                    -2) OBJECT(.\Out_File\line.obj) 
+                    -.\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\CODE\Algorithms) DEBUG PRINT(.\Out_F
+                    -ile\line.lst) TABS(2) OBJECT(.\Out_File\line.obj) 
 
 stmt  level    source
 
     1          #include "headfile.h"
-*** ERROR C318 IN LINE 62 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'straight.h'
-*** ERROR C318 IN LINE 63 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'ring.h'
     2          #include "line.h"
     3          
     4          ADC_Value adc_value; // 仅在此处定义
     5          
-    6          //返回的线的位置是根据adc1和adc4的值计算的
+    6          // 返回的线的位置是根据adc1和adc4的值计算的
     7          
     8          #define FILTER_SIZE 5
     9          
-   10          int filter_buffer1[FILTER_SIZE] = {0};
-   11          int filter_buffer2[FILTER_SIZE] = {0};
-   12          int filter_buffer3[FILTER_SIZE] = {0};
-   13          int filter_buffer4[FILTER_SIZE] = {0};
-   14          int filter_index = 0;
-   15          
-   16          /**
-   17           * @brief 初始化ADC通道
-   18           * 
-   19           * 初始化与线传感器连接的ADC通道。
-   20           */
-   21          void Line_init()
-   22          {
-   23   1          adc_init(ADC_P06, 0); // P00引脚        具体通道与引脚对应关系可以查看zf_adc.h文件
-   24   1          adc_init(ADC_P11, 0); // P01引脚        具体通道与引脚对应关系可以查看zf_adc.h文件
-   25   1          adc_init(ADC_P14, 0); // P05引脚        具体通道与引脚对应关系可以查看zf_adc.h文件
-   26   1          adc_init(ADC_P15, 0); // P06引脚        具体通道与引脚对应关系可以查看zf_adc.h文件
-   27   1      }
-   28          
-   29          /**
-   30           * @brief 读取原始ADC值并进行滤波处理
-   31           * 
-   32           * 从ADC通道读取原始数据，并使用简单的滑动窗口滤波器对数据进行滤波。
-   33           */
-   34          void Line_read_raw()
-   35          {
-   36   1          filter_buffer1[filter_index] = adc_once(ADC_P06, ADC_12BIT); // 采集ADC_P00电压，精度12位
-   37   1          filter_buffer2[filter_index] = adc_once(ADC_P11, ADC_12BIT); // 采集ADC_P01电压，精度12位
-   38   1          filter_buffer3[filter_index] = adc_once(ADC_P14, ADC_12BIT); // 采集ADC_P05电压，精度12位
-   39   1          filter_buffer4[filter_index] = adc_once(ADC_P15, ADC_12BIT); // 采集ADC_P06电压，精度12位
-   40   1      
-   41   1          filter_index = (filter_index + 1) % FILTER_SIZE;
-   42   1      
-   43   1          adc_value.ADC1 = 0;
-   44   1          adc_value.ADC2 = 0;
-   45   1          adc_value.ADC3 = 0;
-   46   1          adc_value.ADC4 = 0;
-   47   1      
-   48   1          for (int i = 0; i < FILTER_SIZE; i++)
-*** ERROR C25 IN LINE 48 OF ..\CODE\UserLibraries\line.c: syntax error near 'int'
-*** ERROR C67 IN LINE 48 OF ..\CODE\UserLibraries\line.c: 'i': undefined identifier
-*** ERROR C67 IN LINE 48 OF ..\CODE\UserLibraries\line.c: 'i': undefined identifier
-   49   1          {
-   50   2              adc_value.ADC1 += filter_buffer1[i];
-*** ERROR C67 IN LINE 50 OF ..\CODE\UserLibraries\line.c: 'i': undefined identifier
-C251 COMPILER V5.60.0,  line                                                               10/11/24  18:24:49  PAGE 2   
+   10          /**
+   11           * @brief 初始化ADC通道
+   12           *
+   13           * 初始化与线传感器连接的ADC通道。
+   14           */
+   15          void Line_init()
+   16          {
+   17   1          adc_init(ADC_P06, 0); // P00引脚        具体通道与引脚对应关系可以查看zf_adc.h文件
+   18   1          adc_init(ADC_P11, 0); // P01引脚        具体通道与引脚对应关系可以查看zf_adc.h文件
+   19   1          adc_init(ADC_P14, 0); // P05引脚        具体通道与引脚对应关系可以查看zf_adc.h文件
+   20   1          adc_init(ADC_P15, 0); // P06引脚        具体通道与引脚对应关系可以查看zf_adc.h文件
+   21   1      }
+   22          
+   23          /**
+   24           * @brief 读取原始ADC值并进行滤波处理
+   25           *
+   26           * 从ADC通道读取原始数据，并使用简单的滑动窗口滤波器对数据进行滤波。
+   27           */
+   28          void Line_read_raw()
+   29          {
+   30   1          int i;
+   31   1          int filter_buffer1 = 0;
+   32   1          int filter_buffer2 = 0;
+   33   1          int filter_buffer3 = 0;
+   34   1          int filter_buffer4 = 0;
+   35   1          for (i = 0; i < FILTER_SIZE; i++)//对数据进行滤波
+   36   1          {
+   37   2              filter_buffer1 += adc_once(ADC_P06, ADC_12BIT);
+   38   2              filter_buffer2 += adc_once(ADC_P11, ADC_12BIT);
+   39   2              filter_buffer3 += adc_once(ADC_P14, ADC_12BIT);
+   40   2              filter_buffer4 += adc_once(ADC_P15, ADC_12BIT);
+   41   2          }
+   42   1          // 将滤波后的值存入结构体
+   43   1          adc_value.ADC1 = filter_buffer1 / FILTER_SIZE;
+   44   1          adc_value.ADC2 = filter_buffer2 / FILTER_SIZE;
+   45   1          adc_value.ADC3 = filter_buffer3 / FILTER_SIZE;
+   46   1          adc_value.ADC4 = filter_buffer4 / FILTER_SIZE;
+   47   1      }
+   48          
+   49          // /**
+   50          //  * @brief 计算线的位置
+   51          //  *
+   52          //  * 根据滤波后的ADC值计算线的位置。
+   53          //  *
+   54          //  * @return int 线的位置，或错误代码
+   55          //  * @warning 小心使用
+   56          //  */
+C251 COMPILER V5.60.0,  line                                                               14/11/24  19:52:39  PAGE 2   
 
-   51   2              adc_value.ADC2 += filter_buffer2[i];
-*** ERROR C67 IN LINE 51 OF ..\CODE\UserLibraries\line.c: 'i': undefined identifier
-   52   2              adc_value.ADC3 += filter_buffer3[i];
-*** ERROR C67 IN LINE 52 OF ..\CODE\UserLibraries\line.c: 'i': undefined identifier
-   53   2              adc_value.ADC4 += filter_buffer4[i];
-*** ERROR C67 IN LINE 53 OF ..\CODE\UserLibraries\line.c: 'i': undefined identifier
-   54   2          }
-   55   1      
-   56   1          adc_value.ADC1 /= FILTER_SIZE;
-   57   1          adc_value.ADC2 /= FILTER_SIZE;
-   58   1          adc_value.ADC3 /= FILTER_SIZE;
-   59   1          adc_value.ADC4 /= FILTER_SIZE;
-   60   1      }
+   57          // int Line_calculate_position()
+   58          // {
+   59          //     int adc1, adc2, adc3, adc4;
+   60          //     int position;
    61          
-   62          // /**
-   63          //  * @brief 计算线的位置
-   64          //  * 
-   65          //  * 根据滤波后的ADC值计算线的位置。
-   66          //  * 
-   67          //  * @return int 线的位置，或错误代码
-   68          //  * @warning 小心使用
-   69          //  */
-   70          // int Line_calculate_position()
-   71          // {
-   72          //     int adc1, adc2, adc3, adc4;
-   73          //     int position;
-   74          
-   75          //     Line_read_raw();
-   76          //     // 对 ADC 值进行归一化处理
-   77          //     adc1 = (adc_value.ADC1 * 1000) / 4095;//范围是0-1000
-   78          //     adc2 = (adc_value.ADC2 * 1000) / 4095;
-   79          //     adc3 = (adc_value.ADC3 * 1000) / 4095;
-   80          //     adc4 = (adc_value.ADC4 * 1000) / 4095;
-   81          
-   82          //     //判断线的大致位置，使用两个传感器的值,adc1 和 adc4
-   83          //     if (adc1 > 1000 || adc4 > 1000)
-   84          //         return 999; // 系统错误
-   85          //     if ((adc1 + adc4) == 0)
-   86          //         return 998; // 除零错误
-   87          //     if ((adc1 + adc4) < 100)
-   88          //         return 997; // 线丢失
-   89          //     if (adc1 > 800 && adc2 > 800)
-   90          //         return 996;                                 // 十字线
-   91          //     if ((adc1 - adc2) > 200)                        //左环岛处理
-   92          //     {
-   93          //         delay(100);
-   94          //         if ((adc1 - adc2) > 250)
-   95          //         {
-   96          //             return 995;//左环岛
-   97          //         }
-   98          //     }
-   99          //     if ((adc4 - adc3) > 200)                        //右环岛处理
-  100          //     {
-  101          //         delay(100);
-  102          //         if ((adc4 - adc3) > 250)
-  103          //         {
-  104          //             return 994;//右环岛
-  105          //         }
-  106          //     }
-  107          //     position = (adc1 - adc4) * 100 / (adc1 + adc4); // 差比和算法
-  108          //     return position;
-  109          // }
-  110          
-  111          /**
-  112           * @brief 获取ADC值的范围
-  113           * 
-C251 COMPILER V5.60.0,  line                                                               10/11/24  18:24:49  PAGE 3   
+   62          //     Line_read_raw();
+   63          //     // 对 ADC 值进行归一化处理
+   64          //     adc1 = (adc_value.ADC1 * 1000) / 4095;//范围是0-1000
+   65          //     adc2 = (adc_value.ADC2 * 1000) / 4095;
+   66          //     adc3 = (adc_value.ADC3 * 1000) / 4095;
+   67          //     adc4 = (adc_value.ADC4 * 1000) / 4095;
+   68          
+   69          //     //判断线的大致位置，使用两个传感器的值,adc1 和 adc4
+   70          //     if (adc1 > 1000 || adc4 > 1000)
+   71          //         return 999; // 系统错误
+   72          //     if ((adc1 + adc4) == 0)
+   73          //         return 998; // 除零错误
+   74          //     if ((adc1 + adc4) < 100U) // 将常量改为无符号类型
+   75          //         return 997; // 线丢失
+   76          //     if (adc1 > 800 && adc2 > 800)
+   77          //         return 996;                                 // 十字线
+   78          //     if ((adc1 - adc2) > 200)                        //左环岛处理
+   79          //     {
+   80          //         delay(100);
+   81          //         if ((adc1 - adc2) > 250)
+   82          //         {
+   83          //             return 995;//左环岛
+   84          //         }
+   85          //     }
+   86          //     if ((adc4 - adc3) > 200)                        //右环岛处理
+   87          //     {
+   88          //         delay(100);
+   89          //         if ((adc4 - adc3) > 250)
+   90          //         {
+   91          //             return 994;//右环岛
+   92          //         }
+   93          //     }
+   94          //     position = (adc1 - adc4) * 100 / (adc1 + adc4); // 差比和算法
+   95          //     return position;
+   96          // }
+   97          
+   98          /**
+   99           * @brief 获取ADC值的范围
+  100           *
+  101           * 持续读取ADC值并显示每个通道的最小值和最大值。
+  102           */
+  103          void Get_ADC_Range()
+  104          {
+  105   1          // 删除未使用的变量 'i'
+  106   1          // int i;
+  107   1      
+  108   1          // 将变量定义为无符号整数
+  109   1          unsigned int min_adc1 = 4095, max_adc1 = 0;
+  110   1          unsigned int min_adc2 = 4095, max_adc2 = 0;
+  111   1          unsigned int min_adc3 = 4095, max_adc3 = 0;
+  112   1          unsigned int min_adc4 = 4095, max_adc4 = 0;
+  113   1          char buffer[30];
+  114   1      
+  115   1          while (1)
+  116   1          {
+  117   2              Line_read_raw();
+  118   2              if (adc_value.ADC1 < min_adc1)
+  119   2                  min_adc1 = adc_value.ADC1;
+  120   2              if (adc_value.ADC1 > max_adc1)
+  121   2                  max_adc1 = adc_value.ADC1;
+  122   2              if (adc_value.ADC2 < min_adc2)
+C251 COMPILER V5.60.0,  line                                                               14/11/24  19:52:39  PAGE 3   
 
-  114           * 持续读取ADC值并显示每个通道的最小值和最大值。
-  115           */
-  116          void Get_ADC_Range()
-  117          {
-  118   1          int min_adc1 = 4095, max_adc1 = 0;
-  119   1          int min_adc2 = 4095, max_adc2 = 0;
-  120   1          int min_adc3 = 4095, max_adc3 = 0;
-  121   1          int min_adc4 = 4095, max_adc4 = 0;
-  122   1          char buffer[30];
-  123   1          while (1)
-  124   1          {
-  125   2              Line_read_raw();
-  126   2              if (adc_value.ADC1 < min_adc1)
-*** WARNING C173 IN LINE 126 OF ..\CODE\UserLibraries\line.c: '<': signed/unsigned type mismatch
-  127   2                  min_adc1 = adc_value.ADC1;
-  128   2              if (adc_value.ADC1 > max_adc1)
-*** WARNING C173 IN LINE 128 OF ..\CODE\UserLibraries\line.c: '>': signed/unsigned type mismatch
-  129   2                  max_adc1 = adc_value.ADC1;
-  130   2              if (adc_value.ADC2 < min_adc2)
-*** WARNING C173 IN LINE 130 OF ..\CODE\UserLibraries\line.c: '<': signed/unsigned type mismatch
-  131   2                  min_adc2 = adc_value.ADC2;
-  132   2              if (adc_value.ADC2 > max_adc2)
-*** WARNING C173 IN LINE 132 OF ..\CODE\UserLibraries\line.c: '>': signed/unsigned type mismatch
-  133   2                  max_adc2 = adc_value.ADC2;
-  134   2              if (adc_value.ADC3 < min_adc3)
-*** WARNING C173 IN LINE 134 OF ..\CODE\UserLibraries\line.c: '<': signed/unsigned type mismatch
-  135   2                  min_adc3 = adc_value.ADC3;
-  136   2              if (adc_value.ADC3 > max_adc3)
-*** WARNING C173 IN LINE 136 OF ..\CODE\UserLibraries\line.c: '>': signed/unsigned type mismatch
-  137   2                  max_adc3 = adc_value.ADC3;
-  138   2              if (adc_value.ADC4 < min_adc4)
-*** WARNING C173 IN LINE 138 OF ..\CODE\UserLibraries\line.c: '<': signed/unsigned type mismatch
-  139   2                  min_adc4 = adc_value.ADC4;
-  140   2              if (adc_value.ADC4 > max_adc4)
-*** WARNING C173 IN LINE 140 OF ..\CODE\UserLibraries\line.c: '>': signed/unsigned type mismatch
-  141   2                  max_adc4 = adc_value.ADC4;
-  142   2      
-  143   2              // 在IPS200显示屏上显示最小值和最大值
-  144   2              sprintf(buffer, "Min ADC1: %d    ", min_adc1);
-  145   2              ips200_show_string(0, 0, buffer);
-  146   2              sprintf(buffer, "Max ADC1: %d    ", max_adc1);
-  147   2              ips200_show_string(0, 20, buffer);
-  148   2              sprintf(buffer, "Min ADC2: %d    ", min_adc2);
-  149   2              ips200_show_string(0, 40, buffer);
-  150   2              sprintf(buffer, "Max ADC2: %d    ", max_adc2);
-  151   2              ips200_show_string(0, 60, buffer);
-  152   2              sprintf(buffer, "Min ADC3: %d    ", min_adc3);
-  153   2              ips200_show_string(0, 80, buffer);
-  154   2              sprintf(buffer, "Max ADC3: %d    ", max_adc3);
-  155   2              ips200_show_string(0, 100, buffer);
-  156   2              sprintf(buffer, "Min ADC4: %d    ", min_adc4);
-  157   2              ips200_show_string(0, 120, buffer);
-  158   2              sprintf(buffer, "Max ADC4: %d    ", max_adc4);
-  159   2              ips200_show_string(0, 140, buffer);
-  160   2              // 显示当前值
-  161   2              sprintf(buffer, "ADC1: %d    ", adc_value.ADC1);
-  162   2              ips200_show_string(0, 160, buffer);
-  163   2              sprintf(buffer, "ADC2: %d    ", adc_value.ADC2);
-  164   2              ips200_show_string(0, 180, buffer);
-  165   2              sprintf(buffer, "ADC3: %d    ", adc_value.ADC3);
-  166   2              ips200_show_string(0, 200, buffer);
-  167   2          }
-  168   1      }
-  169          
-  170          void filter_line_data() {
-  171   1          // 定义变量 i
-C251 COMPILER V5.60.0,  line                                                               10/11/24  18:24:49  PAGE 4   
+  123   2                  min_adc2 = adc_value.ADC2;
+  124   2              if (adc_value.ADC2 > max_adc2)
+  125   2                  max_adc2 = adc_value.ADC2;
+  126   2              if (adc_value.ADC3 < min_adc3)
+  127   2                  min_adc3 = adc_value.ADC3;
+  128   2              if (adc_value.ADC3 > max_adc3)
+  129   2                  max_adc3 = adc_value.ADC3;
+  130   2              if (adc_value.ADC4 < min_adc4)
+  131   2                  min_adc4 = adc_value.ADC4;
+  132   2              if (adc_value.ADC4 > max_adc4)
+  133   2                  max_adc4 = adc_value.ADC4;
+  134   2      
+  135   2              // 在IPS200显示屏上显示最小值和最大值
+  136   2              sprintf(buffer, "Min ADC1: %d    ", min_adc1);
+  137   2              ips200_show_string(0, 0, buffer);
+  138   2              sprintf(buffer, "Max ADC1: %d    ", max_adc1);
+  139   2              ips200_show_string(0, 20, buffer);
+  140   2              sprintf(buffer, "Min ADC2: %d    ", min_adc2);
+  141   2              ips200_show_string(0, 40, buffer);
+  142   2              sprintf(buffer, "Max ADC2: %d    ", max_adc2);
+  143   2              ips200_show_string(0, 60, buffer);
+  144   2              sprintf(buffer, "Min ADC3: %d    ", min_adc3);
+  145   2              ips200_show_string(0, 80, buffer);
+  146   2              sprintf(buffer, "Max ADC3: %d    ", max_adc3);
+  147   2              ips200_show_string(0, 100, buffer);
+  148   2              sprintf(buffer, "Min ADC4: %d    ", min_adc4);
+  149   2              ips200_show_string(0, 120, buffer);
+  150   2              sprintf(buffer, "Max ADC4: %d    ", max_adc4);
+  151   2              ips200_show_string(0, 140, buffer);
+  152   2              // 显示当前值
+  153   2              sprintf(buffer, "ADC1: %d    ", adc_once(ADC_P06, ADC_12BIT));
+  154   2              ips200_show_string(0, 160, buffer);
+  155   2              sprintf(buffer, "ADC2: %d    ", adc_once(ADC_P11, ADC_12BIT));
+  156   2              ips200_show_string(0, 180, buffer);
+  157   2              sprintf(buffer, "ADC3: %d    ", adc_once(ADC_P14, ADC_12BIT));
+  158   2              ips200_show_string(0, 200, buffer);
+  159   2              sprintf(buffer, "ADC4: %d    ", adc_once(ADC_P15, ADC_12BIT));
+  160   2              ips200_show_string(0, 220, buffer);
+  161   2          }
+  162   1      }
 
-  172   1          for (int i = 0; i < FILTER_SIZE; i++) {
-*** ERROR C25 IN LINE 172 OF ..\CODE\UserLibraries\line.c: syntax error near 'int'
-*** ERROR C67 IN LINE 172 OF ..\CODE\UserLibraries\line.c: 'i': undefined identifier
-*** ERROR C67 IN LINE 172 OF ..\CODE\UserLibraries\line.c: 'i': undefined identifier
-  173   2              filter_buffer1[i] = /* 过滤逻辑 */;
-*** ERROR C67 IN LINE 173 OF ..\CODE\UserLibraries\line.c: 'i': undefined identifier
-*** ERROR C25 IN LINE 173 OF ..\CODE\UserLibraries\line.c: syntax error near ';'
-  174   2              // 其他操作
-  175   2          }
-  176   2          // ... existing code ...
-  177   2      }
 
-C251 COMPILATION COMPLETE.  8 WARNING(S),  14 ERROR(S)
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       921     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        64     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =       188     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

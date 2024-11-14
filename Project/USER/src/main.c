@@ -22,42 +22,36 @@
 // 关于内核频率的设定，可以查看board.h文件
 // 在board_init中,已经将P54引脚设置为复位
 // 如果需要使用P54引脚,可以在board.c文件中的board_init()函数中删除SET_P54_RESRT即可
+#define DIR_2 P10
+#define DIR_1 P24
+#define PWM_2 PWMA_CH2N_P13
+#define PWM_1 PWMA_CH4P_P26
+uint8  dir = 0;
+int16 duty = 0;
 
 void main()
 {   
-    char string_buffer[50];
+    //int encoder1, encoder2;
 	clock_init(SYSTEM_CLOCK_52M);	// 初始化系统频率,勿删除此句代码。
 	board_init();					// 初始化寄存器,勿删除此句代码。
 
     // 此处编写用户代码 例如外设初始化代码等
     ips200_init_spi();
     ips200_show_string(0, 0, "Vehicle Booting...");
-    servo_init();
-    sprintf(string_buffer, "Servo OK, position:%d", servo_position);
-    ips200_show_string(32, 0, string_buffer);
+    // servo_init();
     drv8701_init();
-    ips200_show_string(48, 0, "Motor OK");
-    encoder_init();
-    ips200_show_string(64, 0, "Encoder OK");
-    Line_init();
-    ips200_show_string(80, 0, "Line OK");
+    // //encoder_init(); //编码器未连接
+    // Line_init();
+    // straight_entrance();
+    wireless_uart_init();
+    drv8701_control(MOTOR_BOTH, 100);
     
     // 此处编写用户代码 例如外设初始化代码等
 
     while(1)
     {
-		// 此处编写需要循环执行的代码
-        Line_read_raw();
-        sprintf(string_buffer, "ADC1: %d", adc_value.ADC1);
-        ips200_show_string(16, 0, string_buffer);
-        sprintf(string_buffer, "ADC2: %d", adc_value.ADC2);
-        ips200_show_string(32, 0, string_buffer);
-        sprintf(string_buffer, "ADC3: %d", adc_value.ADC3);
-        ips200_show_string(48, 0, string_buffer);
-        sprintf(string_buffer, "ADC4: %d", adc_value.ADC4);
-        ips200_show_string(64, 0, string_buffer);
-
-        delay_ms(500); // 延时500ms
+        wireless_uart_send_buff("Hello World!\n", 13);
+        delay_ms(1000);
     }
 }
 

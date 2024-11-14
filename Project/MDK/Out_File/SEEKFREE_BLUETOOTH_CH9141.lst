@@ -1,12 +1,13 @@
-C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          05/11/24  20:15:38  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          11/11/24  18:19:55  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_BLUETOOTH_CH9141
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_BLUETOOTH_CH9141.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_BLUETOOTH_CH9141.c XSMALL
                     - WARNINGLEVEL(3) OPTIMIZE(0,SPEED) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libr
-                    -aries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEB
-                    -UG PRINT(.\Out_File\SEEKFREE_BLUETOOTH_CH9141.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_BLUETOOTH_CH9141.obj) 
+                    -aries\seekfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\C
+                    -ODE\Algorithms) DEBUG PRINT(.\Out_File\SEEKFREE_BLUETOOTH_CH9141.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_BLUETOOTH_CH914
+                    -1.obj) 
 
 stmt  level    source
 
@@ -65,9 +66,9 @@ stmt  level    source
    50          //  @return     void
    51          //  Sample usage:
    52          //  @note       该函数在ISR文件 串口中断程序被调用
-   53          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          05/11/24  20:15:38  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          11/11/24  18:19:55  PAGE 2   
 
+   53          //-------------------------------------------------------------------------------------------------------
              -------------
    54          void bluetooth_ch9141_uart_callback (uint8 dat)
    55          {
@@ -133,9 +134,9 @@ stmt  level    source
   107   1      }
   108          
   109          //-------------------------------------------------------------------------------------------------------
-             -------------
-C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          05/11/24  20:15:38  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          11/11/24  18:19:55  PAGE 3   
 
+             -------------
   110          //  @brief      无线转串口模块 读取函数
   111          //  @param      buff            存储的数据地址
   112          //  @param      len             长度

@@ -20,6 +20,10 @@
         "stdio.h": "c",
         "battery.h": "c",
         "line.h": "c",
-        "encoder.h": "c"
+        "encoder.h": "c",
+        "stc32gxx.h": "c",
+        "zf_uart.h": "c",
+        "STDIO.H": "cpp",
+        "straight.h": "c"
     }
 }

@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  ring                                                               10/11/24  18:24:50  PAGE 1   
+C251 COMPILER V5.60.0,  ring                                                               14/11/24  19:52:40  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE ring
 OBJECT MODULE PLACED IN .\Out_File\ring.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\Algorithms\ring.c XSMALL WARNINGLEVEL(3) OPTIMIZE(0,SPEED) BRO
                     -WSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\U
-                    -SER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT(.\Out_File\ring.lst) TABS(2) 
-                    -OBJECT(.\Out_File\ring.obj) 
+                    -SER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\CODE\Algorithms) DEBUG PRINT(.\Out_File
+                    -\ring.lst) TABS(2) OBJECT(.\Out_File\ring.obj) 
 
 stmt  level    source
 

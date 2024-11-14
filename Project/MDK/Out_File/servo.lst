@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  servo                                                              10/11/24  18:24:48  PAGE 1   
+C251 COMPILER V5.60.0,  servo                                                              14/11/24  19:52:39  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE servo
 OBJECT MODULE PLACED IN .\Out_File\servo.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\UserLibraries\servo.c XSMALL WARNINGLEVEL(3) OPTIMIZE(0,SPEED)
                     - BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;
-                    -..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT(.\Out_File\servo.lst) TAB
-                    -S(2) OBJECT(.\Out_File\servo.obj) 
+                    -..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\CODE\Algorithms) DEBUG PRINT(.\Out_
+                    -File\servo.lst) TABS(2) OBJECT(.\Out_File\servo.obj) 
 
 stmt  level    source
 
@@ -32,8 +32,6 @@ stmt  level    source
              -************/
    19          
    20          #include "headfile.h"
-*** ERROR C318 IN LINE 62 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'straight.h'
-*** ERROR C318 IN LINE 63 OF ..\..\Libraries\seekfree_peripheral\headfile.h: can't open file 'ring.h'
    21          #include "servo.h"
    22          
    23          /*
@@ -57,8 +55,7 @@ stmt  level    source
    41           */
    42          void servo_init(void)
    43          {
-   44   1          uint32 duty = (uint32)(Servo_Center * 10000 / 20); // Center = 1 代表输出1ms的PWM信号
-*** ERROR C67 IN LINE 44 OF ..\CODE\UserLibraries\servo.c: 'Servo_Center': undefined identifier
+   44   1          uint32 duty = Servo_Center; // 初始化为中间位置，宏定义了占空比
    45   1          pwm_init(PWMB_CH3_P33, 50, duty);            // PWM频率是50Hz，即20ms。
    46   1      }
    47          
@@ -66,30 +63,24 @@ stmt  level    source
    49           * @brief 将舵机设置到指定角度。
    50           *
    51           * 此函数接受一个以度为单位的角度，并将舵机调整到相应的位置。
-C251 COMPILER V5.60.0,  servo                                                              10/11/24  18:24:48  PAGE 2   
-
    52           * 角度应在舵机支持的有效范围内，见MaxAngle的宏定义。
    53           *
-   54           * @param angle 要设置的舵机角度，以度为单位。
+   54           * @param angle 要设置的舵机角度，以占空比为单位。
+C251 COMPILER V5.60.0,  servo                                                              14/11/24  19:52:39  PAGE 2   
+
    55           */
    56          void servo_set_position(int16 angle)
    57          {
    58   1          uint32 pulseWide = Servo_Center;
-*** ERROR C67 IN LINE 58 OF ..\CODE\UserLibraries\servo.c: 'Servo_Center': undefined identifier
    59   1          if (angle > Servo_MaxAngle)
-*** ERROR C67 IN LINE 59 OF ..\CODE\UserLibraries\servo.c: 'Servo_MaxAngle': undefined identifier
    60   1          {
    61   2              angle = Servo_MaxAngle;
-*** ERROR C67 IN LINE 61 OF ..\CODE\UserLibraries\servo.c: 'Servo_MaxAngle': undefined identifier
    62   2          }
    63   1          if (angle < -Servo_MaxAngle)
-*** ERROR C67 IN LINE 63 OF ..\CODE\UserLibraries\servo.c: 'Servo_MaxAngle': undefined identifier
    64   1          {
    65   2              angle = -Servo_MaxAngle;
-*** ERROR C67 IN LINE 65 OF ..\CODE\UserLibraries\servo.c: 'Servo_MaxAngle': undefined identifier
    66   2          }
-   67   1          pulseWide += angle * (2 / 180); // 每1ms对应角度是90°，再用角度乘以(1ms/90°)得到对应的ms数，再加上C
-             -enter得到最终的ms数
+   67   1          pulseWide = (Servo_Center + angle);
    68   1          pwm_duty(PWMB_CH3_P33, pulseWide);
    69   1          servo_position = angle;
    70   1      }
@@ -97,4 +88,26 @@ stmt  level    source
    72          
    73          
 
-C251 COMPILATION COMPLETE.  0 WARNING(S),  8 ERROR(S)
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       114     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        21     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        27     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

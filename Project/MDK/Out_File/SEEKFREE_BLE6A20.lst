@@ -1,12 +1,12 @@
-C251 COMPILER V5.60.0,  SEEKFREE_BLE6A20                                                   05/11/24  20:15:38  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_BLE6A20                                                   11/11/24  18:19:55  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_BLE6A20
 OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_BLE6A20.obj
 COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_BLE6A20.c XSMALL WARNINGL
                     -EVEL(3) OPTIMIZE(0,SPEED) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\see
-                    -kfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries) DEBUG PRINT(
-                    -.\Out_File\SEEKFREE_BLE6A20.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_BLE6A20.obj) 
+                    -kfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\CODE\Algor
+                    -ithms) DEBUG PRINT(.\Out_File\SEEKFREE_BLE6A20.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_BLE6A20.obj) 
 
 stmt  level    source
 
@@ -66,7 +66,7 @@ stmt  level    source
    50          
    51          
    52          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_BLE6A20                                                   05/11/24  20:15:38  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_BLE6A20                                                   11/11/24  18:19:55  PAGE 2   
 
              -------------
    53          //  @brief      ble6a20蓝牙模块发送一个字节
@@ -134,7 +134,7 @@ stmt  level    source
   110          //  @param      len             长度
   111          //  @return     uint32          实际读取字节数
   112          //  Sample usage:
-C251 COMPILER V5.60.0,  SEEKFREE_BLE6A20                                                   05/11/24  20:15:38  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_BLE6A20                                                   11/11/24  18:19:55  PAGE 3   
 
   113          //-------------------------------------------------------------------------------------------------------
              -------------

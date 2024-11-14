@@ -40,7 +40,9 @@
 ".\Out_File\servo.obj",
 ".\Out_File\battery.obj",
 ".\Out_File\encoder.obj",
-".\Out_File\line.obj" 
+".\Out_File\line.obj",
+".\Out_File\straight.obj",
+".\Out_File\ring.obj" 
 TO ".\Out_File\SEEKFREE" 
 PRINT(".\Out_File\SEEKFREE.map") CASE DISABLEWARNING (16,57) 
 REMOVEUNUSED 
