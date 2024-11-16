@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  encoder                                                            14/11/24  19:52:39  PAGE 1   
+C251 COMPILER V5.60.0,  encoder                                                            15/11/24  23:08:06  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE encoder
@@ -59,75 +59,97 @@ stmt  level    source
    45          int16 encoder_read1(void)
    46          {
    47   1          int16 dat;
-   48   1          ctimer_count_clean(CTIM0_P34);
-   49   1          delay_ms(encoder_time);
-   50   1          if(P35 == 0) // DIR1 注意出于安装原因，左侧编码器方向与右侧编码器方向相反
-   51   1          {
-   52   2              dat = ctimer_count_read(CTIM0_P34);
-   53   2          }
-   54   1          else
-C251 COMPILER V5.60.0,  encoder                                                            14/11/24  19:52:39  PAGE 2   
+   48   1          if(P35 == 1) // DIR1 注意出于安装原因，左侧编码器方向与右侧编码器方向相反
+   49   1          {
+   50   2              dat = ctimer_count_read(CTIM0_P34);
+   51   2          }
+   52   1          else
+   53   1          {
+   54   2              dat = -ctimer_count_read(CTIM0_P34);
+C251 COMPILER V5.60.0,  encoder                                                            15/11/24  23:08:06  PAGE 2   
 
-   55   1          {
-   56   2              dat = -ctimer_count_read(CTIM0_P34);
-   57   2          }
-   58   1          TravelDistanceL += dat;
-   59   1          return dat;
-   60   1      }
-   61          
-   62          /**
-   63           * @brief 读取编码器2的值
-   64           * 
-   65           * 清除计数器，延时后根据方向引脚读取编码器2的计数值
-   66           * 
-   67           * @return int16 编码器2的计数值
-   68           */
-   69          int16 encoder_read2(void)
-   70          {
-   71   1          int16 dat;
-   72   1          ctimer_count_clean(CTIM3_P04);
-   73   1          delay_ms(encoder_time);
-   74   1          if(P53 == 1) // DIR2
-   75   1          {
-   76   2              dat = ctimer_count_read(CTIM3_P04);
-   77   2          }
-   78   1          else
-   79   1          {
-   80   2              dat = -ctimer_count_read(CTIM3_P04);
-   81   2          }
-   82   1          TravelDistanceR += dat;
-   83   1          return dat;
-   84   1      }
-   85          
-   86          /**
-   87           * @brief 获取平均行驶距离
-   88           * 
-   89           * 计算左侧和右侧编码器的平均行驶距离
-   90           * 
-   91           * @return int16 平均行驶距离
-   92           */
-   93          int16 get_encoder_distance(void)
-   94          {
-   95   1          TravelDistance = (TravelDistanceL + TravelDistanceR) / 2;
-   96   1          return TravelDistance;
-   97   1      }
-   98          
-   99          /**
-  100           * @brief 清除编码器行驶距离
-  101           * 
-  102           * 将左侧、右侧和总行驶距离清零
-  103           */
-  104          void clear_encoder_distance(void)
-  105          {
-  106   1          TravelDistanceL = 0;
-  107   1          TravelDistanceR = 0;
-  108   1          TravelDistance = 0;
-  109   1      }
+   55   2          }
+   56   1          TravelDistanceL += dat;
+   57   1          ctimer_count_clean(CTIM0_P34);
+   58   1          delay_ms(encoder_time);
+   59   1          if(P35 == 1) // DIR1 注意出于安装原因，左侧编码器方向与右侧编码器方向相反
+   60   1          {
+   61   2              dat = ctimer_count_read(CTIM0_P34);
+   62   2          }
+   63   1          else
+   64   1          {
+   65   2              dat = -ctimer_count_read(CTIM0_P34);
+   66   2          }
+   67   1          TravelDistanceL += dat;
+   68   1          return dat;
+   69   1      }
+   70          
+   71          /**
+   72           * @brief 读取编码器2的值
+   73           * 
+   74           * 清除计数器，延时后根据方向引脚读取编码器2的计数值
+   75           * 
+   76           * @return int16 编码器2的计数值
+   77           */
+   78          int16 encoder_read2(void)
+   79          {
+   80   1          int16 dat;
+   81   1          if(P53 == 0) // DIR2
+   82   1          {
+   83   2              dat = ctimer_count_read(CTIM3_P04);
+   84   2          }
+   85   1          else
+   86   1          {
+   87   2              dat = -ctimer_count_read(CTIM3_P04);
+   88   2          }
+   89   1          TravelDistanceR += dat;
+   90   1          ctimer_count_clean(CTIM3_P04);
+   91   1          delay_ms(encoder_time);
+   92   1          if(P53 == 0) // DIR2
+   93   1          {
+   94   2              dat = ctimer_count_read(CTIM3_P04);
+   95   2          }
+   96   1          else
+   97   1          {
+   98   2              dat = -ctimer_count_read(CTIM3_P04);
+   99   2          }
+  100   1          TravelDistanceR += dat;
+  101   1          return dat;
+  102   1      }
+  103          
+  104          /**
+  105           * @brief 获取平均行驶距离
+  106           * 
+  107           * 计算左侧和右侧编码器的平均行驶距离
+  108           * 
+  109           * @return int16 平均行驶距离
+  110           */
+  111          int16 get_encoder_distance(void)
+  112          {
+  113   1          encoder_read1();
+  114   1          encoder_read2();//更新左右编码器的行驶距离
+  115   1          TravelDistance = (TravelDistanceL + TravelDistanceR) / 2;
+  116   1          return TravelDistance;
+  117   1      }
+  118          
+  119          /**
+  120           * @brief 清除编码器行驶距离
+C251 COMPILER V5.60.0,  encoder                                                            15/11/24  23:08:06  PAGE 3   
+
+  121           * 
+  122           * 将左侧、右侧和总行驶距离清零
+  123           */
+  124          void clear_encoder_distance(void)
+  125          {
+  126   1          TravelDistanceL = 0;
+  127   1          TravelDistanceR = 0;
+  128   1          TravelDistance = 0;
+  129   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       187     ------
+  code size            =       295     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
@@ -135,8 +157,6 @@ Module Information          Static   Overlayable
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
   edata size           =        10     ------
-C251 COMPILER V5.60.0,  encoder                                                            14/11/24  19:52:39  PAGE 3   
-
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------

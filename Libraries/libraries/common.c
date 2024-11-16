@@ -24,7 +24,3 @@
 
 //无线模块类型
 WIRELESS_TYPE_enum wireless_type = NO_WIRELESS_MODE;
-
-
-// 无线模块接收回调函数
-void (*wireless_module_uart_handler)(uint8 dat) = NULL;

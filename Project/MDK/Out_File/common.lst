@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  common                                                             11/11/24  18:19:53  PAGE 1   
+C251 COMPILER V5.60.0,  common                                                             14/11/24  21:33:53  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE common
@@ -38,10 +38,6 @@ stmt  level    source
    24          
    25          //无线模块类型
    26          WIRELESS_TYPE_enum wireless_type = NO_WIRELESS_MODE;
-   27          
-   28          
-   29          // 无线模块接收回调函数
-   30          void (*wireless_module_uart_handler)(uint8 dat) = NULL;
 
 
 Module Information          Static   Overlayable
@@ -53,7 +49,7 @@ Module Information          Static   Overlayable
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =         4     ------
+  edata size           =         2     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -61,7 +57,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        12     ------
+  hconst size          =         6     ------
 End of Module Information.
 
 

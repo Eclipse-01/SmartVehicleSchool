@@ -20,12 +20,33 @@
 #include "headfile.h"
 
 #define BAT_VOL_PIN ADC_P05
+#define BEEP P32
 
 uint16 ad_result = 0;           // 引脚电压
 uint32 temp;
 
 uint16 battery_voltage = 0;     // 电池电压
 uint16 battery_percentage = 0;  // 电池电量百分比
+
+/**
+ * @brief 初始化蜂鸣器
+ *
+ * 该函数将 P3.2 引脚配置为推挽输出模式，用于控制蜂鸣器。
+ */
+void Beep_init(void){
+    gpio_mode(P3_2,GPO_PP);	// 将P6.7设置为推挽输出
+}
+
+/**
+ * @brief 设置蜂鸣器状态
+ * 
+ * 该函数用于设置蜂鸣器状态。
+ * 
+ * @param status 蜂鸣器状态，0为关闭，1为打开
+ */
+void Beep_set(uint8 status){
+    P32 = status;
+}
 
 /**
  * @brief 初始化电池电压检测模块

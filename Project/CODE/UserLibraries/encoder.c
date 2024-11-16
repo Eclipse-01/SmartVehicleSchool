@@ -45,9 +45,18 @@ void encoder_init(void)
 int16 encoder_read1(void)
 {
     int16 dat;
+    if(P35 == 1) // DIR1 注意出于安装原因，左侧编码器方向与右侧编码器方向相反
+    {
+        dat = ctimer_count_read(CTIM0_P34);
+    }
+    else
+    {
+        dat = -ctimer_count_read(CTIM0_P34);
+    }
+    TravelDistanceL += dat;
     ctimer_count_clean(CTIM0_P34);
     delay_ms(encoder_time);
-    if(P35 == 0) // DIR1 注意出于安装原因，左侧编码器方向与右侧编码器方向相反
+    if(P35 == 1) // DIR1 注意出于安装原因，左侧编码器方向与右侧编码器方向相反
     {
         dat = ctimer_count_read(CTIM0_P34);
     }
@@ -69,9 +78,18 @@ int16 encoder_read1(void)
 int16 encoder_read2(void)
 {
     int16 dat;
+    if(P53 == 0) // DIR2
+    {
+        dat = ctimer_count_read(CTIM3_P04);
+    }
+    else
+    {
+        dat = -ctimer_count_read(CTIM3_P04);
+    }
+    TravelDistanceR += dat;
     ctimer_count_clean(CTIM3_P04);
     delay_ms(encoder_time);
-    if(P53 == 1) // DIR2
+    if(P53 == 0) // DIR2
     {
         dat = ctimer_count_read(CTIM3_P04);
     }
@@ -92,6 +110,8 @@ int16 encoder_read2(void)
  */
 int16 get_encoder_distance(void)
 {
+    encoder_read1();
+    encoder_read2();//更新左右编码器的行驶距离
     TravelDistance = (TravelDistanceL + TravelDistanceR) / 2;
     return TravelDistance;
 }

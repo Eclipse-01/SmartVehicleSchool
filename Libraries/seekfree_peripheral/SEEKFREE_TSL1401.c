@@ -1,27 +1,27 @@
 /*********************************************************************************************************************
  * COPYRIGHT NOTICE
- * Copyright (c) 2016,��ɿƼ�
+ * Copyright (c) 2016,逐飞科技
  * All rights reserved.
- * ��������QQȺ��179029047
+ * 技术讨论QQ群：179029047
  *
- * �����������ݰ�Ȩ������ɿƼ����У�δ����������������ҵ��;��
- * ��ӭ��λʹ�ò������������޸�����ʱ���뱣����ɿƼ��İ�Ȩ������
+ * 以下所有内容版权均属逐飞科技所有，未经允许不得用于商业用途，
+ * 欢迎各位使用并传播本程序，修改内容时必须保留逐飞科技的版权声明。
  *
  * @file       		SEEKFREE_TSL1401.c
- * @brief      		�캢��(����CCD)������
- * @company	   		�ɶ���ɿƼ����޹�˾
+ * @brief      		红孩儿(线阵CCD)函数库
+ * @company	   		成都逐飞科技有限公司
  * @author     		Go For It(1325536866)
  * @Software 		MDK FOR C251 V5.60
  * @Target core		STC32F12K
  * @Taobao   		https://seekfree.taobao.com/
  * @date       		2016-02-25
  * @note	
-					TSL1401���߶��壺
+					TSL1401接线定义：
 					------------------------------------ 
-					ģ��ܽ�       	��Ƭ���ܽ�
-					CCD_AO	   		�鿴SEEKFREE_TSL1401.h�ļ��е�AD_CHANNEL �궨��
-					CCD_CLK	   		�鿴SEEKFREE_TSL1401.h�ļ��е�CCD_CLK_PIN�궨��
-					CCD_SI	   		�鿴SEEKFREE_TSL1401.h�ļ��е�CCD_SI_PIN �궨��
+					模块管脚       	单片机管脚
+					CCD_AO	   		查看SEEKFREE_TSL1401.h文件中的AD_CHANNEL 宏定义
+					CCD_CLK	   		查看SEEKFREE_TSL1401.h文件中的CCD_CLK_PIN宏定义
+					CCD_SI	   		查看SEEKFREE_TSL1401.h文件中的CCD_SI_PIN 宏定义
 					------------------------------------ 
  ********************************************************************************************************************/
 
@@ -35,11 +35,11 @@
 
 
 uint8 tsl1401_finish_flag;
-uint16 ccd_data_ch1[128];                           //CCD����
-uint16 ccd_data_ch2[128];                       //CCD����ͨ��2
+uint16 ccd_data_ch1[128];                           //CCD数据
+uint16 ccd_data_ch2[128];                       //CCD数据通道2
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      TSL1401����CCD��ʼ��
+//  @brief      TSL1401线阵CCD初始化
 //  @param      NULL
 //  @return     void
 //  @since      v1.0
@@ -53,12 +53,12 @@ void ccd_init(void)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      TSL1401����CCDͼ��������λ���鿴ͼ��
-//  @param      uart_n			���ں�
-//  @param      uart_n			����CCD����ָ��
+//  @brief      TSL1401线阵CCD图像发送至上位机查看图像
+//  @param      uart_n			串口号
+//  @param      uart_n			线性CCD数据指针
 //  @return     void			
 //  @since      v1.0
-//  Sample usage:				���øú���ǰ���ȳ�ʼ������
+//  Sample usage:				调用该函数前请先初始化串口
 //-------------------------------------------------------------------------------------------------------------------
 void ccd_send_data(UARTN_enum uart_n ,uint16 *dat)
 {
@@ -70,18 +70,18 @@ void ccd_send_data(UARTN_enum uart_n ,uint16 *dat)
    
 	for(i=0; i<128; i++)        
 	{
-		uart_putchar(uart_n, (uint8)(dat[i]>>8));   //���͸�8λ
-		uart_putchar(uart_n, (uint8)(dat[i]&0XFF)); //���͸ߵ�8λ	 	
+		uart_putchar(uart_n, (uint8)(dat[i]>>8));   //发送高8位
+		uart_putchar(uart_n, (uint8)(dat[i]&0XFF)); //发送高低8位	 	
 	}
 }
 
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      TSL1401����CCD���ݲɼ�
+//  @brief      TSL1401线阵CCD数据采集
 //  @param      NULL
 //  @return     void
 //  @since      v1.0
-//  Sample usage:				��isr.c�����ȴ�����Ӧ���жϺ�����Ȼ����øú���(֮�����������жϱ�־λ)
+//  Sample usage:				在isr.c里面先创建对应的中断函数，然后调用该函数(之后别忘记清除中断标志位)
 //-------------------------------------------------------------------------------------------------------------------
 void ccd_collect(void)
 {

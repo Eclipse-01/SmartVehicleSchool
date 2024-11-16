@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  straight                                                           14/11/24  19:52:40  PAGE 1   
+C251 COMPILER V5.60.0,  straight                                                           15/11/24  23:08:07  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE straight
@@ -19,9 +19,9 @@ stmt  level    source
     7          #include "straight.h"
     8          
     9          /*PID参数调节器*/
-   10          float Kp = 0.05;
+   10          float Kp = 0.5;
    11          float Ki = 0;
-   12          float Kd = 0.05;
+   12          float Kd = 0.3;
    13          float reactFactor = 1; 
    14          
    15          // 添加积分和微分的最大值变量
@@ -34,167 +34,182 @@ stmt  level    source
    22           */
    23          uint8 straight_entrance(void){
    24   1          ips200_clear();
-   25   1          ips200_show_string(0,0,"Car is running straight");
-   26   1          PID_control();
-   27   1          return 0;
-   28   1      }
-   29          
-   30          /**
-   31           * @brief PID控制函数
-   32           */
-   33          void PID_control(void){
-   34   1          int position;
-   35   1          static int last_error = 0;
-   36   1          static int integral = 0;
-   37   1          int angle;
-   38   1          while(1){
-   39   2          position = Line_calculate_position();
-   40   2          integral += position;
-   41   2          angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
-   42   2          last_error = position;
-   43   2          servo_set_position(angle);
-   44   2          drv8701_control(MOTOR_BOTH,0);
-   45   2          if (integral > MAX_INTEGRAL)
-   46   2              integral = MAX_INTEGRAL;
-   47   2          if (integral < -MAX_INTEGRAL)
-   48   2              integral = -MAX_INTEGRAL;
-   49   2          if (last_error > MAX_DERIVATIVE)
-   50   2              last_error = MAX_DERIVATIVE;
-   51   2          if (last_error < -MAX_DERIVATIVE)
-   52   2              last_error = -MAX_DERIVATIVE;
-   53   2          delay_ms(10);
-   54   2          }
-   55   1      }
-   56          
-C251 COMPILER V5.60.0,  straight                                                           14/11/24  19:52:40  PAGE 2   
+   25   1          while(1){
+   26   2          PID_control_straint();
+   27   2          delay_ms(10);
+   28   2          }
+   29   1          return 0;
+   30   1      }
+   31          
+   32          /**
+   33           * @brief PID控制函数
+   34           */
+   35          
+   36          int position;
+   37          static int last_error = 0;
+   38          static int integral = 0;
+   39          int angle;
+   40          
+   41          void PID_control_straint(void) {
+   42   1      
+   43   1          position = Line_calculate_position();
+   44   1          integral += position;
+   45   1          angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
+   46   1          last_error = position;
+   47   1          servo_set_position(angle);
+   48   1          drv8701_control(MOTOR_BOTH, 35);
+   49   1      
+   50   1          if (integral > MAX_INTEGRAL)
+   51   1              integral = MAX_INTEGRAL;
+   52   1          if (integral < -MAX_INTEGRAL)
+   53   1              integral = -MAX_INTEGRAL;
+   54   1          if (last_error > MAX_DERIVATIVE)
+   55   1              last_error = MAX_DERIVATIVE;
+   56   1          if (last_error < -MAX_DERIVATIVE)
+C251 COMPILER V5.60.0,  straight                                                           15/11/24  23:08:07  PAGE 2   
 
-   57          /**
-   58           * @brief 异常处理函数
-   59           * @param exception_code 异常代码
-   60           */
-   61          void exception_handler(int exception_code)
-   62          {
-   63   1          ips200_clear();
-   64   1          ips200_show_string(0,0,"Exception occured");
-   65   1          switch(exception_code){
-   66   2              case 999:
-   67   2                  ips200_show_string(16,0,"System error");
-   68   2                  break;
-   69   2              case 998:
-   70   2                  ips200_show_string(16,0,"Divide by zero");
-   71   2                  break;
-   72   2              case 997:
-   73   2                  ips200_show_string(16,0,"Line lost");
-   74   2                  break;
-   75   2              case 996:
-   76   2                  ips200_show_string(16,0,"Cross line");
-   77   2                  return;
-   78   2              case 995:
-   79   2                  ips200_show_string(16,0,"Left roundabout");
-   80   2                  break;
-   81   2              case 994:
-   82   2                  ips200_show_string(16,0,"Right roundabout");
-   83   2                  break;
-   84   2              default:
-   85   2                  ips200_show_string(16,0,"Unknown error");
-   86   2          }
-   87   1      }
-   88          
-   89          /**
-   90           * @brief 计算线的位置
-   91           * 
-   92           * 根据滤波后的ADC值计算线的位置。
-   93           * 
-   94           * @return int 线的位置，或错误代码
-   95           * @warning 小心使用
-   96           */
-   97          int Line_calculate_position()
-   98          {
-   99   1          float adc1, adc2, adc3, adc4, denominator, position;
-  100   1          char string_buffer[50];
-  101   1          Line_read_raw();
-  102   1          //归一化处理，范围是0-100
-  103   1          adc1 = ((float)adc_value.ADC1 * 100) / 4095;
-  104   1          adc2 = ((float)adc_value.ADC2 * 100) / 4095;
-  105   1          adc3 = ((float)adc_value.ADC3 * 100) / 4095;
-  106   1          adc4 = ((float)adc_value.ADC4 * 100) / 4095;
-  107   1      
-  108   1          denominator = adc1 + adc2 + adc3 + adc4;
-  109   1      
-  110   1          // //判断线的大致位置，使用两个传感器的值,adc1 和 adc4
-  111   1          // if (adc1 > 1000 || adc4 > 1000)
-  112   1          //     return 999; // 系统错误
-  113   1          if (denominator == 0)
-  114   1              return 0; // 除零错误
-  115   1          if (denominator < 50)
-  116   1              return 0; // 线丢失
-  117   1          // if ((adc1 + adc4) < 100)
-  118   1          //     return 997; // 线丢失
-  119   1          // if (adc1 > 800 && adc2 > 800)
-  120   1          //     return 996;                                 // 十字线
-  121   1          // if ((adc1 - adc2) > 200)                        //左环岛处理
-  122   1          // {
-C251 COMPILER V5.60.0,  straight                                                           14/11/24  19:52:40  PAGE 3   
+   57   1              last_error = -MAX_DERIVATIVE;
+   58   1      
+   59   1      }
+   60          
+   61          
+   62          void PID_control_ring(void) {
+   63   1      
+   64   1          position = Line_calculate_position_ring();
+   65   1          integral += position;
+   66   1          angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
+   67   1          last_error = position;
+   68   1          servo_set_position(angle);
+   69   1          drv8701_control(MOTOR_BOTH, 35);
+   70   1      
+   71   1          if (integral > MAX_INTEGRAL)
+   72   1              integral = MAX_INTEGRAL;
+   73   1          if (integral < -MAX_INTEGRAL)
+   74   1              integral = -MAX_INTEGRAL;
+   75   1          if (last_error > MAX_DERIVATIVE)
+   76   1              last_error = MAX_DERIVATIVE;
+   77   1          if (last_error < -MAX_DERIVATIVE)
+   78   1              last_error = -MAX_DERIVATIVE;
+   79   1      
+   80   1      }
+   81          
+   82          
+   83          /**
+   84           * @brief 异常处理函数
+   85           * @param exception_code 异常代码
+   86           */
+   87          void exception_handler(int exception_code)
+   88          {
+   89   1          ips200_clear();
+   90   1          ips200_show_string(0,0,"Exception occured");
+   91   1          switch(exception_code){
+   92   2              case 999:
+   93   2                  ips200_show_string(16,0,"System error");
+   94   2                  break;
+   95   2              case 998:
+   96   2                  ips200_show_string(16,0,"Divide by zero");
+   97   2                  break;
+   98   2              case 997:
+   99   2                  ips200_show_string(16,0,"Line lost");
+  100   2                  break;
+  101   2              case 996:
+  102   2                  ips200_show_string(16,0,"Cross line");
+  103   2                  return;
+  104   2              case 995:
+  105   2                  ips200_show_string(16,0,"Left roundabout");
+  106   2                  break;
+  107   2              case 994:
+  108   2                  ips200_show_string(16,0,"Right roundabout");
+  109   2                  break;
+  110   2              default:
+  111   2                  ips200_show_string(16,0,"Unknown error");
+  112   2          }
+  113   1      }
+  114          
+  115          /**
+  116           * @brief 计算线的位置
+  117           * 
+  118           * 根据滤波后的ADC值计算线的位置，还能检测环岛
+  119           * 
+  120           * @return int 线的位置
+  121           * @warning 小心使用
+  122           */
+C251 COMPILER V5.60.0,  straight                                                           15/11/24  23:08:07  PAGE 3   
 
-  123   1          //     delay_ms(100);
-  124   1          //     if ((adc1 - adc2) > 250)
-  125   1          //     {
-  126   1          //         return 995;//左环岛
-  127   1          //     }
-  128   1          // }
-  129   1          // if ((adc4 - adc3) > 200)                        //右环岛处理
-  130   1          // {
-  131   1          //     delay_ms(100);
-  132   1          //     if ((adc4 - adc3) > 250)
-  133   1          //     {
-  134   1          //         return 994;//右环岛
-  135   1          //     }
-  136   1          // }
-  137   1          // 使用差比和算法计算位置
-  138   1          position = ((adc1 - adc4) + (adc2 - adc3)) * 1000.0 / denominator;
-  139   1          //屏幕显示
-  140   1          sprintf(string_buffer, "ADC1:%d    ", (int)adc1);
-  141   1          ips200_show_string(0, 32, string_buffer);
-  142   1          sprintf(string_buffer, "ADC2:%d    ", (int)adc2);
-  143   1          ips200_show_string(0, 48, string_buffer);
-  144   1          sprintf(string_buffer, "ADC3:%d    ", (int)adc3);
-  145   1          ips200_show_string(0, 64, string_buffer);
-  146   1          sprintf(string_buffer, "ADC4:%d    ", (int)adc4);
-  147   1          ips200_show_string(0, 80, string_buffer);
-  148   1          sprintf(string_buffer, "Denominator:%d    ", (int)denominator);
-  149   1          ips200_show_string(0, 96, string_buffer);
-  150   1          sprintf(string_buffer, "Position:%d    ", (int)position);
-  151   1          ips200_show_string(0, 112, string_buffer);
-  152   1          sprintf(string_buffer, "Oringinal adc1:%d    ", adc_value.ADC1);
-  153   1          ips200_show_string(0, 128, string_buffer);
-  154   1          sprintf(string_buffer, "Oringinal adc2:%d    ", adc_value.ADC2);
-  155   1          ips200_show_string(0, 144, string_buffer);
-  156   1          sprintf(string_buffer, "Oringinal adc3:%d    ", adc_value.ADC3);
-  157   1          ips200_show_string(0, 160, string_buffer);
-  158   1          sprintf(string_buffer, "Oringinal adc4:%d    ", adc_value.ADC4);
-  159   1          ips200_show_string(0, 176, string_buffer);
-  160   1          return (int)-position;
-  161   1      }
+  123          
+  124          extern uint8 RING_FLAG; // 声明外部变量
+  125          int Line_calculate_position()
+  126          {
+  127   1          float adc1, adc2, adc3, adc4, denominator, position;
+  128   1          Line_read_raw();
+  129   1      
+  130   1          //归一化处理，范围是0-100
+  131   1          adc1 = ((float)adc_value.ADC1 * 100) / 4095;
+  132   1          adc2 = ((float)adc_value.ADC2 * 100) / 4095;
+  133   1          adc3 = ((float)adc_value.ADC3 * 100) / 4095;
+  134   1          adc4 = ((float)adc_value.ADC4 * 100) / 4095;
+  135   1      
+  136   1          if (adc1 > adc2 && adc3 >adc4 && adc1 > 60 && adc4 < 40 && RING_FLAG == 0)
+  137   1              {
+  138   2                  RING_FLAG = 1;
+  139   2                  ring_handler();
+  140   2              }
+  141   1          denominator = adc1 + adc4;
+  142   1          if (denominator == 0)
+  143   1              denominator = 1;
+  144   1          position = (adc4 - adc1) / denominator * 100;
+  145   1          return position;
+  146   1      }
+  147          
+  148          
+  149          /**
+  150           * @brief 计算线的位置
+  151           * 
+  152           * 根据滤波后的ADC值计算线的位置，在环岛内使用
+  153           * 
+  154           * @return int 线的位置
+  155           * @warning 小心使用
+  156           */
+  157          
+  158          extern uint8 RING_FLAG; // 声明外部变量
+  159          int Line_calculate_position_ring()
+  160          {
+  161   1          float adc1, adc2, adc3, adc4, denominator, position;
+  162   1          Line_read_raw();
+  163   1      
+  164   1          //归一化处理，范围是0-100
+  165   1          adc1 = ((float)adc_value.ADC1 * 100) / 4095;
+  166   1          adc2 = ((float)adc_value.ADC2 * 100) / 4095;
+  167   1          adc3 = ((float)adc_value.ADC3 * 100) / 4095;
+  168   1          adc4 = ((float)adc_value.ADC4 * 100) / 4095;
+  169   1          denominator = adc1 + adc4;
+  170   1          if (denominator == 0)
+  171   1              denominator = 1;
+  172   1          position = (adc4 - adc1) / denominator * 100;
+  173   1          return position;
+  174   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      1106     ------
+  code size            =      1193     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =       108     ------
+  edata size           =        82     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
+C251 COMPILER V5.60.0,  straight                                                           15/11/24  23:08:07  PAGE 4   
+
   ebitaddressable size =    ------     ------
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =       369     ------
+  hconst size          =       174     ------
 End of Module Information.
 
 

@@ -47,7 +47,6 @@
 #include "SEEKFREE_DL1A.h"
 #include "SEEKFREE_DL1B.h"
 #include "SEEKFREE_IPS200_SPI.h"
-#include "SEEKFREE_BLE6A20.h"
 
 //------逐飞科技组件层头文件
 #include "seekfree_assistant.h"
@@ -60,7 +59,7 @@
 #include "encoder.h" //编码器
 #include "line.h" //寻线
 #include "straight.h" //直行
-//#include "ring.h" //转弯
+#include "ring.h" //转弯
 
 //参数
 #define Servo_MaxAngle 50

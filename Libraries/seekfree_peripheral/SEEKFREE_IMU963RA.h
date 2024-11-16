@@ -1,39 +1,39 @@
 /*********************************************************************************************************************
  * COPYRIGHT NOTICE
- * Copyright (c) 2018,Öð·É¿Æ¼¼
+ * Copyright (c) 2018,é€é£žç§‘æŠ€
  * All rights reserved.
- * ¼¼ÊõÌÖÂÛQQÈº£ºÒ»Èº£º179029047(ÒÑÂú)  ¶þÈº£º244861897
+ * æŠ€æœ¯è®¨è®ºQQç¾¤ï¼šä¸€ç¾¤ï¼š179029047(å·²æ»¡)  äºŒç¾¤ï¼š244861897
  *
- * ÒÔÏÂËùÓÐÄÚÈÝ°æÈ¨¾ùÊôÖð·É¿Æ¼¼ËùÓÐ£¬Î´¾­ÔÊÐí²»µÃÓÃÓÚÉÌÒµÓÃÍ¾£¬
- * »¶Ó­¸÷Î»Ê¹ÓÃ²¢´«²¥±¾³ÌÐò£¬ÐÞ¸ÄÄÚÈÝÊ±±ØÐë±£ÁôÖð·É¿Æ¼¼µÄ°æÈ¨ÉùÃ÷¡£
+ * ä»¥ä¸‹æ‰€æœ‰å†…å®¹ç‰ˆæƒå‡å±žé€é£žç§‘æŠ€æ‰€æœ‰ï¼Œæœªç»å…è®¸ä¸å¾—ç”¨äºŽå•†ä¸šç”¨é€”ï¼Œ
+ * æ¬¢è¿Žå„ä½ä½¿ç”¨å¹¶ä¼ æ’­æœ¬ç¨‹åºï¼Œä¿®æ”¹å†…å®¹æ—¶å¿…é¡»ä¿ç•™é€é£žç§‘æŠ€çš„ç‰ˆæƒå£°æ˜Žã€‚
  *
  * @file       		IMU963RA
- * @company	   		³É¶¼Öð·É¿Æ¼¼ÓÐÏÞ¹«Ë¾
- * @author     		Öð·É¿Æ¼¼(QQ3184284598)
- * @version    		²é¿´docÄÚversionÎÄ¼þ °æ±¾ËµÃ÷
+ * @company	   		æˆéƒ½é€é£žç§‘æŠ€æœ‰é™å…¬å¸
+ * @author     		é€é£žç§‘æŠ€(QQ3184284598)
+ * @version    		æŸ¥çœ‹docå†…versionæ–‡ä»¶ ç‰ˆæœ¬è¯´æ˜Ž
  * @Software 		MDK FOR C251 V5.60
  * @Target core		STC32F12K
  * @Taobao   		https://seekfree.taobao.com/
  * @date       		2019-04-30
  * @note		
- * ½ÓÏß¶¨Òå£º
+ * æŽ¥çº¿å®šä¹‰ï¼š
  *                   ------------------------------------
- *                   Ä£¿é¹Ü½Å            µ¥Æ¬»ú¹Ü½Å
- *                   // Ó²¼þ SPI Òý½Å
- *                   SCL/SPC             ²é¿´ SEEKFREE_IMU963RA.h ÖÐ IMU963RA_SPC_PIN ºê¶¨Òå
- *                   SDA/DSI             ²é¿´ SEEKFREE_IMU963RA.h ÖÐ IMU963RA_SDI_PIN ºê¶¨Òå
- *                   SA0/SDO             ²é¿´ SEEKFREE_IMU963RA.h ÖÐ IMU963RA_SDO_PIN ºê¶¨Òå
- *                   CS                  ²é¿´ SEEKFREE_IMU963RA.h ÖÐ IMU963RA_CS_PIN  ºê¶¨Òå
- *                   VCC                 3.3VµçÔ´
- *                   GND                 µçÔ´µØ
- *                   ÆäÓàÒý½ÅÐü¿Õ
+ *                   æ¨¡å—ç®¡è„š            å•ç‰‡æœºç®¡è„š
+ *                   // ç¡¬ä»¶ SPI å¼•è„š
+ *                   SCL/SPC             æŸ¥çœ‹ SEEKFREE_IMU963RA.h ä¸­ IMU963RA_SPC_PIN å®å®šä¹‰
+ *                   SDA/DSI             æŸ¥çœ‹ SEEKFREE_IMU963RA.h ä¸­ IMU963RA_SDI_PIN å®å®šä¹‰
+ *                   SA0/SDO             æŸ¥çœ‹ SEEKFREE_IMU963RA.h ä¸­ IMU963RA_SDO_PIN å®å®šä¹‰
+ *                   CS                  æŸ¥çœ‹ SEEKFREE_IMU963RA.h ä¸­ IMU963RA_CS_PIN  å®å®šä¹‰
+ *                   VCC                 3.3Vç”µæº
+ *                   GND                 ç”µæºåœ°
+ *                   å…¶ä½™å¼•è„šæ‚¬ç©º
  
- *                   // Èí¼þ IIC Òý½Å
- *                   SCL/SPC             ²é¿´ SEEKFREE_IMU963RA.h ÖÐ IMU963RA_SCL_PIN ºê¶¨Òå
- *                   SDA/DSI             ²é¿´ SEEKFREE_IMU963RA.h ÖÐ IMU963RA_SDA_PIN ºê¶¨Òå
- *                   VCC                 3.3VµçÔ´
- *                   GND                 µçÔ´µØ
- *                   ÆäÓàÒý½ÅÐü¿Õ
+ *                   // è½¯ä»¶ IIC å¼•è„š
+ *                   SCL/SPC             æŸ¥çœ‹ SEEKFREE_IMU963RA.h ä¸­ IMU963RA_SCL_PIN å®å®šä¹‰
+ *                   SDA/DSI             æŸ¥çœ‹ SEEKFREE_IMU963RA.h ä¸­ IMU963RA_SDA_PIN å®å®šä¹‰
+ *                   VCC                 3.3Vç”µæº
+ *                   GND                 ç”µæºåœ°
+ *                   å…¶ä½™å¼•è„šæ‚¬ç©º
  *                   ------------------------------------
 ********************************************************************************************************************/
 
@@ -43,27 +43,27 @@
 #include "common.h"
 #include "board.h"
 
-#define IMU963RA_USE_SOFT_IIC       	(0)       	// Ä¬ÈÏÊ¹ÓÃÈí¼þ SPI ·½Ê½Çý¶¯
+#define IMU963RA_USE_SOFT_IIC       	(0)       	// é»˜è®¤ä½¿ç”¨è½¯ä»¶ SPI æ–¹å¼é©±åŠ¨
 
 #if IMU963RA_USE_SOFT_IIC                                         
-//=====================================================Èí¼þ IIC Çý¶¯====================================================
-	#define IMU963RA_SCL_PIN            (P40)     	// Èí¼þ IIC SCL Òý½Å Á¬½Ó IMU660RA µÄ SCL Òý½Å
-	#define IMU963RA_SDA_PIN            (P41)      	// Èí¼þ IIC SDA Òý½Å Á¬½Ó IMU660RA µÄ SDA Òý½Å
-	#define IMU963RA_SOFT_IIC_DELAY     (0  )   	// Èí¼þ IIC µÄÊ±ÖÓÑÓÊ±ÖÜÆÚ ÊýÖµÔ½Ð¡ IIC Í¨ÐÅËÙÂÊÔ½¿ì
-//=====================================================Èí¼þ IIC Çý¶¯====================================================
+//=====================================================è½¯ä»¶ IIC é©±åŠ¨====================================================
+	#define IMU963RA_SCL_PIN            (P40)     	// è½¯ä»¶ IIC SCL å¼•è„š è¿žæŽ¥ IMU660RA çš„ SCL å¼•è„š
+	#define IMU963RA_SDA_PIN            (P41)      	// è½¯ä»¶ IIC SDA å¼•è„š è¿žæŽ¥ IMU660RA çš„ SDA å¼•è„š
+	#define IMU963RA_SOFT_IIC_DELAY     (0  )   	// è½¯ä»¶ IIC çš„æ—¶é’Ÿå»¶æ—¶å‘¨æœŸ æ•°å€¼è¶Šå° IIC é€šä¿¡é€ŸçŽ‡è¶Šå¿«
+//=====================================================è½¯ä»¶ IIC é©±åŠ¨====================================================
 #else
-//=====================================================Èí¼þ SPI Çý¶¯====================================================
-	#define IMU963RA_SPC_PIN            (P40)      	// Èí¼þ SPI SCK Òý½Å
-	#define IMU963RA_SDI_PIN            (P41)      	// Èí¼þ SPI MOSI Òý½Å
-	#define IMU963RA_SDO_PIN            (P42)      	// Èí¼þ SPI MISO Òý½Å
-	#define IMU963RA_CS_PIN             (P43)      	// Èí¼þ SPI CS Òý½Å
-//=====================================================Èí¼þ SPI Çý¶¯====================================================
+//=====================================================è½¯ä»¶ SPI é©±åŠ¨====================================================
+	#define IMU963RA_SPC_PIN            (P40)      	// è½¯ä»¶ SPI SCK å¼•è„š
+	#define IMU963RA_SDI_PIN            (P41)      	// è½¯ä»¶ SPI MOSI å¼•è„š
+	#define IMU963RA_SDO_PIN            (P42)      	// è½¯ä»¶ SPI MISO å¼•è„š
+	#define IMU963RA_CS_PIN             (P43)      	// è½¯ä»¶ SPI CS å¼•è„š
+//=====================================================è½¯ä»¶ SPI é©±åŠ¨====================================================
 #endif
 
-#define IMU963RA_TIMEOUT_COUNT                      (0x00FF)                    // IMU963RA ³¬Ê±¼ÆÊý
+#define IMU963RA_TIMEOUT_COUNT                      (0x00FF)                    // IMU963RA è¶…æ—¶è®¡æ•°
 
-//================================================¶¨Òå IMU963RA ÄÚ²¿µØÖ·================================================
-#define IMU963RA_DEV_ADDR                           (0x6B)                      // SA0½ÓµØ£º0x6A SA0ÉÏÀ­£º0x6B Ä£¿éÄ¬ÈÏÉÏÀ­
+//================================================å®šä¹‰ IMU963RA å†…éƒ¨åœ°å€================================================
+#define IMU963RA_DEV_ADDR                           (0x6B)                      // SA0æŽ¥åœ°ï¼š0x6A SA0ä¸Šæ‹‰ï¼š0x6B æ¨¡å—é»˜è®¤ä¸Šæ‹‰
 #define IMU963RA_SPI_W                              (0x00)
 #define IMU963RA_SPI_R                              (0x80)
 
@@ -149,7 +149,7 @@
 #define IMU963RA_FIFO_DATA_OUT_Z_L                  (0x7D)
 #define IMU963RA_FIFO_DATA_OUT_Z_H                  (0x7E)
 
-//¼¯ÏßÆ÷¹¦ÄÜÏà¹Ø¼Ä´æÆ÷ ÐèÒª½«FUNC_CFG_ACCESSµÄSHUB_REG_ACCESSÎ»ÉèÖÃÎª1²ÅÄÜÕýÈ··ÃÎÊ
+//é›†çº¿å™¨åŠŸèƒ½ç›¸å…³å¯„å­˜å™¨ éœ€è¦å°†FUNC_CFG_ACCESSçš„SHUB_REG_ACCESSä½è®¾ç½®ä¸º1æ‰èƒ½æ­£ç¡®è®¿é—®
 #define IMU963RA_SENSOR_HUB_1                       (0x02) 
 #define IMU963RA_SENSOR_HUB_2                       (0x03) 
 #define IMU963RA_SENSOR_HUB_3                       (0x04) 
@@ -184,32 +184,32 @@
 #define IMU963RA_DATAWRITE_SLV0                     (0x21) 
 #define IMU963RA_STATUS_MASTER                      (0x22)
 
-#define IMU963RA_MAG_ADDR                           (0x0D)                      // 7Î»IICµØÖ·
+#define IMU963RA_MAG_ADDR                           (0x0D)                      // 7ä½IICåœ°å€
 #define IMU963RA_MAG_OUTX_L                         (0x00)
 #define IMU963RA_MAG_CONTROL1                       (0x09)
 #define IMU963RA_MAG_CONTROL2                       (0x0A)
 #define IMU963RA_MAG_FBR                            (0x0B)
 #define IMU963RA_MAG_CHIP_ID                        (0x0D)
 
-#define IMU963RA_ACC_SAMPLE                         (0x3C)                      // ¼ÓËÙ¶È¼ÆÁ¿³Ì
-// ÉèÖÃÎª:0x30 ¼ÓËÙ¶ÈÁ¿³ÌÎª:¡À2G      »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ16393£¬¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºg(m/s^2)
-// ÉèÖÃÎª:0x38 ¼ÓËÙ¶ÈÁ¿³ÌÎª:¡À4G      »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ8197£¬ ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºg(m/s^2)
-// ÉèÖÃÎª:0x3C ¼ÓËÙ¶ÈÁ¿³ÌÎª:¡À8G      »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ4098£¬ ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºg(m/s^2)
-// ÉèÖÃÎª:0x34 ¼ÓËÙ¶ÈÁ¿³ÌÎª:¡À16G     »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ2049£¬ ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºg(m/s^2)
+#define IMU963RA_ACC_SAMPLE                         (0x3C)                      // åŠ é€Ÿåº¦è®¡é‡ç¨‹
+// è®¾ç½®ä¸º:0x30 åŠ é€Ÿåº¦é‡ç¨‹ä¸º:Â±2G      èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥16393ï¼Œå¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šg(m/s^2)
+// è®¾ç½®ä¸º:0x38 åŠ é€Ÿåº¦é‡ç¨‹ä¸º:Â±4G      èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥8197ï¼Œ å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šg(m/s^2)
+// è®¾ç½®ä¸º:0x3C åŠ é€Ÿåº¦é‡ç¨‹ä¸º:Â±8G      èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥4098ï¼Œ å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šg(m/s^2)
+// è®¾ç½®ä¸º:0x34 åŠ é€Ÿåº¦é‡ç¨‹ä¸º:Â±16G     èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥2049ï¼Œ å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šg(m/s^2)
 
-#define IMU963RA_GYR_SAMPLE                         (0x5C)                      // ÍÓÂÝÒÇÁ¿³Ì
-// ÉèÖÃÎª:0x52 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À125dps  »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ228.6£¬   ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
-// ÉèÖÃÎª:0x50 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À250dps  »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ114.3£¬   ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
-// ÉèÖÃÎª:0x54 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À500dps  »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ57.1£¬    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
-// ÉèÖÃÎª:0x58 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À1000dps »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ28.6£¬    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
-// ÉèÖÃÎª:0x5C ÍÓÂÝÒÇÁ¿³ÌÎª:¡À2000dps »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ14.3£¬    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
-// ÉèÖÃÎª:0x51 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À4000dps »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ7.1£¬     ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
+#define IMU963RA_GYR_SAMPLE                         (0x5C)                      // é™€èžºä»ªé‡ç¨‹
+// è®¾ç½®ä¸º:0x52 é™€èžºä»ªé‡ç¨‹ä¸º:Â±125dps  èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥228.6ï¼Œ   å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
+// è®¾ç½®ä¸º:0x50 é™€èžºä»ªé‡ç¨‹ä¸º:Â±250dps  èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥114.3ï¼Œ   å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
+// è®¾ç½®ä¸º:0x54 é™€èžºä»ªé‡ç¨‹ä¸º:Â±500dps  èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥57.1ï¼Œ    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
+// è®¾ç½®ä¸º:0x58 é™€èžºä»ªé‡ç¨‹ä¸º:Â±1000dps èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥28.6ï¼Œ    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
+// è®¾ç½®ä¸º:0x5C é™€èžºä»ªé‡ç¨‹ä¸º:Â±2000dps èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥14.3ï¼Œ    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
+// è®¾ç½®ä¸º:0x51 é™€èžºä»ªé‡ç¨‹ä¸º:Â±4000dps èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥7.1ï¼Œ     å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
 
-#define IMU963RA_MAG_SAMPLE                         (0x19)                      // µØ´Å¼ÆÁ¿³Ì
-// ÉèÖÃÎª:0x19 ´ÅÁ¦¼ÆÁ¿³ÌÎª:8G     »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ3000£¬ ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºG(¸ßË¹)
-// ÉèÖÃÎª:0x09 ´ÅÁ¦¼ÆÁ¿³ÌÎª:2G     »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ12000£¬¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºG(¸ßË¹)
+#define IMU963RA_MAG_SAMPLE                         (0x19)                      // åœ°ç£è®¡é‡ç¨‹
+// è®¾ç½®ä¸º:0x19 ç£åŠ›è®¡é‡ç¨‹ä¸º:8G     èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥3000ï¼Œ å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šG(é«˜æ–¯)
+// è®¾ç½®ä¸º:0x09 ç£åŠ›è®¡é‡ç¨‹ä¸º:2G     èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥12000ï¼Œå¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šG(é«˜æ–¯)
 
-//================================================¶¨Òå IMU963RA ÄÚ²¿µØÖ·================================================
+//================================================å®šä¹‰ IMU963RA å†…éƒ¨åœ°å€================================================
 
 extern int16 imu963ra_acc_x,  imu963ra_acc_y,  imu963ra_acc_z;
 extern int16 imu963ra_gyro_x, imu963ra_gyro_y, imu963ra_gyro_z;
@@ -218,9 +218,9 @@ extern int16 imu963ra_mag_x,  imu963ra_mag_y,  imu963ra_mag_z;
 void    imu963ra_get_acc            (void);
 void    imu963ra_get_gyro           (void);
 void    imu963ra_get_mag            (void);
-float   imu963ra_acc_transition     (int16 acc_value);                          // ½« IMU963RA ¼ÓËÙ¶È¼ÆÊý¾Ý×ª»»ÎªÊµ¼ÊÎïÀíÊý¾Ý
-float   imu963ra_gyro_transition    (int16 gyro_value);                         // ½« IMU963RA ÍÓÂÝÒÇÊý¾Ý×ª»»ÎªÊµ¼ÊÎïÀíÊý¾Ý
-float   imu963ra_mag_transition     (int16 mag_value);                          // ½« IMU963RA µØ´Å¼ÆÊý¾Ý×ª»»ÎªÊµ¼ÊÎïÀíÊý¾Ý
+float   imu963ra_acc_transition     (int16 acc_value);                          // å°† IMU963RA åŠ é€Ÿåº¦è®¡æ•°æ®è½¬æ¢ä¸ºå®žé™…ç‰©ç†æ•°æ®
+float   imu963ra_gyro_transition    (int16 gyro_value);                         // å°† IMU963RA é™€èžºä»ªæ•°æ®è½¬æ¢ä¸ºå®žé™…ç‰©ç†æ•°æ®
+float   imu963ra_mag_transition     (int16 mag_value);                          // å°† IMU963RA åœ°ç£è®¡æ•°æ®è½¬æ¢ä¸ºå®žé™…ç‰©ç†æ•°æ®
 
 uint8   imu963ra_init               (void);
 

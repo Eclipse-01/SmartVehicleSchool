@@ -57,12 +57,15 @@ void UART2_Isr() interrupt 8
 	{
         UART2_CLEAR_RX_FLAG;
 		//接收数据寄存器为：S2BUF
-		if(wireless_module_uart_handler != NULL)
-		{
-			// 该函数为函数指针
-			// 再初始化无线模块的时候，设置该函数地址
-			wireless_module_uart_handler(S2BUF);
-		}
+		if(wireless_type == WIRELESS_SI24R1)
+        {
+            wireless_uart_callback();           //无线转串口回调函数
+        }
+        else if(wireless_type == WIRELESS_CH9141)
+        {
+            bluetooth_ch9141_uart_callback();   //蓝牙转串口回调函数
+        }
+
 	}
 }
 
@@ -96,8 +99,14 @@ void UART4_Isr() interrupt 18
 	{
         UART4_CLEAR_RX_FLAG;
 		//接收数据寄存器为：S4BUF;
-
-
+		if(wireless_type == WIRELESS_SI24R1)
+        {
+            wireless_uart_callback();           //无线转串口回调函数
+        }
+        else if(wireless_type == WIRELESS_CH9141)
+        {
+            bluetooth_ch9141_uart_callback();   //蓝牙转串口回调函数
+        }
 	}
 }
 
@@ -146,8 +155,8 @@ extern void pit_callback(void);
 void TM4_Isr() interrupt 20
 {
 	TIM4_CLEAR_FLAG; //清除中断标志
-	ccd_collect();	 //CCD采集数据
-//	pit_callback();
+//	ccd_collect();	 //CCD采集数据
+
 }
 
 //void  INT0_Isr()  interrupt 0;

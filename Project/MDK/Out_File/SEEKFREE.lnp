@@ -16,7 +16,6 @@
 ".\Out_File\globals.obj",
 ".\Out_File\SEEKFREE_18TFT.obj",
 ".\Out_File\SEEKFREE_BLUETOOTH_CH9141.obj",
-".\Out_File\SEEKFREE_BLE6A20.obj",
 "..\..\Libraries\seekfree_peripheral\SEEKFREE_CONFIG.LIB",
 ".\Out_File\SEEKFREE_DL1A.obj",
 ".\Out_File\SEEKFREE_DL1B.obj",

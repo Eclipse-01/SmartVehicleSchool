@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  zf_iic                                                             11/11/24  18:19:54  PAGE 1   
+C251 COMPILER V5.60.0,  zf_iic                                                             14/11/24  21:33:54  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE zf_iic
@@ -66,7 +66,7 @@ stmt  level    source
    48          {
    49   1          uint16 count = 0;
    50   1          uint8 ret = IIC_SEND_OK;
-C251 COMPILER V5.60.0,  zf_iic                                                             11/11/24  18:19:54  PAGE 2   
+C251 COMPILER V5.60.0,  zf_iic                                                             14/11/24  21:33:54  PAGE 2   
 
    51   1          while (!(I2CMSST & 0x40))
    52   1          {
@@ -134,7 +134,7 @@ stmt  level    source
              -------------
   108          //  @brief      内部使用用户无需关心
   109          //  @param      NULL              
-C251 COMPILER V5.60.0,  zf_iic                                                             11/11/24  18:19:54  PAGE 3   
+C251 COMPILER V5.60.0,  zf_iic                                                             14/11/24  21:33:54  PAGE 3   
 
   110          //  @return     void
   111          //  Sample usage:               无需用户调用，用户请使用h文件中的宏定义
@@ -202,7 +202,7 @@ stmt  level    source
   166          //-------------------------------------------------------------------------------------------------------
              -------------
   167          //  @brief      硬件IIC初始化
-C251 COMPILER V5.60.0,  zf_iic                                                             11/11/24  18:19:54  PAGE 4   
+C251 COMPILER V5.60.0,  zf_iic                                                             14/11/24  21:33:54  PAGE 4   
 
   168          //  @param      iic_n           选择IIC模块
   169          //  @param      wait_time       I2C总线速度（等待时钟数）控制: 速度设置为等待wait_time*2+1个时钟
@@ -270,7 +270,7 @@ stmt  level    source
   228   1          if(recv_ack() != IIC_SEND_OK)
   229   1              return IIC_SEND_FAIL;
   230   1          if(stop() != IIC_SEND_OK)
-C251 COMPILER V5.60.0,  zf_iic                                                             11/11/24  18:19:54  PAGE 5   
+C251 COMPILER V5.60.0,  zf_iic                                                             14/11/24  21:33:54  PAGE 5   
 
   231   1              return IIC_SEND_FAIL;
   232   1      
@@ -338,7 +338,7 @@ stmt  level    source
   290          //  @param      dat         读取的数据存储的地址
   291          //  @param      num         读取字节数
   292          //  @return     void
-C251 COMPILER V5.60.0,  zf_iic                                                             11/11/24  18:19:54  PAGE 6   
+C251 COMPILER V5.60.0,  zf_iic                                                             14/11/24  21:33:54  PAGE 6   
 
   293          //  @since      v1.0
   294          //  Sample usage:         uint8 value = i2c_read_reg(i2c0, 0x2D, 0x50, 10, buf);//读取0x50地址的数据，从机
@@ -406,7 +406,7 @@ stmt  level    source
   352   1          switch(iic_n) 
   353   1          {
   354   2          case IIC_1:
-C251 COMPILER V5.60.0,  zf_iic                                                             11/11/24  18:19:54  PAGE 7   
+C251 COMPILER V5.60.0,  zf_iic                                                             14/11/24  21:33:54  PAGE 7   
 
   355   2              P_SW2 |= (0x00<<4); //SCL:P1.5  SDA:P1.4
   356   2              break;

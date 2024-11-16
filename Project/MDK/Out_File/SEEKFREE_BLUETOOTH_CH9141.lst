@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          11/11/24  18:19:55  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          14/11/24  21:33:55  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_BLUETOOTH_CH9141
@@ -29,16 +29,16 @@ stmt  level    source
    15           * @Target core   STC32F12K
    16           * @Taobao      https://seekfree.taobao.com/
    17           * @date          2021-08-27
-   18           * @note
+   18           * @note    
    19                    ½ÓÏß¶¨Òå£º
-   20                    ------------------------------------
-   21                    À¶ÑÀ×ª´®¿Ú      µ¥Æ¬»ú
+   20                    ------------------------------------ 
+   21                    À¶ÑÀ×ª´®¿Ú      µ¥Æ¬»ú                        
    22                    RX              ²é¿´SEEKFREE_BLUETOOTH_CH9141.hÎÄ¼þÖÐµÄBLUETOOTH_CH9141_UART_TXºê¶¨Òå
    23                    TX              ²é¿´SEEKFREE_BLUETOOTH_CH9141.hÎÄ¼þÖÐµÄBLUETOOTH_CH9141_UART_RXºê¶¨Òå
    24                    RTS             ²é¿´SEEKFREE_BLUETOOTH_CH9141.hÎÄ¼þÖÐµÄBLUETOOTH_CH9141_RTS_PINºê¶¨Òå
    25                    CTS             Ðü¿Õ
    26                    CMD             Ðü¿Õ»òÕßÉÏÀ­
-   27                    ------------------------------------
+   27                    ------------------------------------ 
    28           ********************************************************************************************************
              -************/
    29          #include "stdio.h"
@@ -53,142 +53,141 @@ stmt  level    source
    38          #include "SEEKFREE_BLUETOOTH_CH9141.h"
    39          
    40          
-   41          
-   42          static  fifo_struct     bluetooth_ch9141_fifo;
-   43          static  uint8           bluetooth_ch9141_buffer[BLUETOOTH_CH9141_BUFFER_SIZE];  // Êý¾Ý´æ·ÅÊý×é
-   44          
-   45          static          uint8   bluetooth_ch9141_data;
-   46          
-   47          //-------------------------------------------------------------------------------------------------------
-             -------------
-   48          //  @brief      À¶ÑÀ×ª´®¿ÚÄ£¿é ´®¿ÚÖÐ¶Ï»Øµ÷º¯Êý
-   49          //  @param      void
-   50          //  @return     void
-   51          //  Sample usage:
-   52          //  @note       ¸Ãº¯ÊýÔÚISRÎÄ¼þ ´®¿ÚÖÐ¶Ï³ÌÐò±»µ÷ÓÃ
-C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          11/11/24  18:19:55  PAGE 2   
+   41          //uint8 uart_data;
+   42          //uint8 uart_flag;
+   43          
+   44          //vuint8 at_mode = 0;         //0:À¶ÑÀÍ¸´«Ä£Ê½ 1:ATÄ£Ê½ 2:Ä£¿é¸´Î»ÖÐ
+   45          //vuint8 at_mode_num;         //atÄ£Ê½Ê±ÓÃÓÚÖ¸Ê¾Êý¾Ý½ÓÊÕµÄÊýÁ¿
+   46          //vuint8 at_mode_data[30];    //½ÓÊÕatÃüÁîµÄ»º´æ
+   47          //vuint8 at_mode_cmd_flag;    //OKÓ¦´ðÃüÁî½ÓÊÕ³É¹¦µÄ±êÖ¾Î»
+   48          
+   49          //uint8 mac_address[17];      //±¾»úmacµØÖ·
+   50          
+   51          
+   52          //uint8 bluetooth_ch9141_rx_buffer;
+   53          
+C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          14/11/24  21:33:55  PAGE 2   
 
-   53          //-------------------------------------------------------------------------------------------------------
-             -------------
-   54          void bluetooth_ch9141_uart_callback (uint8 dat)
-   55          {
-   56   1          // ½Óµ½Ò»¸ö×Ö½Úºóµ¥Æ¬»ú½«»á½øÈë´®¿ÚÖÐ¶Ï£¬Í¨¹ýÔÚ´Ë´¦¶ÁÈ¡dat¿ÉÒÔÈ¡×ßÊý¾Ý
-   57   1          fifo_write_buffer(&bluetooth_ch9141_fifo, &dat, 1);       // ´æÈë FIFO
-   58   1      }
+   54          
+   55          static  fifo_struct     bluetooth_ch9141_fifo;
+   56          static  uint8           bluetooth_ch9141_buffer[BLUETOOTH_CH9141_BUFFER_SIZE];  // Êý¾Ý´æ·ÅÊý×é
+   57          
+   58          static          uint8   bluetooth_ch9141_data;
    59          
    60          //-------------------------------------------------------------------------------------------------------
              -------------
-   61          //  @brief      ÎÞÏß×ª´®¿ÚÄ£¿é ·¢ËÍº¯Êý
-   62          //  @param      buff            ÐèÒª·¢ËÍµÄÊý¾ÝµØÖ·
-   63          //  @param      len             ·¢ËÍ³¤¶È
-   64          //  @return     uint32          Ê£ÓàÎ´·¢ËÍµÄ×Ö½ÚÊý
-   65          //  Sample usage:
+   61          //  @brief      À¶ÑÀ×ª´®¿ÚÄ£¿é ´®¿ÚÖÐ¶Ï»Øµ÷º¯Êý
+   62          //  @param      void
+   63          //  @return     void
+   64          //  Sample usage:
+   65          //  @note       ¸Ãº¯ÊýÔÚISRÎÄ¼þ ´®¿ÚÖÐ¶Ï³ÌÐò±»µ÷ÓÃ
    66          //-------------------------------------------------------------------------------------------------------
              -------------
-   67          uint32 bluetooth_ch9141_send_buff (uint8 *buff, uint32 len)
+   67          void bluetooth_ch9141_uart_callback (void)
    68          {
-   69   1          uint16 time_count = 0;
-   70   1          while(len > 30)
-   71   1          {
-   72   2              time_count = 0;
-   73   2              while(BLUETOOTH_CH9141_RTS_PIN && time_count++ < BLUETOOTH_CH9141_TIMEOUT_COUNT)  // Èç¹ûRTSÎªµÍµ
-             -çÆ½£¬Ôò¼ÌÐø·¢ËÍÊý¾Ý
-   74   2                  delay_ms(1);
-   75   2              if(time_count >= BLUETOOTH_CH9141_TIMEOUT_COUNT)
-   76   2                  return len;                                                         // Ä£¿éÃ¦,Èç¹ûÔÊÐíµ±Ç°³ÌÐ
-             -òÊ¹ÓÃwhileµÈ´ý Ôò¿ÉÒÔÊ¹ÓÃºóÃæ×¢ÊÍµÄwhileµÈ´ýÓï¾äÌæ»»±¾ifÓï¾ä
-   77   2              uart_putbuff(BLUETOOTH_CH9141_INDEX, buff, 30);
-   78   2              buff += 30;                                                             // µØÖ·Æ«ÒÆ
-   79   2              len -= 30;                                                              // ÊýÁ¿
-   80   2          }
-   81   1          time_count = 0;
-   82   1          while(BLUETOOTH_CH9141_RTS_PIN && time_count++ < BLUETOOTH_CH9141_TIMEOUT_COUNT)      // Èç¹ûRTSÎªµÍµ
-             -çÆ½£¬Ôò¼ÌÐø·¢ËÍÊý¾Ý
-   83   1              delay_ms(1);
-   84   1          if(time_count >= BLUETOOTH_CH9141_TIMEOUT_COUNT)
-   85   1              return len;                                                             // Ä£¿éÃ¦,Èç¹ûÔÊÐíµ±Ç°³ÌÐ
-             -òÊ¹ÓÃwhileµÈ´ý Ôò¿ÉÒÔÊ¹ÓÃºóÃæ×¢ÊÍµÄwhileµÈ´ýÓï¾äÌæ»»±¾ifÓï¾ä
-   86   1          uart_putbuff(BLUETOOTH_CH9141_INDEX, buff, (uint16)len);                            // ·¢ËÍ×îºóµÄÊý¾Ý
+   69   1          // ¶ÁÈ¡ÎÞÏß´®¿ÚµÄÊý¾Ý ²¢ÇÒÖÃÎ»½ÓÊÕ±êÖ¾
+   70   1          bluetooth_ch9141_data = BLUETOOTH_CH9141_DATA_BUF;
+   71   1          fifo_write_buffer(&bluetooth_ch9141_fifo, &bluetooth_ch9141_data, 1);       // ´æÈë FIFO
+   72   1      }
+   73          
+   74          //-------------------------------------------------------------------------------------------------------
+             -------------
+   75          //  @brief      À¶ÑÀ×ª´®¿ÚÄ£¿é³õÊ¼»¯
+   76          //  @param      mode            À¶ÑÀÄ£Ê½ MASTER_MODE(Ö÷»ú)»òÕßSLAVE_MODE(´Ó»ú)
+   77          // @return      uint8           ³õÊ¼»¯×´Ì¬ 0-³É¹¦ 1-Ê§°Ü
+   78          //  Sample usage:
+   79          //-------------------------------------------------------------------------------------------------------
+             -------------
+   80          uint8 bluetooth_ch9141_init (void)
+   81          {
+   82   1        BLUETOOTH_CH9141_RTS_PIN = 0;
+   83   1          wireless_type = WIRELESS_CH9141;
+   84   1          // ±¾º¯ÊýÊ¹ÓÃµÄ²¨ÌØÂÊÎª115200 ÎªÀ¶ÑÀ×ª´®¿ÚÄ£¿éµÄÄ¬ÈÏ²¨ÌØÂÊ ÈçÐèÆäËû²¨ÌØÂÊÇëÊ¹ÓÃÉÏÎ»»úÐÞ¸ÄÄ£¿é²ÎÊý
+   85   1          fifo_init(&bluetooth_ch9141_fifo, FIFO_DATA_8BIT, bluetooth_ch9141_buffer, BLUETOOTH_CH9141_BUFFER_SI
+             -ZE);
+   86   1          uart_init(BLUETOOTH_CH9141_INDEX, BLUETOOTH_CH9141_RX_PIN, BLUETOOTH_CH9141_TX_PIN, BLUETOOTH_CH9141_
+             -BUAD_RATE, BLUETOOTH_CH9141_TIMER);
    87   1          return 0;
    88   1      }
    89          
-   90          //-------------------------------------------------------------------------------------------------------
+   90          
+   91          
+   92          //-------------------------------------------------------------------------------------------------------
              -------------
-   91          //  @brief      ch9141À¶ÑÀÄ£¿é·¢ËÍÒ»¸ö×Ö½Ú
-   92          //  @param      dat   ÐèÒª·¢ËÍµÄ×Ö½Ú³¤¶È
-   93          //  @return     uint8 0³É¹¦£¬1Ê§°Ü        
-   94          //  @since      v1.0
-   95          //  Sample usage: 
-   96          //  @note       
-   97          //-------------------------------------------------------------------------------------------------------
+   93          //  @brief      ÎÞÏß×ª´®¿ÚÄ£¿é ·¢ËÍº¯Êý
+   94          //  @param      buff            ÐèÒª·¢ËÍµÄÊý¾ÝµØÖ·
+   95          //  @param      len             ·¢ËÍ³¤¶È
+   96          //  @return     uint32          Ê£ÓàÎ´·¢ËÍµÄ×Ö½ÚÊý
+   97          //  Sample usage:
+   98          //-------------------------------------------------------------------------------------------------------
              -------------
-   98          uint8 bluetooth_ch9141send_byte(uint8 dat)
-   99          {
-  100   1        if(BLUETOOTH_CH9141_RTS_PIN == 1)  
-  101   1        {
-  102   2          return 1;//Ä£¿éÃ¦,Èç¹ûÔÊÐíµ±Ç°³ÌÐòÊ¹ÓÃwhileµÈ´ý Ôò¿ÉÒÔÊ¹ÓÃºóÃæ×¢ÊÍµÄwhileµÈ´ýÓï¾äÌæ»»±¾ifÓï¾ä
-  103   2        }
-  104   1        
-  105   1        uart_putchar(BLUETOOTH_CH9141_INDEX, dat);
-  106   1        return 0;
-  107   1      }
-  108          
-  109          //-------------------------------------------------------------------------------------------------------
-C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          11/11/24  18:19:55  PAGE 3   
+   99          uint32 bluetooth_ch9141_send_buff (uint8 *buff, uint32 len)
+  100          {
+  101   1          uint16 time_count = 0;
+  102   1          while(len > 30)
+  103   1          {
+  104   2              time_count = 0;
+  105   2              while(BLUETOOTH_CH9141_RTS_PIN && time_count++ < BLUETOOTH_CH9141_TIMEOUT_COUNT)  // Èç¹ûRTSÎªµÍµ
+             -çÆ½£¬Ôò¼ÌÐø·¢ËÍÊý¾Ý
+  106   2                  delay_ms(1);
+  107   2              if(time_count >= BLUETOOTH_CH9141_TIMEOUT_COUNT)
+  108   2                  return len;                                                         // Ä£¿éÃ¦,Èç¹ûÔÊÐíµ±Ç°³ÌÐ
+             -òÊ¹ÓÃwhileµÈ´ý Ôò¿ÉÒÔÊ¹ÓÃºóÃæ×¢ÊÍµÄwhileµÈ´ýÓï¾äÌæ»»±¾ifÓï¾ä
+  109   2              uart_putbuff(BLUETOOTH_CH9141_INDEX, buff, 30);
+C251 COMPILER V5.60.0,  SEEKFREE_BLUETOOTH_CH9141                                          14/11/24  21:33:55  PAGE 3   
 
+  110   2      
+  111   2              buff += 30;                                                             // µØÖ·Æ«ÒÆ
+  112   2              len -= 30;                                                              // ÊýÁ¿
+  113   2          }
+  114   1      
+  115   1          time_count = 0;
+  116   1          while(BLUETOOTH_CH9141_RTS_PIN && time_count++ < BLUETOOTH_CH9141_TIMEOUT_COUNT)      // Èç¹ûRTSÎªµÍµ
+             -çÆ½£¬Ôò¼ÌÐø·¢ËÍÊý¾Ý
+  117   1              delay_ms(1);
+  118   1          if(time_count >= BLUETOOTH_CH9141_TIMEOUT_COUNT)
+  119   1              return len;                                                             // Ä£¿éÃ¦,Èç¹ûÔÊÐíµ±Ç°³ÌÐ
+             -òÊ¹ÓÃwhileµÈ´ý Ôò¿ÉÒÔÊ¹ÓÃºóÃæ×¢ÊÍµÄwhileµÈ´ýÓï¾äÌæ»»±¾ifÓï¾ä
+  120   1          uart_putbuff(BLUETOOTH_CH9141_INDEX, buff, (uint16)len);                            // ·¢ËÍ×îºóµÄÊý¾Ý
+  121   1      
+  122   1          return 0;
+  123   1      }
+  124          
+  125          //-------------------------------------------------------------------------------------------------------
              -------------
-  110          //  @brief      ÎÞÏß×ª´®¿ÚÄ£¿é ¶ÁÈ¡º¯Êý
-  111          //  @param      buff            ´æ´¢µÄÊý¾ÝµØÖ·
-  112          //  @param      len             ³¤¶È
-  113          //  @return     uint32          Êµ¼Ê¶ÁÈ¡×Ö½ÚÊý
-  114          //  Sample usage:
-  115          //-------------------------------------------------------------------------------------------------------
+  126          //  @brief      ÎÞÏß×ª´®¿ÚÄ£¿é ¶ÁÈ¡º¯Êý
+  127          //  @param      buff            ´æ´¢µÄÊý¾ÝµØÖ·
+  128          //  @param      len             ³¤¶È
+  129          //  @return     uint32          Êµ¼Ê¶ÁÈ¡×Ö½ÚÊý
+  130          //  Sample usage:
+  131          //-------------------------------------------------------------------------------------------------------
              -------------
-  116          uint32 bluetooth_ch9141_read_buff (uint8 *buff, uint32 len)
-  117          {
-  118   1          uint32 data_len = len;
-  119   1          fifo_read_buffer(&bluetooth_ch9141_fifo, buff, &data_len, FIFO_READ_AND_CLEAN);
-  120   1          return data_len;
-  121   1      }
-  122          
-  123          //-------------------------------------------------------------------------------------------------------
-             -------------
-  124          //  @brief      À¶ÑÀ×ª´®¿ÚÄ£¿é³õÊ¼»¯
-  125          //  @param      mode            À¶ÑÀÄ£Ê½ MASTER_MODE(Ö÷»ú)»òÕßSLAVE_MODE(´Ó»ú)
-  126          // @return      uint8           ³õÊ¼»¯×´Ì¬ 0-³É¹¦ 1-Ê§°Ü
-  127          //  Sample usage:
-  128          //-------------------------------------------------------------------------------------------------------
-             -------------
-  129          uint8 bluetooth_ch9141_init (void)
-  130          {
-  131   1          BLUETOOTH_CH9141_RTS_PIN = 0;
-  132   1          wireless_type = WIRELESS_CH9141;
-  133   1          wireless_module_uart_handler = bluetooth_ch9141_uart_callback;
-  134   1          // ±¾º¯ÊýÊ¹ÓÃµÄ²¨ÌØÂÊÎª115200 ÎªÀ¶ÑÀ×ª´®¿ÚÄ£¿éµÄÄ¬ÈÏ²¨ÌØÂÊ ÈçÐèÆäËû²¨ÌØÂÊÇëÊ¹ÓÃÉÏÎ»»úÐÞ¸ÄÄ£¿é²ÎÊý
-  135   1          fifo_init(&bluetooth_ch9141_fifo, FIFO_DATA_8BIT, bluetooth_ch9141_buffer, BLUETOOTH_CH9141_BUFFER_SI
-             -ZE);
-  136   1          uart_init(BLUETOOTH_CH9141_INDEX, BLUETOOTH_CH9141_RX_PIN, BLUETOOTH_CH9141_TX_PIN, BLUETOOTH_CH9141_
-             -BUAD_RATE, BLUETOOTH_CH9141_TIMER);
-  137   1          return 0;
-  138   1      }
+  132          uint32 bluetooth_ch9141_read_buff (uint8 *buff, uint32 len)
+  133          {
+  134   1          uint32 data_len = len;
+  135   1          fifo_read_buffer(&bluetooth_ch9141_fifo, buff, &data_len, FIFO_READ_AND_CLEAN);
+  136   1          return data_len;
+  137   1      }
+  138          
   139          
   140          
   141          
   142          
   143          
   144          
+  145          
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       389     ------
+  code size            =       353     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =       112     ------
+  edata size           =       110     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------

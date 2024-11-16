@@ -4,8 +4,7 @@
 #include "headfile.h"
 
 
-// ÉùÃ÷×ó»·µºº¯Êý
-void Left_Ring(void);
+void ring_handler(void);
 
 
 #endif  //RING_H

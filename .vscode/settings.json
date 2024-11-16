@@ -24,6 +24,7 @@
         "stc32gxx.h": "c",
         "zf_uart.h": "c",
         "STDIO.H": "cpp",
-        "straight.h": "c"
+        "straight.h": "c",
+        "seekfree_config.h": "c"
     }
 }

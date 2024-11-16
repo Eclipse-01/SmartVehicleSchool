@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  ring                                                               14/11/24  19:52:40  PAGE 1   
+C251 COMPILER V5.60.0,  ring                                                               15/11/24  23:09:54  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE ring
@@ -12,23 +12,43 @@ stmt  level    source
 
     1          #include "headfile.h"
     2          
-    3          void Left_Ring(void){
-    4   1          ips200_clear();
-    5   1          ips200_show_string(0,0,"Car is going in ring");
-    6   1          
-    7   1      }
+    3          #define DISTANCE 1000 //触发入环信号到入环的距离
+    4          #define RETURN_TRACK 1000 //入环后恢复循迹前的距离
+    5          
+    6          uint8 RING_FLAG = 0; // 定义外部变量
+    7          
+    8          void ring_handler(void){
+    9   1          uint32 distance = 0;
+   10   1          Beep_set(1);//发送入环信号
+   11   1          Beep_set(0);
+   12   1          clear_encoder_distance();
+   13   1          while (distance < DISTANCE){
+   14   2              distance = get_encoder_distance();
+   15   2              PID_control_ring();
+   16   2              delay_ms(10);
+   17   2          }
+   18   1          Beep_set(0);
+   19   1          servo_set_position(20);
+   20   1          clear_encoder_distance();
+   21   1          while (distance < RETURN_TRACK){
+   22   2              distance = get_encoder_distance();
+   23   2              delay_ms(10);
+   24   2          }
+   25   1          //恢复循迹
+   26   1          RING_FLAG = 0;
+   27   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =        19     ------
+  code size            =       101     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =    ------     ------
+  edata size           =         5     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -36,7 +56,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        21     ------
+  hconst size          =         5     ------
 End of Module Information.
 
 
