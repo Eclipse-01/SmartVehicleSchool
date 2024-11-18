@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 1   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_IPS200_SPI
@@ -66,7 +66,7 @@ stmt  level    source
    49          static ips200_dir_enum          ips200_display_dir  = IPS200_DEFAULT_DISPLAY_DIR;
    50          static ips200_font_size_enum    ips200_display_font = IPS200_DEFAULT_DISPLAY_FONT;
    51          
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 2   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 2   
 
    52          static uint16 ips200_x_max = 240;
    53          static uint16 ips200_y_max = 320;
@@ -134,7 +134,7 @@ stmt  level    source
   108          // 参数说明     dat             数据
   109          // 返回参数     void
   110          // 使用示例     ips200_write_8bit_data(0x0C);
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 3   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 3   
 
   111          // 备注信息     内部调用 用户无需关心
   112          //-------------------------------------------------------------------------------------------------------
@@ -202,7 +202,7 @@ stmt  level    source
   168          //-------------------------------------------------------------------------------------------------------
              -------------
   169          void ips200_clear (void)
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 4   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 4   
 
   170          {
   171   1          uint16 i, j;
@@ -270,7 +270,7 @@ stmt  level    source
   227   2          }
   228   1          else
   229   1          {
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 5   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 5   
 
   230   2              ips200_x_max = 320;
   231   2              ips200_y_max = 240;
@@ -338,7 +338,7 @@ stmt  level    source
   283          //-------------------------------------------------------------------------------------------------------
              -------------
   284          // 函数简介     IPS200 画线
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 6   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 6   
 
   285          // 参数说明     x_start         坐标x方向的起点 [0, ips200_x_max-1]
   286          // 参数说明     y_start         坐标y方向的起点 [0, ips200_y_max-1]
@@ -406,7 +406,7 @@ stmt  level    source
   344          // 参数说明     dat             需要显示的字符
   345          // 返回参数     void
   346          // 使用示例     ips200_show_char(0, 0, 'x');                     // 坐标0,0写一个字符x
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 7   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 7   
 
   347          // 备注信息
   348          //-------------------------------------------------------------------------------------------------------
@@ -474,7 +474,7 @@ stmt  level    source
   409   4                      }
   410   3                  }
   411   2                  break;
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 8   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 8   
 
   412   2              case IPS200_16X16_FONT:
   413   2                  // 暂不支持
@@ -542,7 +542,7 @@ stmt  level    source
   470   1      
   471   1          memset(data_buffer, 0, 12);
   472   1          memset(data_buffer, ' ', num+1);
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 9   
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 9   
 
   473   1      
   474   1          if(num < 10)
@@ -610,7 +610,7 @@ stmt  level    source
              -------------
   530          void ips200_show_float (uint16 x, uint16 y, const double dat, uint8 num, uint8 pointnum)
   531          {
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 10  
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 10  
 
   532   1      
   533   1          double dat_temp = dat;
@@ -678,7 +678,7 @@ stmt  level    source
   592   2              ips200_draw_point(i + x, (dis_value_max - 1) - value_max_index + y, ips200_pencolor);
   593   2          }
   594   1      }
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 11  
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 11  
 
   595          
   596          //-------------------------------------------------------------------------------------------------------
@@ -746,7 +746,7 @@ stmt  level    source
   652          
   653          //-------------------------------------------------------------------------------------------------------
              -------------
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 12  
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 12  
 
   654          // 函数简介     2寸 IPS液晶初始化
   655          // 参数说明     type_select     两寸屏接口类型 IPS200_TYPE_SPI 为 SPI 接口串口两寸屏 I
@@ -814,7 +814,7 @@ stmt  level    source
   714   1          ips200_write_8bit_data(0x33);           
   715   1      
   716   1          ips200_write_command(0xB7);            
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 13  
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 13  
 
   717   1          ips200_write_8bit_data(0x35);
   718   1      
@@ -882,7 +882,7 @@ stmt  level    source
   779   1      
   780   1          ips200_clear();                                                             // 初始化为白屏
   781   1      }
-C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                14/11/24  21:33:56  PAGE 14  
+C251 COMPILER V5.60.0,  SEEKFREE_IPS200_SPI                                                18/11/24  22:53:50  PAGE 14  
 
 
 

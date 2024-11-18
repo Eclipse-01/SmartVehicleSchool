@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  ring                                                               18/11/24  21:29:40  PAGE 1   
+C251 COMPILER V5.60.0,  ring                                                               18/11/24  22:53:54  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE ring
@@ -50,37 +50,29 @@ stmt  level    source
    38   1          Beep_set(1); // 发送入环信号
    39   1          clear_encoder_distance();
    40   1          //等待计算机通过串口发送任意字符，报告编码器的值
-   41   1          while (1)
+   41   1          while (wireless_uart_read_buff(str,recv) == 0)
    42   1          {
    43   2              PID_control_ring();
-   44   2              if (wireless_uart_read_buff(str,recv) != 0)
-   45   2              {
-   46   3                  break;
-   47   3              }
-   48   2              delay_ms(10);
-   49   2          }
-   50   1          //发送编码器的值
-   51   1          sprintf(str, "Encoder distance: %d\n", get_encoder_distance());
-   52   1          wireless_uart_send_buff(str, strlen(str));
-   53   1          servo_set_position(SERVO_ENTER_RING_ANGLE);//舵机固定打角
-   54   1          //等待计算机通过串口发送任意字符，测试出环岛编码器值
-   55   1          while (1)
-   56   1          {
-C251 COMPILER V5.60.0,  ring                                                               18/11/24  21:29:40  PAGE 2   
+   44   2              delay_ms(10);
+   45   2          }
+   46   1          //发送编码器的值
+   47   1          sprintf(str, "Encoder distance: %d\n", get_encoder_distance());
+   48   1          wireless_uart_send_buff(str, strlen(str));
+   49   1          servo_set_position(SERVO_ENTER_RING_ANGLE);//舵机固定打角
+   50   1          //等待计算机通过串口发送任意字符，测试出环岛编码器值
+   51   1          while (wireless_uart_read_buff(str,recv) == 0)
+   52   1          {
+   53   2              PID_control_ring();
+   54   2              delay_ms(10);
+   55   2          }
+   56   1          //发送编码器的值
+C251 COMPILER V5.60.0,  ring                                                               18/11/24  22:53:54  PAGE 2   
 
-   57   2              PID_control_ring();
-   58   2              if (wireless_uart_read_buff(str,recv) != 0)
-   59   2              {
-   60   3                  break;
-   61   3              }
-   62   2              delay_ms(10);
-   63   2          }
-   64   1          //发送编码器的值
-   65   1          sprintf(str, "Encoder distance: %d\n", get_encoder_distance());
-   66   1          wireless_uart_send_buff(str, strlen(str));
-   67   1          Beep_set(0);
-   68   1          delay_ms(300);//出环装死
-   69   1      }
+   57   1          sprintf(str, "Encoder distance: %d\n", get_encoder_distance());
+   58   1          wireless_uart_send_buff(str, strlen(str));
+   59   1          Beep_set(0);
+   60   1          delay_ms(300);//出环装死
+   61   1      }
 
 
 Module Information          Static   Overlayable

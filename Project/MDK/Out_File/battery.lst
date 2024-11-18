@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  battery                                                            18/11/24  20:12:19  PAGE 1   
+C251 COMPILER V5.60.0,  battery                                                            18/11/24  22:53:53  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE battery
@@ -66,7 +66,7 @@ stmt  level    source
    52          /**
    53           * @brief 初始化电池电压检测模块
    54           * 
-C251 COMPILER V5.60.0,  battery                                                            18/11/24  20:12:19  PAGE 2   
+C251 COMPILER V5.60.0,  battery                                                            18/11/24  22:53:53  PAGE 2   
 
    55           * 该函数初始化用于电池电压检测的ADC模块。
    56           */
@@ -135,7 +135,7 @@ Module Information          Static   Overlayable
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
   edata size           =        19     ------
-C251 COMPILER V5.60.0,  battery                                                            18/11/24  20:12:19  PAGE 3   
+C251 COMPILER V5.60.0,  battery                                                            18/11/24  22:53:53  PAGE 3   
 
   bit size             =    ------     ------
   ebit size            =    ------     ------

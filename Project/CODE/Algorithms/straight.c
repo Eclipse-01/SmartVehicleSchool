@@ -10,7 +10,7 @@
 int recv = 32;
 char str[64];
 /*PID参数调节器*/
-float Kp = 0.55;
+float Kp = 0.5;
 float Ki = 0;
 float Kd = 0.35;
 float reactFactor = 1; 
@@ -54,7 +54,7 @@ void PID_control_straint(void) {
     angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
     last_error = position;
     servo_set_position(angle);
-    drv8701_control(MOTOR_BOTH, 40);
+    drv8701_control(MOTOR_BOTH, 35);
 
     if (integral > MAX_INTEGRAL)
         integral = MAX_INTEGRAL;
@@ -142,10 +142,9 @@ int Line_calculate_position()
     adc3 = ((float)adc_value.ADC3 * 100) / 4095;
     adc4 = ((float)adc_value.ADC4 * 100) / 4095;
 
-    if (adc1 > adc2 && adc3 >adc4 && adc1 >85 && adc4 > 85 && RING_FLAG == 0)
+    if ((adc1 + adc4 > 160 ) && RING_FLAG == 0)
         {
-            RING_FLAG = 1;
-            ring_handler();
+            Beep_set(1);
         }
     denominator = adc1 + adc4;
     if (denominator == 0)

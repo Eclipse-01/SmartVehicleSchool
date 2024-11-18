@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               18/11/24  20:50:30  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               18/11/24  22:53:52  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -66,7 +66,7 @@ stmt  level    source
    52   1          wireless_uart_send_buff(str, strlen(str));
    53   1      
    54   1          while (1)
-C251 COMPILER V5.60.0,  main                                                               18/11/24  20:50:30  PAGE 2   
+C251 COMPILER V5.60.0,  main                                                               18/11/24  22:53:52  PAGE 2   
 
    55   1          {
    56   2              delay_ms(100);

@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  straight                                                           18/11/24  21:29:39  PAGE 1   
+C251 COMPILER V5.60.0,  straight                                                           18/11/24  23:30:20  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE straight
@@ -22,7 +22,7 @@ stmt  level    source
    10          int recv = 32;
    11          char str[64];
    12          /*PID参数调节器*/
-   13          float Kp = 0.55;
+   13          float Kp = 0.5;
    14          float Ki = 0;
    15          float Kd = 0.35;
    16          float reactFactor = 1; 
@@ -66,9 +66,9 @@ stmt  level    source
    54   1          angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
    55   1          last_error = position;
    56   1          servo_set_position(angle);
-C251 COMPILER V5.60.0,  straight                                                           18/11/24  21:29:39  PAGE 2   
+C251 COMPILER V5.60.0,  straight                                                           18/11/24  23:30:20  PAGE 2   
 
-   57   1          drv8701_control(MOTOR_BOTH, 40);
+   57   1          drv8701_control(MOTOR_BOTH, 35);
    58   1      
    59   1          if (integral > MAX_INTEGRAL)
    60   1              integral = MAX_INTEGRAL;
@@ -134,7 +134,7 @@ stmt  level    source
   120   2                  ips200_show_string(16,0,"Unknown error");
   121   2          }
   122   1      }
-C251 COMPILER V5.60.0,  straight                                                           18/11/24  21:29:39  PAGE 3   
+C251 COMPILER V5.60.0,  straight                                                           18/11/24  23:30:20  PAGE 3   
 
   123          
   124          /**
@@ -158,56 +158,55 @@ stmt  level    source
   142   1          adc3 = ((float)adc_value.ADC3 * 100) / 4095;
   143   1          adc4 = ((float)adc_value.ADC4 * 100) / 4095;
   144   1      
-  145   1          if (adc1 > adc2 && adc3 >adc4 && adc1 >85 && adc4 > 85 && RING_FLAG == 0)
+  145   1          if ((adc1 + adc4 > 160 ) && RING_FLAG == 0)
   146   1              {
-  147   2                  RING_FLAG = 1;
-  148   2                  ring_handler();
-  149   2              }
-  150   1          denominator = adc1 + adc4;
-  151   1          if (denominator == 0)
-  152   1              denominator = 1;
-  153   1          position = (adc4 - adc1) / denominator * 100;
-  154   1          sprintf(str, "Position: %f, adc1: %f, adc4: %f\n", position, adc1, adc4);
-  155   1          wireless_uart_send_buff(str, strlen(str));
-  156   1          return position;
-  157   1      }
+  147   2                  Beep_set(1);
+  148   2              }
+  149   1          denominator = adc1 + adc4;
+  150   1          if (denominator == 0)
+  151   1              denominator = 1;
+  152   1          position = (adc4 - adc1) / denominator * 100;
+  153   1          sprintf(str, "Position: %f, adc1: %f, adc4: %f\n", position, adc1, adc4);
+  154   1          wireless_uart_send_buff(str, strlen(str));
+  155   1          return position;
+  156   1      }
+  157          
   158          
-  159          
-  160          /**
-  161           * @brief 计算线的位置
-  162           * 
-  163           * 根据滤波后的ADC值计算线的位置，在环岛内使用
-  164           * 
-  165           * @return int 线的位置
-  166           * @warning 小心使用
-  167           */
-  168          
-  169          extern uint8 RING_FLAG; // 声明外部变量
-  170          int Line_calculate_position_ring()
-  171          {
-  172   1          float adc1, adc2, adc3, adc4, denominator, position;
-  173   1          Line_read_raw();
-  174   1      
-  175   1          //归一化处理，范围是0-100
-  176   1          adc1 = ((float)adc_value.ADC1 * 100) / 4095;
-  177   1          adc2 = ((float)adc_value.ADC2 * 100) / 4095;
-  178   1          adc3 = ((float)adc_value.ADC3 * 100) / 4095;
-  179   1          adc4 = ((float)adc_value.ADC4 * 100) / 4095;
-  180   1          denominator = adc1 + adc4;
-  181   1          if (denominator == 0)
-  182   1              denominator = 1;
-  183   1          position = (adc4 - adc1) / denominator * 100;
-  184   1          sprintf(str, "Position: %f\n, adc1: %f, adc4: %f\n", position, adc1, adc4);
-  185   1          wireless_uart_send_buff(str, strlen(str));
-  186   1          return position;
-  187   1      }
+  159          /**
+  160           * @brief 计算线的位置
+  161           * 
+  162           * 根据滤波后的ADC值计算线的位置，在环岛内使用
+  163           * 
+  164           * @return int 线的位置
+  165           * @warning 小心使用
+  166           */
+  167          
+  168          extern uint8 RING_FLAG; // 声明外部变量
+  169          int Line_calculate_position_ring()
+  170          {
+  171   1          float adc1, adc2, adc3, adc4, denominator, position;
+  172   1          Line_read_raw();
+  173   1      
+  174   1          //归一化处理，范围是0-100
+  175   1          adc1 = ((float)adc_value.ADC1 * 100) / 4095;
+  176   1          adc2 = ((float)adc_value.ADC2 * 100) / 4095;
+  177   1          adc3 = ((float)adc_value.ADC3 * 100) / 4095;
+  178   1          adc4 = ((float)adc_value.ADC4 * 100) / 4095;
+  179   1          denominator = adc1 + adc4;
+  180   1          if (denominator == 0)
+  181   1              denominator = 1;
+  182   1          position = (adc4 - adc1) / denominator * 100;
+  183   1          sprintf(str, "Position: %f\n, adc1: %f, adc4: %f\n", position, adc1, adc4);
+  184   1          wireless_uart_send_buff(str, strlen(str));
+  185   1          return position;
+  186   1      }
 
-C251 COMPILER V5.60.0,  straight                                                           18/11/24  21:29:39  PAGE 4   
 
+C251 COMPILER V5.60.0,  straight                                                           18/11/24  23:30:20  PAGE 4   
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      1346     ------
+  code size            =      1308     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
