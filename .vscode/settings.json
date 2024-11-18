@@ -1,13 +1,13 @@
 {
-    "files.encoding": "utf8",
+    "files.encoding": "gbk",
     "[c]": {
-        "files.encoding": "gb2312"
+        "files.encoding": "gbk"
     },
     "[cpp]": {
-        "files.encoding": "gb2312"
+        "files.encoding": "gbk"
     },
     "[h]": {
-        "files.encoding": "gb2312"
+        "files.encoding": "gbk"
     },
     "files.associations": {
         "headfile.h": "c",
@@ -25,6 +25,14 @@
         "zf_uart.h": "c",
         "STDIO.H": "cpp",
         "straight.h": "c",
-        "seekfree_config.h": "c"
+        "seekfree_config.h": "c",
+        "seekfree_at24c02.h": "c",
+        "seekfree_wireless.h": "c",
+        "seekfree_absolute_encoder.h": "c",
+        "seekfree_imu963ra.h": "c",
+        "seekfree_imu660ra.h": "c",
+        "seekfree_function.h": "c",
+        "seekfree_mpu6050.h": "c",
+        "seekfree_18tft.h": "c"
     }
 }

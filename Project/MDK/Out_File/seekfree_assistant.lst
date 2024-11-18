@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 15/11/24  23:08:05  PAGE 1   
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 18/11/24  20:07:00  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE seekfree_assistant
@@ -66,7 +66,7 @@ stmt  level    source
    45   2              temp_sum += *buffer++;
    46   2          }
    47   1      
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 15/11/24  23:08:05  PAGE 2   
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 18/11/24  20:07:00  PAGE 2   
 
    48   1          return temp_sum;
    49   1      }
@@ -134,7 +134,7 @@ stmt  level    source
   103          // 函数简介     逐飞助手图像信息配置函数
   104          // 参数说明     camera_type     图像类型
   105          // 参数说明     image_addr      图像地址    如果传递NULL参数则表示只发送边线信息到上位机
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 15/11/24  23:08:05  PAGE 3   
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 18/11/24  20:07:00  PAGE 3   
 
   106          // 参数说明     width           图像宽度
   107          // 参数说明     height          图像高度
@@ -202,7 +202,7 @@ stmt  level    source
   162   1          // 数据在调用本函数之前，由用户将需要发送的数据写入temp_oscilloscope.data[]
   163   1      
   164   1          seekfree_assistant_transfer((const uint8 *)&temp_oscilloscope, packet_size);
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 15/11/24  23:08:05  PAGE 4   
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 18/11/24  20:07:00  PAGE 4   
 
   165   1      }
   166          
@@ -270,7 +270,7 @@ stmt  level    source
   221   1      
   222   1          seekfree_assistant_camera_dot_data.dot_num    = ((((uint16)dot_num << 8)&0xFF00) | ((uint16)dot_num >
              -> 8));;
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 15/11/24  23:08:05  PAGE 5   
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 18/11/24  20:07:00  PAGE 5   
 
   223   1          seekfree_assistant_camera_dot_data.valid_flag = 0;
   224   1          for(i = 0; i < 3; i++)
@@ -338,7 +338,7 @@ stmt  level    source
   286   2              case XY_BOUNDARY:
   287   2              {
   288   3                  if((NULL != dot_x1) && (NULL != dot_y1))
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 15/11/24  23:08:05  PAGE 6   
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 18/11/24  20:07:00  PAGE 6   
 
   289   3                  {
   290   4                      boundary_num++;
@@ -406,7 +406,7 @@ stmt  level    source
   348   2              fifo_read_buffer(&seekfree_assistant_fifo, (uint8 *)temp_buffer, &read_length, FIFO_READ_ONLY);
   349   2              if(SEEKFREE_ASSISTANT_RECEIVE_HEAD != ((uint8 *)temp_buffer)[0])
   350   2              {
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 15/11/24  23:08:05  PAGE 7   
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 18/11/24  20:07:00  PAGE 7   
 
   351   3                  // 没有帧头则从FIFO中去掉第一个数据
   352   3                  read_length = 1;
@@ -474,7 +474,7 @@ stmt  level    source
   402          // 参数说明
   403          // 返回参数     void
   404          // 使用示例
-C251 COMPILER V5.60.0,  seekfree_assistant                                                 15/11/24  23:08:05  PAGE 8   
+C251 COMPILER V5.60.0,  seekfree_assistant                                                 18/11/24  20:07:00  PAGE 8   
 
   405          //-------------------------------------------------------------------------------------------------------
              -------------

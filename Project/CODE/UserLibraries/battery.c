@@ -35,6 +35,7 @@ uint16 battery_percentage = 0;  // 电池电量百分比
  */
 void Beep_init(void){
     gpio_mode(P3_2,GPO_PP);	// 将P6.7设置为推挽输出
+    P32 = 0;	// 初始化为低电平
 }
 
 /**

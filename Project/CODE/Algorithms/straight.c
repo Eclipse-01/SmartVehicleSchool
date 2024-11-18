@@ -6,10 +6,13 @@
 #include "headfile.h"
 #include "straight.h"
 
+#define XINGS 1 //定义十字的数量
+int recv = 32;
+char str[64];
 /*PID参数调节器*/
-float Kp = 0.5;
+float Kp = 0.55;
 float Ki = 0;
-float Kd = 0.3;
+float Kd = 0.35;
 float reactFactor = 1; 
 
 // 添加积分和微分的最大值变量
@@ -22,8 +25,14 @@ float MAX_DERIVATIVE = 1000.0; // 根据需要调整
  */
 uint8 straight_entrance(void){
     ips200_clear();
+    wireless_uart_send_buff("Straight mode\n", 13);
     while(1){
     PID_control_straint();
+    if (wireless_uart_read_buff(str,recv) != 0)
+        {
+                drv8701_stop(MOTOR_BOTH);
+                while(1){;}
+        }
     delay_ms(10);
     }
     return 0;
@@ -45,7 +54,7 @@ void PID_control_straint(void) {
     angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
     last_error = position;
     servo_set_position(angle);
-    drv8701_control(MOTOR_BOTH, 35);
+    drv8701_control(MOTOR_BOTH, 40);
 
     if (integral > MAX_INTEGRAL)
         integral = MAX_INTEGRAL;
@@ -133,7 +142,7 @@ int Line_calculate_position()
     adc3 = ((float)adc_value.ADC3 * 100) / 4095;
     adc4 = ((float)adc_value.ADC4 * 100) / 4095;
 
-    if (adc1 > adc2 && adc3 >adc4 && adc1 > 60 && adc4 < 40 && RING_FLAG == 0)
+    if (adc1 > adc2 && adc3 >adc4 && adc1 >85 && adc4 > 85 && RING_FLAG == 0)
         {
             RING_FLAG = 1;
             ring_handler();
@@ -142,6 +151,8 @@ int Line_calculate_position()
     if (denominator == 0)
         denominator = 1;
     position = (adc4 - adc1) / denominator * 100;
+    sprintf(str, "Position: %f, adc1: %f, adc4: %f\n", position, adc1, adc4);
+    wireless_uart_send_buff(str, strlen(str));
     return position;
 }
 
@@ -170,5 +181,7 @@ int Line_calculate_position_ring()
     if (denominator == 0)
         denominator = 1;
     position = (adc4 - adc1) / denominator * 100;
+    sprintf(str, "Position: %f\n, adc1: %f, adc4: %f\n", position, adc1, adc4);
+    wireless_uart_send_buff(str, strlen(str));
     return position;
 }

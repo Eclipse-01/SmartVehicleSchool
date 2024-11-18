@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  battery                                                            15/11/24  23:08:06  PAGE 1   
+C251 COMPILER V5.60.0,  battery                                                            18/11/24  20:12:19  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE battery
@@ -49,84 +49,85 @@ stmt  level    source
    35           */
    36          void Beep_init(void){
    37   1          gpio_mode(P3_2,GPO_PP); // 将P6.7设置为推挽输出
-   38   1      }
-   39          
-   40          /**
-   41           * @brief 设置蜂鸣器状态
-   42           * 
-   43           * 该函数用于设置蜂鸣器状态。
-   44           * 
-   45           * @param status 蜂鸣器状态，0为关闭，1为打开
-   46           */
-   47          void Beep_set(uint8 status){
-   48   1          P32 = status;
-   49   1      }
-   50          
-   51          /**
-   52           * @brief 初始化电池电压检测模块
-   53           * 
-   54           * 该函数初始化用于电池电压检测的ADC模块。
-C251 COMPILER V5.60.0,  battery                                                            15/11/24  23:08:06  PAGE 2   
+   38   1          P32 = 0;  // 初始化为低电平
+   39   1      }
+   40          
+   41          /**
+   42           * @brief 设置蜂鸣器状态
+   43           * 
+   44           * 该函数用于设置蜂鸣器状态。
+   45           * 
+   46           * @param status 蜂鸣器状态，0为关闭，1为打开
+   47           */
+   48          void Beep_set(uint8 status){
+   49   1          P32 = status;
+   50   1      }
+   51          
+   52          /**
+   53           * @brief 初始化电池电压检测模块
+   54           * 
+C251 COMPILER V5.60.0,  battery                                                            18/11/24  20:12:19  PAGE 2   
 
-   55           */
-   56          void battery_init(void){
-   57   1          adc_init(BAT_VOL_PIN, ADC_SYSclk_DIV_32);
-   58   1      }
-   59          
-   60          /**
-   61           * @brief 获取电池电压
-   62           * 
-   63           * 该函数通过ADC读取电池电压，并根据分压电阻计算实际电池电压。
-   64           * 如果电池电压低于6.5V，将显示“LOW BATTERY”并停止电机。可以在battery.h中修改LOW_BATTERY_VOLTAGE的值为-
+   55           * 该函数初始化用于电池电压检测的ADC模块。
+   56           */
+   57          void battery_init(void){
+   58   1          adc_init(BAT_VOL_PIN, ADC_SYSclk_DIV_32);
+   59   1      }
+   60          
+   61          /**
+   62           * @brief 获取电池电压
+   63           * 
+   64           * 该函数通过ADC读取电池电压，并根据分压电阻计算实际电池电压。
+   65           * 如果电池电压低于6.5V，将显示“LOW BATTERY”并停止电机。可以在battery.h中修改LOW_BATTERY_VOLTAGE的值为-
              -1禁用此功能
-   65           * 
-   66           * @return uint16 返回电池电压，单位为毫伏
-   67           */
-   68          uint16 get_battery_voltage(void){
-   69   1          ad_result = adc_once(BAT_VOL_PIN, ADC_12BIT);
-   70   1          temp = (((uint32)ad_result * 3300) / 4095);  //计算出当前adc引脚的电压 计算公式为 ad_result*VCC/ADC分
+   66           * 
+   67           * @return uint16 返回电池电压，单位为毫伏
+   68           */
+   69          uint16 get_battery_voltage(void){
+   70   1          ad_result = adc_once(BAT_VOL_PIN, ADC_12BIT);
+   71   1          temp = (((uint32)ad_result * 3300) / 4095);  //计算出当前adc引脚的电压 计算公式为 ad_result*VCC/ADC分
              -辨率    VCC单位为mv
-   71   1          battery_voltage =  temp * 11; //根据引脚电压  和分压电阻的阻值计算电池电压 计算公司为   引脚电压*(R2+
+   72   1          battery_voltage =  temp * 11; //根据引脚电压  和分压电阻的阻值计算电池电压 计算公司为   引脚电压*(R2+
              -R3)/R3   R3为接地端电阻
-   72   1          while (battery_voltage < LOW_BATTERY_VOLTAGE){
-   73   2              ips200_show_string(120,200,"LOW BATTERY");
-   74   2              drv8701_stop(MOTOR_BOTH); //停止电机防止电池过放
-   75   2              while(ENABLE_LOW_BATTERY_PROTECTION)
-   76   2              delay_ms(10000); // 卡死程序防止程序启动
-   77   2          }
-   78   1          
-   79   1          return battery_voltage;
-   80   1      }
-   81          
-   82          uint16 get_battery_percentage(void){
-   83   1          int max_voltage = 4200 * BATTERY_GROUP_NUM;
-   84   1          int min_voltage = LOW_BATTERY_VOLTAGE * BATTERY_GROUP_NUM;
-   85   1          int current_voltage = get_battery_voltage();
-   86   1          int percentage = (current_voltage - min_voltage) * 100 / (max_voltage - min_voltage);
-   87   1          if (percentage > 100){
-   88   2              percentage = 100;
-   89   2          }
-   90   1          if (percentage < 0){
-   91   2              percentage = 0;
-   92   2          }
-   93   1          return percentage;
-   94   1      }
-   95          
-   96          /**
-   97           * @brief 更新电池状态
-   98           * 
-   99           * 该函数根据当前电池电压和电量百分比更新电池状态和充电状态。
-  100           */
-  101          void update_battery_status(void) {
-  102   1          battery_percentage = get_battery_percentage();
-  103   1      }
-  104          
+   73   1          while (battery_voltage < LOW_BATTERY_VOLTAGE){
+   74   2              ips200_show_string(120,200,"LOW BATTERY");
+   75   2              drv8701_stop(MOTOR_BOTH); //停止电机防止电池过放
+   76   2              while(ENABLE_LOW_BATTERY_PROTECTION)
+   77   2              delay_ms(10000); // 卡死程序防止程序启动
+   78   2          }
+   79   1          
+   80   1          return battery_voltage;
+   81   1      }
+   82          
+   83          uint16 get_battery_percentage(void){
+   84   1          int max_voltage = 4200 * BATTERY_GROUP_NUM;
+   85   1          int min_voltage = LOW_BATTERY_VOLTAGE * BATTERY_GROUP_NUM;
+   86   1          int current_voltage = get_battery_voltage();
+   87   1          int percentage = (current_voltage - min_voltage) * 100 / (max_voltage - min_voltage);
+   88   1          if (percentage > 100){
+   89   2              percentage = 100;
+   90   2          }
+   91   1          if (percentage < 0){
+   92   2              percentage = 0;
+   93   2          }
+   94   1          return percentage;
+   95   1      }
+   96          
+   97          /**
+   98           * @brief 更新电池状态
+   99           * 
+  100           * 该函数根据当前电池电压和电量百分比更新电池状态和充电状态。
+  101           */
+  102          void update_battery_status(void) {
+  103   1          battery_percentage = get_battery_percentage();
+  104   1      }
   105          
+  106          
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       243     ------
+  code size            =       246     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
@@ -134,9 +135,9 @@ Module Information          Static   Overlayable
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
   edata size           =        19     ------
-  bit size             =    ------     ------
-C251 COMPILER V5.60.0,  battery                                                            15/11/24  23:08:06  PAGE 3   
+C251 COMPILER V5.60.0,  battery                                                            18/11/24  20:12:19  PAGE 3   
 
+  bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
   ebitaddressable size =    ------     ------

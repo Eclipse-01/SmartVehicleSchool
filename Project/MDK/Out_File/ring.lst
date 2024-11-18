@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  ring                                                               15/11/24  23:09:54  PAGE 1   
+C251 COMPILER V5.60.0,  ring                                                               18/11/24  21:29:40  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE ring
@@ -11,44 +11,88 @@ COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\Algorithms\ring.c XSMA
 stmt  level    source
 
     1          #include "headfile.h"
-    2          
-    3          #define DISTANCE 1000 //触发入环信号到入环的距离
-    4          #define RETURN_TRACK 1000 //入环后恢复循迹前的距离
-    5          
-    6          uint8 RING_FLAG = 0; // 定义外部变量
+    2          #include "ring.h"
+    3          
+    4          #define DISTANCE 1000 //触发入环信号到入环的距离
+    5          #define RETURN_TRACK 1000 //入环后恢复循迹前的距离
+    6          #define SERVO_ENTER_RING_ANGLE 20 //舵机打角
     7          
-    8          void ring_handler(void){
-    9   1          uint32 distance = 0;
-   10   1          Beep_set(1);//发送入环信号
-   11   1          Beep_set(0);
-   12   1          clear_encoder_distance();
-   13   1          while (distance < DISTANCE){
-   14   2              distance = get_encoder_distance();
-   15   2              PID_control_ring();
-   16   2              delay_ms(10);
-   17   2          }
-   18   1          Beep_set(0);
-   19   1          servo_set_position(20);
-   20   1          clear_encoder_distance();
-   21   1          while (distance < RETURN_TRACK){
-   22   2              distance = get_encoder_distance();
-   23   2              delay_ms(10);
-   24   2          }
-   25   1          //恢复循迹
-   26   1          RING_FLAG = 0;
-   27   1      }
+    8          uint8 RING_FLAG = 0; // 定义外部变量
+    9          
+   10          void ring_handler_deprecated(void){
+   11   1          uint32 distance = 0;
+   12   1          Beep_set(1);//发送入环信号
+   13   1          Beep_set(0);
+   14   1          clear_encoder_distance();
+   15   1          while (distance < DISTANCE){
+   16   2              distance = get_encoder_distance();
+   17   2              PID_control_ring();
+   18   2              delay_ms(10);
+   19   2          }
+   20   1          Beep_set(0);
+   21   1          servo_set_position(20);
+   22   1          clear_encoder_distance();
+   23   1          while (distance < RETURN_TRACK){
+   24   2              distance = get_encoder_distance();
+   25   2              delay_ms(10);
+   26   2          }
+   27   1          //恢复循迹
+   28   1          RING_FLAG = 0;
+   29   1      }
+   30          
+   31          void ring_handler(void)
+   32          {
+   33   1          uint32 distance = 0;
+   34   1          char str[256];
+   35   1          int recv = 32;
+   36   1          Beep_set(1); // 发送入环信号
+   37   1          wireless_uart_send_buff("Ring detected, clearing encoders\n", 34);
+   38   1          Beep_set(1); // 发送入环信号
+   39   1          clear_encoder_distance();
+   40   1          //等待计算机通过串口发送任意字符，报告编码器的值
+   41   1          while (1)
+   42   1          {
+   43   2              PID_control_ring();
+   44   2              if (wireless_uart_read_buff(str,recv) != 0)
+   45   2              {
+   46   3                  break;
+   47   3              }
+   48   2              delay_ms(10);
+   49   2          }
+   50   1          //发送编码器的值
+   51   1          sprintf(str, "Encoder distance: %d\n", get_encoder_distance());
+   52   1          wireless_uart_send_buff(str, strlen(str));
+   53   1          servo_set_position(SERVO_ENTER_RING_ANGLE);//舵机固定打角
+   54   1          //等待计算机通过串口发送任意字符，测试出环岛编码器值
+   55   1          while (1)
+   56   1          {
+C251 COMPILER V5.60.0,  ring                                                               18/11/24  21:29:40  PAGE 2   
+
+   57   2              PID_control_ring();
+   58   2              if (wireless_uart_read_buff(str,recv) != 0)
+   59   2              {
+   60   3                  break;
+   61   3              }
+   62   2              delay_ms(10);
+   63   2          }
+   64   1          //发送编码器的值
+   65   1          sprintf(str, "Encoder distance: %d\n", get_encoder_distance());
+   66   1          wireless_uart_send_buff(str, strlen(str));
+   67   1          Beep_set(0);
+   68   1          delay_ms(300);//出环装死
+   69   1      }
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       101     ------
+  code size            =       304     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =         5     ------
+  edata size           =       267     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -56,7 +100,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =         5     ------
+  hconst size          =        61     ------
 End of Module Information.
 
 
