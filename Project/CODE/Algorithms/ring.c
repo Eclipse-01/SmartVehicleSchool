@@ -2,30 +2,31 @@
 #include "ring.h"
 
 #define DISTANCE 1000 //触发入环信号到入环的距离
-#define RETURN_TRACK 1000 //入环后恢复循迹前的距离
+#define RETURN_TRACK 1001 //入环后恢复循迹前的距离
 #define SERVO_ENTER_RING_ANGLE 20 //舵机打角
 
 uint8 RING_FLAG = 0; // 定义外部变量
 
 void ring_handler_deprecated(void){
     uint32 distance = 0;
-    Beep_set(1);//发送入环信号
-    Beep_set(0);
-    clear_encoder_distance();
-    while (distance < DISTANCE){
+    char str[256];
+    int recv = 32;
+
+    while ( distance < DISTANCE ) // 判断是否到达入环点
+    {
         distance = get_encoder_distance();
         PID_control_ring();
         delay_ms(10);
     }
-    Beep_set(0);
-    servo_set_position(20);
-    clear_encoder_distance();
-    while (distance < RETURN_TRACK){
+    wireless_uart_send_buff("We have reached the ring point, setting servo angle\n", 52);
+    servo_set_position(SERVO_ENTER_RING_ANGLE); // 舵机打角
+
+    while ( distance < RETURN_TRACK ) // 判断是否到达入环后恢复循迹前的距离
+    {
         distance = get_encoder_distance();
         delay_ms(10);
     }
-    //恢复循迹
-    RING_FLAG = 0;
+    wireless_uart_send_buff("Ring enterance operation finished\n", 36);
 }
 
 void ring_handler(void)

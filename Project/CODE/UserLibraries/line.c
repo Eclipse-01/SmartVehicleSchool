@@ -32,7 +32,7 @@ void Line_read_raw()
     int filter_buffer2 = 0;
     int filter_buffer3 = 0;
     int filter_buffer4 = 0;
-    for (i = 0; i < FILTER_SIZE; i++)//对数据进行滤波
+    for (i = 0; i < FILTER_SIZE; i++) // 对数据进行滤波
     {
         filter_buffer1 += adc_once(ADC_P06, ADC_12BIT);
         filter_buffer2 += adc_once(ADC_P11, ADC_12BIT);
@@ -158,5 +158,65 @@ void Get_ADC_Range()
         ips200_show_string(0, 200, buffer);
         sprintf(buffer, "ADC4: %d    ", adc_once(ADC_P15, ADC_12BIT));
         ips200_show_string(0, 220, buffer);
+    }
+}
+
+void Remote_Stop()
+{
+    char str[256];
+    char command;
+    if (wireless_uart_read_buff(str, 99) != 0)
+    {
+        drv8701_stop(MOTOR_BOTH);
+        str[0] = "Recieved stop signal, motor stopped\n Activating remote control\n";
+        wireless_uart_send_buff(str, strlen(str));
+        memset(str, 0, sizeof(str));
+        str[0] = "Activating RC\n";
+        wireless_uart_send_buff(str, strlen(str));
+        while (1)
+        {
+            if (wireless_uart_read_buff(command, 1) != 0)
+            {
+                // 大小写处理
+                if (command >= 'A' && command <= 'Z')
+                {
+                    command += 32;
+                }
+                switch (command)
+                {
+                case 'w':
+                    drv8701_control(MOTOR_BOTH, 35);
+                    delay_ms(100);
+                    drv8701_stop(MOTOR_BOTH);
+                    break;
+                case 's':
+                    drv8701_control(MOTOR_BOTH, -35);
+                    delay_ms(100);
+                    drv8701_stop(MOTOR_BOTH);
+                    break;
+                case 'a':
+                    drv8701_control(MOTOR_R, 35);
+                    delay_ms(100);
+                    drv8701_stop(MOTOR_BOTH);
+                    break;
+                case 'd':
+                    drv8701_control(MOTOR_L, 35);
+                    delay_ms(100);
+                    drv8701_stop(MOTOR_BOTH);
+                    break;
+                case 'r':
+                    main();
+                    break;
+
+                default:
+                    drv8701_stop(MOTOR_BOTH);
+                    str[0] = "Invalid command, motor stopped\n";
+                    wireless_uart_send_buff(str, strlen(str));
+                    break;
+                
+                delay_ms(10);
+                }
+            }
+        }
     }
 }
