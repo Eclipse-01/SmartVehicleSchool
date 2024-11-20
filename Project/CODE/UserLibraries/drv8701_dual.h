@@ -1,16 +1,14 @@
 /**************************************************************************
-*COPYRIGHT NOTICE
-*JNU-FLY 2024
-*All rights reserved
-*Modified from SEEKFREE libs
-*
-*@file drv8701_dual.h
-*@author JNU-FLY
-*@version 1.0
-*@Software MDK FOR C251 V5.60
-*@Target core STC32F12K
-*@Website www.flysworld.top
-*/
+ * drv8701_dual.h
+ * 
+ * 作者: COTOMO
+ * 项目地址: https://github.com/Eclipse-01/SmartVehicleSchool
+ * MIT开源证书
+ * JNU-FLY at Jiangnan University
+ * 2024 November
+ * 
+ * 本文件定义了DRV8701双电机驱动的初始化和控制接口。
+ */
 #ifndef _DRV8701_DUAL_H_
 #define _DRV8701_DUAL_H_
 

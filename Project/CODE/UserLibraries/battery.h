@@ -1,6 +1,18 @@
 #ifndef BATTERY_H
 #define BATTERY_H
 
+/*********************
+ * battery.h
+ * 
+ * 作者: COTOMO
+ * 项目地址: https://github.com/Eclipse-01/SmartVehicleSchool
+ * MIT开源证书
+ * JNU-FLY at Jiangnan University
+ * 2024 November
+ * 
+ * 本文件定义了电池电压检测和蜂鸣器控制的接口。
+ */
+
 #include "headfile.h"
 
 extern uint16 battery_voltage; //电池电压

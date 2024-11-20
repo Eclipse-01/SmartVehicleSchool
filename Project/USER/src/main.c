@@ -50,7 +50,9 @@ void code_entrance()
 {   
     char str[64];
     int recv = 32;
-    straight_entrance();
+
+    straight_entrance(); //这是小车的主要代码，直线行驶，要看小车怎么跑的点这里
+    
     sprintf(str, "Vehicle init finished\n");
     wireless_uart_send_buff(str, strlen(str));
     while (1)

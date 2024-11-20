@@ -1,18 +1,13 @@
-/*********************************************************************************************************************
- * COPYRIGHT NOTICE
- * 版权所有 (c) 2020, 逐飞科技
- * 保留所有权利。
- * 仅供学习交流使用，未经许可不得用于商业用途。
- *
- * @file           drv8701_dual.c
- * @company        成都逐飞科技有限公司
- * @author         逐飞科技(QQ790875685)
- * @version        查看doc内version文件 版本说明
- * @Software       MDK FOR C251 V5.60
- * @Target core    STC32F12K
- * @Taobao         https://seekfree.taobao.com/
- * @date           2020-12-18
- * @note           由AI生成 By JNU-FLY
+/*********************
+ * drv8701_dual.c
+ * 
+ * 作者: COTOMO
+ * 项目地址: https://github.com/Eclipse-01/SmartVehicleSchool
+ * MIT开源证书
+ * JNU-FLY at Jiangnan University
+ * 2024 November
+ * 
+ * 本文件实现了DRV8701双电机驱动的初始化、控制和停止功能。
  ********************************************************************************************************************/
 
 #include "drv8701_dual.h"

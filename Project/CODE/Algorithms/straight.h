@@ -1,6 +1,18 @@
 #ifndef STRAIGHT_H
 #define STRAIGHT_H
 
+/*********************
+ * straight.h
+ * 
+ * 作者: COTOMO
+ * 项目地址: https://github.com/Eclipse-01/SmartVehicleSchool
+ * MIT开源证书
+ * JNU-FLY at Jiangnan University
+ * 2024 November
+ * 
+ * 本文件定义了直行算法的入口、PID控制及异常处理接口。
+ */
+
 #include "headfile.h"
 
 // 直行入口函数

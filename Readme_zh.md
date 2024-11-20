@@ -26,7 +26,7 @@
 - PID控制算法用于调整电机和舵机的控制参数，以实现精确的控制。主要函数包括`PID_control_straint()`和`PID_control_ring()`。`PID_control_straint()`函数用于循线行驶的PID控制，`PID_control_ring()`函数用于环岛行驶的PID控制。这两个函数的实现并没有什么不同，后者只是为了防止一些不必要的递归调用问题。参数也是通用的。不过需要注意的是，这两个函数都是计算当前状态下的控制量，将舵机设置到一个合适的角度。你将需要在一个循环中不断地以一定周期调用这些函数。
 
 ### 2. 环岛处理
-- 环岛处理算法用于处理环岛。主要函数包括`ring_handler()`和`ring_handler_deprecated()`。`ring_handler()`函数用于处理环岛的进入和退出，`ring_handler_deprecated()`函数是旧版本的环岛处理函数。环岛的识别写在`Straight.c`的`Caculate_Line_Position()`函数中。在`if (adc1 + adc4 > 160)`中，`160`是一个阈值，用于判断是否进入环岛。你可以根据实际情况调整这个阈值。满足条件后我们就会调用`ring_handler()`函数，这个函数会处理环岛的进入和退出。
+- 环岛处理算法用于处理环岛。`ring_handler()`函数用于处理环岛的进入。入环条件于`Line_calculate_position`进行计算，当车辆的电感检测到环岛信号时，`Line_calculate_position`会主动调用`ring_handler()`函数。`ring_handler()`函数会使车辆进入环岛，并在环岛中行驶。
 
 ## 项目结构
 - `Libraries`目录包含了项目所需的各种库文件。

@@ -1,7 +1,14 @@
-/*
- *此代码可以使小车沿着直线前进
- *By JNU-Fly
- */
+/*********************
+ * straight.c
+ * 
+ * 作者: COTOMO
+ * 项目地址: https://github.com/Eclipse-01/SmartVehicleSchool
+ * MIT开源证书
+ * JNU-FLY at Jiangnan University
+ * 2024 November
+ * 
+ * 本文件实现了小车直行的PID控制算法和异常处理逻辑。
+ ********************************************************************************************************************/
 
 #include "headfile.h"
 #include "straight.h"

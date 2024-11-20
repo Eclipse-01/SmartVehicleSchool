@@ -1,20 +1,13 @@
-/*********************************************************************************************************************
- * COPYRIGHT NOTICE
- * Copyright (c) 2020,逐飞科技
- * All rights reserved.
- *
- * 以下所有内容版权均属逐飞科技所有，未经允许不得用于商业用途，
- * 欢迎各位使用并传播本程序，修改内容时必须保留逐飞科技的版权声明。
- *
- * @file       		main
- * @company			成都逐飞科技有限公司
- * @author     		逐飞科技(QQ790875685)
- * @version    		查看doc内version文件 版本说明
- * @Software 		MDK FOR C251 V5.60
- * @Target core		STC32F12K
- * @Taobao   		https://seekfree.taobao.com/
- * @date       		2023-11-18
- * @note		    由AI生成 By JNU-FLY
+/*********************
+ * battery.c
+ * 
+ * 作者: COTOMO
+ * 项目地址: https://github.com/Eclipse-01/SmartVehicleSchool
+ * MIT开源证书
+ * JNU-FLY at Jiangnan University
+ * 2024 November
+ * 
+ * 本文件实现了电池电压检测、蜂鸣器控制及电量状态更新的功能。
  ********************************************************************************************************************/
 
 #include "headfile.h"
