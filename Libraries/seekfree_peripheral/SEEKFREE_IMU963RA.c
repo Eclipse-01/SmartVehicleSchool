@@ -1,39 +1,39 @@
 /*********************************************************************************************************************
  * COPYRIGHT NOTICE
- * Copyright (c) 2018,é€é£žç§‘æŠ€
+ * Copyright (c) 2018,Öð·É¿Æ¼¼
  * All rights reserved.
- * æŠ€æœ¯è®¨è®ºQQç¾¤ï¼šä¸€ç¾¤ï¼š179029047(å·²æ»¡)  äºŒç¾¤ï¼š244861897
+ * ¼¼ÊõÌÖÂÛQQÈº£ºÒ»Èº£º179029047(ÒÑÂú)  ¶þÈº£º244861897
  *
- * ä»¥ä¸‹æ‰€æœ‰å†…å®¹ç‰ˆæƒå‡å±žé€é£žç§‘æŠ€æ‰€æœ‰ï¼Œæœªç»å…è®¸ä¸å¾—ç”¨äºŽå•†ä¸šç”¨é€”ï¼Œ
- * æ¬¢è¿Žå„ä½ä½¿ç”¨å¹¶ä¼ æ’­æœ¬ç¨‹åºï¼Œä¿®æ”¹å†…å®¹æ—¶å¿…é¡»ä¿ç•™é€é£žç§‘æŠ€çš„ç‰ˆæƒå£°æ˜Žã€‚
+ * ÒÔÏÂËùÓÐÄÚÈÝ°æÈ¨¾ùÊôÖð·É¿Æ¼¼ËùÓÐ£¬Î´¾­ÔÊÐí²»µÃÓÃÓÚÉÌÒµÓÃÍ¾£¬
+ * »¶Ó­¸÷Î»Ê¹ÓÃ²¢´«²¥±¾³ÌÐò£¬ÐÞ¸ÄÄÚÈÝÊ±±ØÐë±£ÁôÖð·É¿Æ¼¼µÄ°æÈ¨ÉùÃ÷¡£
  *
  * @file       		IMU963RA
- * @company	   		æˆéƒ½é€é£žç§‘æŠ€æœ‰é™å…¬å¸
- * @author     		é€é£žç§‘æŠ€(QQ3184284598)
- * @version    		æŸ¥çœ‹docå†…versionæ–‡ä»¶ ç‰ˆæœ¬è¯´æ˜Ž
+ * @company	   		³É¶¼Öð·É¿Æ¼¼ÓÐÏÞ¹«Ë¾
+ * @author     		Öð·É¿Æ¼¼(QQ3184284598)
+ * @version    		²é¿´docÄÚversionÎÄ¼þ °æ±¾ËµÃ÷
  * @Software 		MDK FOR C251 V5.60
  * @Target core		STC32F12K
  * @Taobao   		https://seekfree.taobao.com/
  * @date       		2019-04-30
  * @note		
- * æŽ¥çº¿å®šä¹‰ï¼š
+ * ½ÓÏß¶¨Òå£º
  *                   ------------------------------------
- *                   æ¨¡å—ç®¡è„š            å•ç‰‡æœºç®¡è„š
- *                   // ç¡¬ä»¶ SPI å¼•è„š
- *                   SCL/SPC             æŸ¥çœ‹ SEEKFREE_IMU963RA.h ä¸­ IMU963RA_SPC_PIN å®å®šä¹‰
- *                   SDA/DSI             æŸ¥çœ‹ SEEKFREE_IMU963RA.h ä¸­ IMU963RA_SDI_PIN å®å®šä¹‰
- *                   SA0/SDO             æŸ¥çœ‹ SEEKFREE_IMU963RA.h ä¸­ IMU963RA_SDO_PIN å®å®šä¹‰
- *                   CS                  æŸ¥çœ‹ SEEKFREE_IMU963RA.h ä¸­ IMU963RA_CS_PIN  å®å®šä¹‰
- *                   VCC                 3.3Vç”µæº
- *                   GND                 ç”µæºåœ°
- *                   å…¶ä½™å¼•è„šæ‚¬ç©º
+ *                   Ä£¿é¹Ü½Å            µ¥Æ¬»ú¹Ü½Å
+ *                   // Ó²¼þ SPI Òý½Å
+ *                   SCL/SPC             ²é¿´ SEEKFREE_IMU963RA.h ÖÐ IMU963RA_SPC_PIN ºê¶¨Òå
+ *                   SDA/DSI             ²é¿´ SEEKFREE_IMU963RA.h ÖÐ IMU963RA_SDI_PIN ºê¶¨Òå
+ *                   SA0/SDO             ²é¿´ SEEKFREE_IMU963RA.h ÖÐ IMU963RA_SDO_PIN ºê¶¨Òå
+ *                   CS                  ²é¿´ SEEKFREE_IMU963RA.h ÖÐ IMU963RA_CS_PIN  ºê¶¨Òå
+ *                   VCC                 3.3VµçÔ´
+ *                   GND                 µçÔ´µØ
+ *                   ÆäÓàÒý½ÅÐü¿Õ
  *
- *                   // è½¯ä»¶ IIC å¼•è„š
- *                   SCL/SPC             æŸ¥çœ‹ SEEKFREE_IMU963RA.h ä¸­ IMU963RA_SCL_PIN å®å®šä¹‰
- *                   SDA/DSI             æŸ¥çœ‹ SEEKFREE_IMU963RA.h ä¸­ IMU963RA_SDA_PIN å®å®šä¹‰
- *                   VCC                 3.3Vç”µæº
- *                   GND                 ç”µæºåœ°
- *                   å…¶ä½™å¼•è„šæ‚¬ç©º
+ *                   // Èí¼þ IIC Òý½Å
+ *                   SCL/SPC             ²é¿´ SEEKFREE_IMU963RA.h ÖÐ IMU963RA_SCL_PIN ºê¶¨Òå
+ *                   SDA/DSI             ²é¿´ SEEKFREE_IMU963RA.h ÖÐ IMU963RA_SDA_PIN ºê¶¨Òå
+ *                   VCC                 3.3VµçÔ´
+ *                   GND                 µçÔ´µØ
+ *                   ÆäÓàÒý½ÅÐü¿Õ
  *                   ------------------------------------
 ********************************************************************************************************************/
 
@@ -56,20 +56,20 @@ int16 imu963ra_mag_x = 0,  imu963ra_mag_y = 0,  imu963ra_mag_z = 0;
 
 
 #define GET_IMU963RA_SDA   		 	IMU963RA_SDA_PIN
-#define IMU963RA_SDA_LOW()         	IMU963RA_SDA_PIN = 0		//IOå£è¾“å‡ºä½Žç”µå¹³
-#define IMU963RA_SDA_HIGH()         IMU963RA_SDA_PIN = 1		//IOå£è¾“å‡ºé«˜ç”µå¹³
+#define IMU963RA_SDA_LOW()         	IMU963RA_SDA_PIN = 0		//IO¿ÚÊä³öµÍµçÆ½
+#define IMU963RA_SDA_HIGH()         IMU963RA_SDA_PIN = 1		//IO¿ÚÊä³ö¸ßµçÆ½
 
-#define IMU963RA_SCL_LOW()          IMU963RA_SCL_PIN = 0		//IOå£è¾“å‡ºä½Žç”µå¹³
-#define IMU963RA_SCL_HIGH()         IMU963RA_SCL_PIN = 1		//IOå£è¾“å‡ºé«˜ç”µå¹³
+#define IMU963RA_SCL_LOW()          IMU963RA_SCL_PIN = 0		//IO¿ÚÊä³öµÍµçÆ½
+#define IMU963RA_SCL_HIGH()         IMU963RA_SCL_PIN = 1		//IO¿ÚÊä³ö¸ßµçÆ½
 
-#define ack 1      //ä¸»åº”ç­”
-#define no_ack 0   //ä»Žåº”ç­”	
+#define ack 1      //Ö÷Ó¦´ð
+#define no_ack 0   //´ÓÓ¦´ð	
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      æ¨¡æ‹ŸIICå»¶æ—¶
+//  @brief      Ä£ÄâIICÑÓÊ±
 //  @return     void						
 //  @since      v1.0
-//  Sample usage:				å¦‚æžœIICé€šè®¯å¤±è´¥å¯ä»¥å°è¯•å¢žåŠ jçš„å€¼
+//  Sample usage:				Èç¹ûIICÍ¨Ñ¶Ê§°Ü¿ÉÒÔ³¢ÊÔÔö¼ÓjµÄÖµ
 //-------------------------------------------------------------------------------------------------------------------
 static void imu963ra_simiic_delay(void)
 {
@@ -77,7 +77,7 @@ static void imu963ra_simiic_delay(void)
 	while(j--);
 }
 
-//å†…éƒ¨ä½¿ç”¨ï¼Œç”¨æˆ·æ— éœ€è°ƒç”¨
+//ÄÚ²¿Ê¹ÓÃ£¬ÓÃ»§ÎÞÐèµ÷ÓÃ
 static void imu963ra_simiic_start(void)
 {
 	IMU963RA_SDA_HIGH();
@@ -88,7 +88,7 @@ static void imu963ra_simiic_start(void)
 	IMU963RA_SCL_LOW();
 }
 
-//å†…éƒ¨ä½¿ç”¨ï¼Œç”¨æˆ·æ— éœ€è°ƒç”¨
+//ÄÚ²¿Ê¹ÓÃ£¬ÓÃ»§ÎÞÐèµ÷ÓÃ
 static void imu963ra_simiic_stop(void)
 {
 	IMU963RA_SDA_LOW();
@@ -100,8 +100,8 @@ static void imu963ra_simiic_stop(void)
 	imu963ra_simiic_delay();
 }
 
-//ä¸»åº”ç­”(åŒ…å«ack:SDA=0å’Œno_ack:SDA=0)
-//å†…éƒ¨ä½¿ç”¨ï¼Œç”¨æˆ·æ— éœ€è°ƒç”¨
+//Ö÷Ó¦´ð(°üº¬ack:SDA=0ºÍno_ack:SDA=0)
+//ÄÚ²¿Ê¹ÓÃ£¬ÓÃ»§ÎÞÐèµ÷ÓÃ
 static void imu963ra_simiic_sendack(unsigned char ack_dat)
 {
     IMU963RA_SCL_LOW();
@@ -125,7 +125,7 @@ static int imu963ra_sccb_waitack(void)
 	IMU963RA_SCL_HIGH();
     imu963ra_simiic_delay();
 	
-    if(GET_IMU963RA_SDA)           //åº”ç­”ä¸ºé«˜ç”µå¹³ï¼Œå¼‚å¸¸ï¼Œé€šä¿¡å¤±è´¥
+    if(GET_IMU963RA_SDA)           //Ó¦´ðÎª¸ßµçÆ½£¬Òì³££¬Í¨ÐÅÊ§°Ü
     {
 
         IMU963RA_SCL_LOW();
@@ -137,30 +137,30 @@ static int imu963ra_sccb_waitack(void)
     return 1;
 }
 
-//å­—èŠ‚å‘é€ç¨‹åº
-//å‘é€c(å¯ä»¥æ˜¯æ•°æ®ä¹Ÿå¯æ˜¯åœ°å€)ï¼Œé€å®ŒåŽæŽ¥æ”¶ä»Žåº”ç­”
-//ä¸è€ƒè™‘ä»Žåº”ç­”ä½
-//å†…éƒ¨ä½¿ç”¨ï¼Œç”¨æˆ·æ— éœ€è°ƒç”¨
+//×Ö½Ú·¢ËÍ³ÌÐò
+//·¢ËÍc(¿ÉÒÔÊÇÊý¾ÝÒ²¿ÉÊÇµØÖ·)£¬ËÍÍêºó½ÓÊÕ´ÓÓ¦´ð
+//²»¿¼ÂÇ´ÓÓ¦´ðÎ»
+//ÄÚ²¿Ê¹ÓÃ£¬ÓÃ»§ÎÞÐèµ÷ÓÃ
 static void imu963ra_send_ch(uint8 c)
 {
 	uint8 i = 8;
     while(i--)
     {
-        if(c & 0x80)	IMU963RA_SDA_HIGH();//SDA è¾“å‡ºæ•°æ®
+        if(c & 0x80)	IMU963RA_SDA_HIGH();//SDA Êä³öÊý¾Ý
         else			IMU963RA_SDA_LOW();
         c <<= 1;
         imu963ra_simiic_delay();
-        IMU963RA_SCL_HIGH();                //SCL æ‹‰é«˜ï¼Œé‡‡é›†ä¿¡å·
+        IMU963RA_SCL_HIGH();                //SCL À­¸ß£¬²É¼¯ÐÅºÅ
         imu963ra_simiic_delay();
-        IMU963RA_SCL_LOW();                //SCL æ—¶é’Ÿçº¿æ‹‰ä½Ž
+        IMU963RA_SCL_LOW();                //SCL Ê±ÖÓÏßÀ­µÍ
     }
 	imu963ra_sccb_waitack();
 }
 
 
-//å­—èŠ‚æŽ¥æ”¶ç¨‹åº
-//æŽ¥æ”¶å™¨ä»¶ä¼ æ¥çš„æ•°æ®ï¼Œæ­¤ç¨‹åºåº”é…åˆ|ä¸»åº”ç­”å‡½æ•°|ä½¿ç”¨
-//å†…éƒ¨ä½¿ç”¨ï¼Œç”¨æˆ·æ— éœ€è°ƒç”¨
+//×Ö½Ú½ÓÊÕ³ÌÐò
+//½ÓÊÕÆ÷¼þ´«À´µÄÊý¾Ý£¬´Ë³ÌÐòÓ¦ÅäºÏ|Ö÷Ó¦´ðº¯Êý|Ê¹ÓÃ
+//ÄÚ²¿Ê¹ÓÃ£¬ÓÃ»§ÎÞÐèµ÷ÓÃ
 static uint8 imu963ra_read_ch(uint8 ack_x)
 {
     uint8 i;
@@ -173,14 +173,14 @@ static uint8 imu963ra_read_ch(uint8 ack_x)
     for(i=0;i<8;i++)
     {
         imu963ra_simiic_delay();
-        IMU963RA_SCL_LOW();         //ç½®æ—¶é’Ÿçº¿ä¸ºä½Žï¼Œå‡†å¤‡æŽ¥æ”¶æ•°æ®ä½
+        IMU963RA_SCL_LOW();         //ÖÃÊ±ÖÓÏßÎªµÍ£¬×¼±¸½ÓÊÕÊý¾ÝÎ»
         imu963ra_simiic_delay();
-        IMU963RA_SCL_HIGH();         //ç½®æ—¶é’Ÿçº¿ä¸ºé«˜ï¼Œä½¿æ•°æ®çº¿ä¸Šæ•°æ®æœ‰æ•ˆ
+        IMU963RA_SCL_HIGH();         //ÖÃÊ±ÖÓÏßÎª¸ß£¬Ê¹Êý¾ÝÏßÉÏÊý¾ÝÓÐÐ§
         imu963ra_simiic_delay();
         c<<=1;
         if(GET_IMU963RA_SDA) 
         {
-            c+=1;   //è¯»æ•°æ®ä½ï¼Œå°†æŽ¥æ”¶çš„æ•°æ®å­˜c
+            c+=1;   //¶ÁÊý¾ÝÎ»£¬½«½ÓÊÕµÄÊý¾Ý´æc
         }
     }
 
@@ -193,10 +193,10 @@ static uint8 imu963ra_read_ch(uint8 ack_x)
 
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      æ¨¡æ‹ŸIICå†™æ•°æ®åˆ°è®¾å¤‡å¯„å­˜å™¨å‡½æ•°
-//  @param      dev_add			è®¾å¤‡åœ°å€(ä½Žä¸ƒä½åœ°å€)
-//  @param      reg				å¯„å­˜å™¨åœ°å€
-//  @param      dat				å†™å…¥çš„æ•°æ®
+//  @brief      Ä£ÄâIICÐ´Êý¾Ýµ½Éè±¸¼Ä´æÆ÷º¯Êý
+//  @param      dev_add			Éè±¸µØÖ·(µÍÆßÎ»µØÖ·)
+//  @param      reg				¼Ä´æÆ÷µØÖ·
+//  @param      dat				Ð´ÈëµÄÊý¾Ý
 //  @return     void						
 //  @since      v1.0
 //  Sample usage:				
@@ -204,9 +204,9 @@ static uint8 imu963ra_read_ch(uint8 ack_x)
 static void imu963ra_simiic_write_reg(uint8 dev_add, uint8 reg, uint8 dat)
 {
 	imu963ra_simiic_start();
-    imu963ra_send_ch( (dev_add<<1) | 0x00);   //å‘é€å™¨ä»¶åœ°å€åŠ å†™ä½
-	imu963ra_send_ch( reg );   				 //å‘é€ä»Žæœºå¯„å­˜å™¨åœ°å€
-	imu963ra_send_ch( dat );   				 //å‘é€éœ€è¦å†™å…¥çš„æ•°æ®
+    imu963ra_send_ch( (dev_add<<1) | 0x00);   //·¢ËÍÆ÷¼þµØÖ·¼ÓÐ´Î»
+	imu963ra_send_ch( reg );   				 //·¢ËÍ´Ó»ú¼Ä´æÆ÷µØÖ·
+	imu963ra_send_ch( dat );   				 //·¢ËÍÐèÒªÐ´ÈëµÄÊý¾Ý
 	imu963ra_simiic_stop();
 }
 
@@ -214,11 +214,11 @@ static void imu963ra_simiic_write_reg(uint8 dev_add, uint8 reg, uint8 dat)
 
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      æ¨¡æ‹ŸIICä»Žè®¾å¤‡å¯„å­˜å™¨è¯»å–æ•°æ®
-//  @param      dev_add			è®¾å¤‡åœ°å€(ä½Žä¸ƒä½åœ°å€)
-//  @param      reg				å¯„å­˜å™¨åœ°å€
-//  @param      type			é€‰æ‹©é€šä¿¡æ–¹å¼æ˜¯IIC  è¿˜æ˜¯ SCCB
-//  @return     uint8			è¿”å›žå¯„å­˜å™¨çš„æ•°æ®			
+//  @brief      Ä£ÄâIIC´ÓÉè±¸¼Ä´æÆ÷¶ÁÈ¡Êý¾Ý
+//  @param      dev_add			Éè±¸µØÖ·(µÍÆßÎ»µØÖ·)
+//  @param      reg				¼Ä´æÆ÷µØÖ·
+//  @param      type			Ñ¡ÔñÍ¨ÐÅ·½Ê½ÊÇIIC  »¹ÊÇ SCCB
+//  @return     uint8			·µ»Ø¼Ä´æÆ÷µÄÊý¾Ý			
 //  @since      v1.0
 //  Sample usage:				
 //-------------------------------------------------------------------------------------------------------------------
@@ -226,13 +226,13 @@ static void imu963ra_simiic_write_reg(uint8 dev_add, uint8 reg, uint8 dat)
 //{
 //	uint8 dat;
 //	imu963ra_simiic_start();
-//    imu963ra_send_ch( (dev_add<<1) | 0x00);  //å‘é€å™¨ä»¶åœ°å€åŠ å†™ä½
-//	imu963ra_send_ch( reg );   				//å‘é€ä»Žæœºå¯„å­˜å™¨åœ°å€
+//    imu963ra_send_ch( (dev_add<<1) | 0x00);  //·¢ËÍÆ÷¼þµØÖ·¼ÓÐ´Î»
+//	imu963ra_send_ch( reg );   				//·¢ËÍ´Ó»ú¼Ä´æÆ÷µØÖ·
 
 //	
 //	imu963ra_simiic_start();
-//	imu963ra_send_ch( (dev_add<<1) | 0x01);  //å‘é€å™¨ä»¶åœ°å€åŠ è¯»ä½
-//	dat = imu963ra_read_ch(no_ack);   				//è¯»å–æ•°æ®
+//	imu963ra_send_ch( (dev_add<<1) | 0x01);  //·¢ËÍÆ÷¼þµØÖ·¼Ó¶ÁÎ»
+//	dat = imu963ra_read_ch(no_ack);   				//¶ÁÈ¡Êý¾Ý
 //	imu963ra_simiic_stop();
 //	
 //	return dat;
@@ -240,10 +240,10 @@ static void imu963ra_simiic_write_reg(uint8 dev_add, uint8 reg, uint8 dat)
 
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      æ¨¡æ‹ŸIICä»Žè®¾å¤‡å¯„å­˜å™¨è¯»å–æ•°æ®
-//  @param      dev_add			è®¾å¤‡åœ°å€(ä½Žä¸ƒä½åœ°å€)
-//  @param      reg				å¯„å­˜å™¨åœ°å€
-//  @return     uint8			è¿”å›žå¯„å­˜å™¨çš„æ•°æ®			
+//  @brief      Ä£ÄâIIC´ÓÉè±¸¼Ä´æÆ÷¶ÁÈ¡Êý¾Ý
+//  @param      dev_add			Éè±¸µØÖ·(µÍÆßÎ»µØÖ·)
+//  @param      reg				¼Ä´æÆ÷µØÖ·
+//  @return     uint8			·µ»Ø¼Ä´æÆ÷µÄÊý¾Ý			
 //  @since      v1.0
 //  Sample usage:				
 //-------------------------------------------------------------------------------------------------------------------
@@ -251,13 +251,13 @@ static uint8 imu963ra_simiic_sccb_read_reg(uint8 dev_add, uint8 reg)
 {
 	uint8 dat;
 	imu963ra_simiic_start();
-    imu963ra_send_ch( (dev_add<<1) | 0x00);  //å‘é€å™¨ä»¶åœ°å€åŠ å†™ä½
-	imu963ra_send_ch( reg );   				//å‘é€ä»Žæœºå¯„å­˜å™¨åœ°å€
+    imu963ra_send_ch( (dev_add<<1) | 0x00);  //·¢ËÍÆ÷¼þµØÖ·¼ÓÐ´Î»
+	imu963ra_send_ch( reg );   				//·¢ËÍ´Ó»ú¼Ä´æÆ÷µØÖ·
 	imu963ra_simiic_stop();
 	
 	imu963ra_simiic_start();
-	imu963ra_send_ch( (dev_add<<1) | 0x01);  //å‘é€å™¨ä»¶åœ°å€åŠ è¯»ä½
-	dat = imu963ra_read_ch(no_ack);   				//è¯»å–æ•°æ®
+	imu963ra_send_ch( (dev_add<<1) | 0x01);  //·¢ËÍÆ÷¼þµØÖ·¼Ó¶ÁÎ»
+	dat = imu963ra_read_ch(no_ack);   				//¶ÁÈ¡Êý¾Ý
 	imu963ra_simiic_stop();
 	
 	return dat;
@@ -265,62 +265,62 @@ static uint8 imu963ra_simiic_sccb_read_reg(uint8 dev_add, uint8 reg)
 
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      æ¨¡æ‹ŸIICè¯»å–å¤šå­—èŠ‚æ•°æ®
-//  @param      dev_add			è®¾å¤‡åœ°å€(ä½Žä¸ƒä½åœ°å€)
-//  @param      reg				å¯„å­˜å™¨åœ°å€
-//  @param      dat_add			æ•°æ®ä¿å­˜çš„åœ°å€æŒ‡é’ˆ
-//  @param      num				è¯»å–å­—èŠ‚æ•°é‡
-//  @param      type			é€‰æ‹©é€šä¿¡æ–¹å¼æ˜¯IIC  è¿˜æ˜¯ SCCB
-//  @return     uint8			è¿”å›žå¯„å­˜å™¨çš„æ•°æ®			
+//  @brief      Ä£ÄâIIC¶ÁÈ¡¶à×Ö½ÚÊý¾Ý
+//  @param      dev_add			Éè±¸µØÖ·(µÍÆßÎ»µØÖ·)
+//  @param      reg				¼Ä´æÆ÷µØÖ·
+//  @param      dat_add			Êý¾Ý±£´æµÄµØÖ·Ö¸Õë
+//  @param      num				¶ÁÈ¡×Ö½ÚÊýÁ¿
+//  @param      type			Ñ¡ÔñÍ¨ÐÅ·½Ê½ÊÇIIC  »¹ÊÇ SCCB
+//  @return     uint8			·µ»Ø¼Ä´æÆ÷µÄÊý¾Ý			
 //  @since      v1.0
 //  Sample usage:				
 //-------------------------------------------------------------------------------------------------------------------
 static void imu963ra_simiic_read_regs(uint8 dev_add, uint8 reg, uint8 *dat_add, uint32 num)
 {
 	imu963ra_simiic_start();
-    imu963ra_send_ch( (dev_add<<1) | 0x00);  //å‘é€å™¨ä»¶åœ°å€åŠ å†™ä½
-	imu963ra_send_ch( reg );   				//å‘é€ä»Žæœºå¯„å­˜å™¨åœ°å€
+    imu963ra_send_ch( (dev_add<<1) | 0x00);  //·¢ËÍÆ÷¼þµØÖ·¼ÓÐ´Î»
+	imu963ra_send_ch( reg );   				//·¢ËÍ´Ó»ú¼Ä´æÆ÷µØÖ·
 
 	
 	imu963ra_simiic_start();
-	imu963ra_send_ch( (dev_add<<1) | 0x01);  //å‘é€å™¨ä»¶åœ°å€åŠ è¯»ä½
+	imu963ra_send_ch( (dev_add<<1) | 0x01);  //·¢ËÍÆ÷¼þµØÖ·¼Ó¶ÁÎ»
     while(--num)
     {
-        *dat_add = imu963ra_read_ch(ack); //è¯»å–æ•°æ®
+        *dat_add = imu963ra_read_ch(ack); //¶ÁÈ¡Êý¾Ý
         dat_add++;
     }
-    *dat_add = imu963ra_read_ch(no_ack); //è¯»å–æ•°æ®
+    *dat_add = imu963ra_read_ch(no_ack); //¶ÁÈ¡Êý¾Ý
 	imu963ra_simiic_stop();
 }
 
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU963RA å†™å¯„å­˜å™¨
-// å‚æ•°è¯´æ˜Ž     reg             å¯„å­˜å™¨åœ°å€
-// å‚æ•°è¯´æ˜Ž     dat            æ•°æ®
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_write_acc_gyro_register(IMU963RA_SLV0_CONFIG, 0x00);
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU963RA Ð´¼Ä´æÆ÷
+// ²ÎÊýËµÃ÷     reg             ¼Ä´æÆ÷µØÖ·
+// ²ÎÊýËµÃ÷     dat            Êý¾Ý
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu963ra_write_acc_gyro_register(IMU963RA_SLV0_CONFIG, 0x00);
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 #define imu963ra_write_acc_gyro_register(reg,dat)       (imu963ra_simiic_write_reg(IMU963RA_DEV_ADDR,reg,dat))
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU963RA è¯»å¯„å­˜å™¨
-// å‚æ•°è¯´æ˜Ž     reg             å¯„å­˜å™¨åœ°å€
-// è¿”å›žå‚æ•°     uint8           æ•°æ®
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_read_acc_gyro_register(IMU963RA_STATUS_MASTER);
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU963RA ¶Á¼Ä´æÆ÷
+// ²ÎÊýËµÃ÷     reg             ¼Ä´æÆ÷µØÖ·
+// ·µ»Ø²ÎÊý     uint8           Êý¾Ý
+// Ê¹ÓÃÊ¾Àý     imu963ra_read_acc_gyro_register(IMU963RA_STATUS_MASTER);
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 #define imu963ra_read_acc_gyro_register(reg)             (imu963ra_simiic_sccb_read_reg(IMU963RA_DEV_ADDR,reg))
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU963RA è¯»æ•°æ® å†…éƒ¨è°ƒç”¨
-// å‚æ•°è¯´æ˜Ž     reg             å¯„å­˜å™¨åœ°å€
-// å‚æ•°è¯´æ˜Ž     dat            æ•°æ®ç¼“å†²åŒº
-// å‚æ•°è¯´æ˜Ž     len             æ•°æ®é•¿åº¦
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_read_acc_gyro_registers(IMU963RA_OUTX_L_A, dat, 6);
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU963RA ¶ÁÊý¾Ý ÄÚ²¿µ÷ÓÃ
+// ²ÎÊýËµÃ÷     reg             ¼Ä´æÆ÷µØÖ·
+// ²ÎÊýËµÃ÷     dat            Êý¾Ý»º³åÇø
+// ²ÎÊýËµÃ÷     len             Êý¾Ý³¤¶È
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu963ra_read_acc_gyro_registers(IMU963RA_OUTX_L_A, dat, 6);
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 #define imu963ra_read_acc_gyro_registers(reg,dat,len)   (imu963ra_simiic_read_regs(IMU963RA_DEV_ADDR,reg,dat,len))
 
@@ -335,9 +335,9 @@ static void imu963ra_simiic_read_regs(uint8 dev_add, uint8 reg, uint8 *dat_add, 
 #define IMU963RA_MISO    			IMU963RA_SDO_PIN 
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      é€šè¿‡SPIå†™ä¸€ä¸ªbyte,åŒæ—¶è¯»å–ä¸€ä¸ªbyte
-//  @param      byte        å‘é€çš„æ•°æ®    
-//  @return     uint8       return è¿”å›žstatusçŠ¶æ€
+//  @brief      Í¨¹ýSPIÐ´Ò»¸öbyte,Í¬Ê±¶ÁÈ¡Ò»¸öbyte
+//  @param      byte        ·¢ËÍµÄÊý¾Ý    
+//  @return     uint8       return ·µ»Østatus×´Ì¬
 //  @since      v1.0
 //  Sample usage:
 //-------------------------------------------------------------------------------------------------------------------
@@ -359,9 +359,9 @@ static uint8 imu963ra_simspi_wr_byte(uint8 byte)
     return(byte);                                      		
 }
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      å°†valå†™å…¥cmdå¯¹åº”çš„å¯„å­˜å™¨åœ°å€,åŒæ—¶è¿”å›žstatuså­—èŠ‚
-//  @param      cmd         å‘½ä»¤å­—
-//  @param      val         å¾…å†™å…¥å¯„å­˜å™¨çš„æ•°å€¼
+//  @brief      ½«valÐ´Èëcmd¶ÔÓ¦µÄ¼Ä´æÆ÷µØÖ·,Í¬Ê±·µ»Østatus×Ö½Ú
+//  @param      cmd         ÃüÁî×Ö
+//  @param      val         ´ýÐ´Èë¼Ä´æÆ÷µÄÊýÖµ
 //  @since      v1.0
 //  Sample usage:
 //-------------------------------------------------------------------------------------------------------------------
@@ -376,9 +376,9 @@ static void imu963ra_simspi_w_reg_byte(uint8 cmd, uint8 val)
 
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      å°†valå†™å…¥cmdå¯¹åº”çš„å¯„å­˜å™¨åœ°å€
-//  @param      cmd         å‘½ä»¤å­—
-//  @param      val         å¾…å†™å…¥å¯„å­˜å™¨çš„æ•°å€¼
+//  @brief      ½«valÐ´Èëcmd¶ÔÓ¦µÄ¼Ä´æÆ÷µØÖ·
+//  @param      cmd         ÃüÁî×Ö
+//  @param      val         ´ýÐ´Èë¼Ä´æÆ÷µÄÊýÖµ
 //  @since      v1.0
 //  Sample usage:
 //-------------------------------------------------------------------------------------------------------------------
@@ -397,9 +397,9 @@ static void imu963ra_simspi_w_reg_byte(uint8 cmd, uint8 val)
 //}
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      è¯»å–cmdæ‰€å¯¹åº”çš„å¯„å­˜å™¨åœ°å€
-//  @param      cmd         å‘½ä»¤å­—
-//  @param      *val        å­˜å‚¨è¯»å–çš„æ•°æ®åœ°å€
+//  @brief      ¶ÁÈ¡cmdËù¶ÔÓ¦µÄ¼Ä´æÆ÷µØÖ·
+//  @param      cmd         ÃüÁî×Ö
+//  @param      *val        ´æ´¢¶ÁÈ¡µÄÊý¾ÝµØÖ·
 //  @since      v1.0
 //  Sample usage:
 //-------------------------------------------------------------------------------------------------------------------
@@ -413,10 +413,10 @@ static void imu963ra_simspi_r_reg_byte(uint8 cmd, uint8 *val)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      è¯»å–cmdæ‰€å¯¹åº”çš„å¯„å­˜å™¨åœ°å€
-//  @param      cmd         å‘½ä»¤å­—
-//  @param      *val        å­˜å‚¨è¯»å–çš„æ•°æ®åœ°å€
-//  @param      num         è¯»å–çš„æ•°é‡
+//  @brief      ¶ÁÈ¡cmdËù¶ÔÓ¦µÄ¼Ä´æÆ÷µØÖ·
+//  @param      cmd         ÃüÁî×Ö
+//  @param      *val        ´æ´¢¶ÁÈ¡µÄÊý¾ÝµØÖ·
+//  @param      num         ¶ÁÈ¡µÄÊýÁ¿
 //  @since      v1.0
 //  Sample usage:
 //-------------------------------------------------------------------------------------------------------------------
@@ -435,12 +435,12 @@ static void imu963ra_simspi_r_reg_bytes(uint8 cmd, uint8 *val, uint32 num)
 
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU963RA å†™å¯„å­˜å™¨
-// å‚æ•°è¯´æ˜Ž     reg             å¯„å­˜å™¨åœ°å€
-// å‚æ•°è¯´æ˜Ž     dat            æ•°æ®
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_write_acc_gyro_register(IMU963RA_SLV0_CONFIG, 0x00);
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU963RA Ð´¼Ä´æÆ÷
+// ²ÎÊýËµÃ÷     reg             ¼Ä´æÆ÷µØÖ·
+// ²ÎÊýËµÃ÷     dat            Êý¾Ý
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu963ra_write_acc_gyro_register(IMU963RA_SLV0_CONFIG, 0x00);
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static void imu963ra_write_acc_gyro_register(uint8 reg, uint8 dat)
 {
@@ -451,11 +451,11 @@ static void imu963ra_write_acc_gyro_register(uint8 reg, uint8 dat)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU963RA è¯»å¯„å­˜å™¨
-// å‚æ•°è¯´æ˜Ž     reg             å¯„å­˜å™¨åœ°å€
-// è¿”å›žå‚æ•°     uint8           æ•°æ®
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_read_acc_gyro_register(IMU963RA_STATUS_MASTER);
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU963RA ¶Á¼Ä´æÆ÷
+// ²ÎÊýËµÃ÷     reg             ¼Ä´æÆ÷µØÖ·
+// ·µ»Ø²ÎÊý     uint8           Êý¾Ý
+// Ê¹ÓÃÊ¾Àý     imu963ra_read_acc_gyro_register(IMU963RA_STATUS_MASTER);
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static uint8 imu963ra_read_acc_gyro_register(uint8 reg)
 {
@@ -467,13 +467,13 @@ static uint8 imu963ra_read_acc_gyro_register(uint8 reg)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU963RA è¯»æ•°æ® å†…éƒ¨è°ƒç”¨
-// å‚æ•°è¯´æ˜Ž     reg             å¯„å­˜å™¨åœ°å€
-// å‚æ•°è¯´æ˜Ž     dat            æ•°æ®ç¼“å†²åŒº
-// å‚æ•°è¯´æ˜Ž     len             æ•°æ®é•¿åº¦
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_read_acc_gyro_registers(IMU963RA_OUTX_L_A, dat, 6);
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU963RA ¶ÁÊý¾Ý ÄÚ²¿µ÷ÓÃ
+// ²ÎÊýËµÃ÷     reg             ¼Ä´æÆ÷µØÖ·
+// ²ÎÊýËµÃ÷     dat            Êý¾Ý»º³åÇø
+// ²ÎÊýËµÃ÷     len             Êý¾Ý³¤¶È
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu963ra_read_acc_gyro_registers(IMU963RA_OUTX_L_A, dat, 6);
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static void imu963ra_read_acc_gyro_registers(uint8 reg, uint8 *dat, uint32 len)
 {
@@ -485,13 +485,13 @@ static void imu963ra_read_acc_gyro_registers(uint8 reg, uint8 *dat, uint32 len)
 #endif
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU963RA ä½œä¸º IIC ä¸»æœºå‘ç£åŠ›è®¡å†™æ•°æ®
-// å‚æ•°è¯´æ˜Ž     addr            ç›®æ ‡åœ°å€
-// å‚æ•°è¯´æ˜Ž     reg             ç›®æ ‡å¯„å­˜å™¨
-// å‚æ•°è¯´æ˜Ž     dat            æ•°æ®
-// è¿”å›žå‚æ•°     uint8           1-å¤±è´¥ 0-æˆåŠŸ
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_write_mag_register(IMU963RA_MAG_ADDR, IMU963RA_MAG_CONTROL2, 0x80);
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU963RA ×÷Îª IIC Ö÷»úÏò´ÅÁ¦¼ÆÐ´Êý¾Ý
+// ²ÎÊýËµÃ÷     addr            Ä¿±êµØÖ·
+// ²ÎÊýËµÃ÷     reg             Ä¿±ê¼Ä´æÆ÷
+// ²ÎÊýËµÃ÷     dat            Êý¾Ý
+// ·µ»Ø²ÎÊý     uint8           1-Ê§°Ü 0-³É¹¦
+// Ê¹ÓÃÊ¾Àý     imu963ra_write_mag_register(IMU963RA_MAG_ADDR, IMU963RA_MAG_CONTROL2, 0x80);
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static uint8 imu963ra_write_mag_register (uint8 addr, uint8 reg, uint8 dat)
 {
@@ -499,13 +499,13 @@ static uint8 imu963ra_write_mag_register (uint8 addr, uint8 reg, uint8 dat)
     uint16 timeout_count = 0;
 
     addr = addr << 1;
-    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_CONFIG, 0x00);               // ä»Žæœº0é…ç½®æ¸…é™¤
-    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_ADD, addr | 0);              // è®¾ç½®åœ°ç£è®¡åœ°å€ï¼ˆæ³¨æ„è¿™é‡Œéœ€è¦è®¾ç½®8ä½çš„I2Cåœ°å€ï¼‰ 0x2C
-    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_SUBADD, reg);                // éœ€è¦å†™å…¥çš„å¯„å­˜å™¨åœ°å€
-    imu963ra_write_acc_gyro_register(IMU963RA_DATAWRITE_SLV0, dat);            // éœ€è¦å†™å…¥çš„æ•°æ®
-    imu963ra_write_acc_gyro_register(IMU963RA_MASTER_CONFIG, 0x4C);             // ä»…åœ¨ç¬¬ä¸€ä¸ªå‘¨æœŸå¯ç”¨é€šè®¯ å¼€å¯ä¸Šæ‹‰ I2Cä¸»æœºä½¿èƒ½
+    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_CONFIG, 0x00);               // ´Ó»ú0ÅäÖÃÇå³ý
+    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_ADD, addr | 0);              // ÉèÖÃµØ´Å¼ÆµØÖ·£¨×¢ÒâÕâÀïÐèÒªÉèÖÃ8Î»µÄI2CµØÖ·£© 0x2C
+    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_SUBADD, reg);                // ÐèÒªÐ´ÈëµÄ¼Ä´æÆ÷µØÖ·
+    imu963ra_write_acc_gyro_register(IMU963RA_DATAWRITE_SLV0, dat);            // ÐèÒªÐ´ÈëµÄÊý¾Ý
+    imu963ra_write_acc_gyro_register(IMU963RA_MASTER_CONFIG, 0x4C);             // ½öÔÚµÚÒ»¸öÖÜÆÚÆôÓÃÍ¨Ñ¶ ¿ªÆôÉÏÀ­ I2CÖ÷»úÊ¹ÄÜ
     
-    // ç­‰å¾…é€šè®¯æˆåŠŸ
+    // µÈ´ýÍ¨Ñ¶³É¹¦
     while(0 == (0x80 & imu963ra_read_acc_gyro_register(IMU963RA_STATUS_MASTER)))
     {
         if(timeout_count ++ > IMU963RA_TIMEOUT_COUNT)
@@ -519,24 +519,24 @@ static uint8 imu963ra_write_mag_register (uint8 addr, uint8 reg, uint8 dat)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU963RA ä½œä¸º IIC ä¸»æœºå‘ç£åŠ›è®¡è¯»æ•°æ®
-// å‚æ•°è¯´æ˜Ž     addr            ç›®æ ‡åœ°å€
-// å‚æ•°è¯´æ˜Ž     reg             ç›®æ ‡å¯„å­˜å™¨
-// è¿”å›žå‚æ•°     uint8           è¯»å–çš„æ•°æ®
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_read_mag_register(IMU963RA_MAG_ADDR, IMU963RA_MAG_CHIP_ID);
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU963RA ×÷Îª IIC Ö÷»úÏò´ÅÁ¦¼Æ¶ÁÊý¾Ý
+// ²ÎÊýËµÃ÷     addr            Ä¿±êµØÖ·
+// ²ÎÊýËµÃ÷     reg             Ä¿±ê¼Ä´æÆ÷
+// ·µ»Ø²ÎÊý     uint8           ¶ÁÈ¡µÄÊý¾Ý
+// Ê¹ÓÃÊ¾Àý     imu963ra_read_mag_register(IMU963RA_MAG_ADDR, IMU963RA_MAG_CHIP_ID);
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static uint8 imu963ra_read_mag_register (uint8 addr, uint8 reg)
 {
     uint16 timeout_count = 0;
 
     addr = addr << 1;
-    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_ADD, addr | 1);              // è®¾ç½®åœ°ç£è®¡åœ°å€ï¼ˆæ³¨æ„è¿™é‡Œéœ€è¦è®¾ç½®8ä½çš„I2Cåœ°å€ï¼‰ 0x2C
-    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_SUBADD, reg);                // éœ€è¦è¯»å–çš„å¯„å­˜å™¨åœ°å€
+    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_ADD, addr | 1);              // ÉèÖÃµØ´Å¼ÆµØÖ·£¨×¢ÒâÕâÀïÐèÒªÉèÖÃ8Î»µÄI2CµØÖ·£© 0x2C
+    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_SUBADD, reg);                // ÐèÒª¶ÁÈ¡µÄ¼Ä´æÆ÷µØÖ·
     imu963ra_write_acc_gyro_register(IMU963RA_SLV0_CONFIG, 0x01);    
-    imu963ra_write_acc_gyro_register(IMU963RA_MASTER_CONFIG, 0x4C);             // ä»…åœ¨ç¬¬ä¸€ä¸ªå‘¨æœŸå¯ç”¨é€šè®¯ å¼€å¯ä¸Šæ‹‰ I2Cä¸»æœºä½¿èƒ½
+    imu963ra_write_acc_gyro_register(IMU963RA_MASTER_CONFIG, 0x4C);             // ½öÔÚµÚÒ»¸öÖÜÆÚÆôÓÃÍ¨Ñ¶ ¿ªÆôÉÏÀ­ I2CÖ÷»úÊ¹ÄÜ
     
-    // ç­‰å¾…é€šè®¯æˆåŠŸ
+    // µÈ´ýÍ¨Ñ¶³É¹¦
     while(0 == (0x01 & imu963ra_read_acc_gyro_register(IMU963RA_STATUS_MASTER)))
     {
         if(timeout_count ++ > IMU963RA_TIMEOUT_COUNT)
@@ -546,34 +546,34 @@ static uint8 imu963ra_read_mag_register (uint8 addr, uint8 reg)
         delay_ms(2);
     }
     
-    return (imu963ra_read_acc_gyro_register(IMU963RA_SENSOR_HUB_1));            // è¿”å›žè¯»å–åˆ°çš„æ•°æ®
+    return (imu963ra_read_acc_gyro_register(IMU963RA_SENSOR_HUB_1));            // ·µ»Ø¶ÁÈ¡µ½µÄÊý¾Ý
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU963RA ä½œä¸º IIC ä¸»æœºå‘ç£åŠ›è®¡è‡ªåŠ¨å†™æ•°æ®
-// å‚æ•°è¯´æ˜Ž     addr            ç›®æ ‡åœ°å€
-// å‚æ•°è¯´æ˜Ž     reg             ç›®æ ‡å¯„å­˜å™¨
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_connect_mag(IMU963RA_MAG_ADDR, IMU963RA_MAG_OUTX_L);
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU963RA ×÷Îª IIC Ö÷»úÏò´ÅÁ¦¼Æ×Ô¶¯Ð´Êý¾Ý
+// ²ÎÊýËµÃ÷     addr            Ä¿±êµØÖ·
+// ²ÎÊýËµÃ÷     reg             Ä¿±ê¼Ä´æÆ÷
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu963ra_connect_mag(IMU963RA_MAG_ADDR, IMU963RA_MAG_OUTX_L);
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static void imu963ra_connect_mag (uint8 addr, uint8 reg)
 {
     addr = addr << 1;
     
-    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_ADD, addr | 1);              // è®¾ç½®åœ°ç£è®¡åœ°å€ï¼ˆæ³¨æ„è¿™é‡Œéœ€è¦è®¾ç½®8ä½çš„I2Cåœ°å€ï¼‰ 0x2C
-    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_SUBADD, reg);                // éœ€è¦è¯»å–çš„å¯„å­˜å™¨åœ°å€
+    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_ADD, addr | 1);              // ÉèÖÃµØ´Å¼ÆµØÖ·£¨×¢ÒâÕâÀïÐèÒªÉèÖÃ8Î»µÄI2CµØÖ·£© 0x2C
+    imu963ra_write_acc_gyro_register(IMU963RA_SLV0_SUBADD, reg);                // ÐèÒª¶ÁÈ¡µÄ¼Ä´æÆ÷µØÖ·
     imu963ra_write_acc_gyro_register(IMU963RA_SLV0_CONFIG, 0x06);    
-    imu963ra_write_acc_gyro_register(IMU963RA_MASTER_CONFIG, 0x6C);             // ä»…åœ¨ç¬¬ä¸€ä¸ªå‘¨æœŸå¯ç”¨é€šè®¯ å¼€å¯ä¸Šæ‹‰ I2Cä¸»æœºä½¿èƒ½
+    imu963ra_write_acc_gyro_register(IMU963RA_MASTER_CONFIG, 0x6C);             // ½öÔÚµÚÒ»¸öÖÜÆÚÆôÓÃÍ¨Ñ¶ ¿ªÆôÉÏÀ­ I2CÖ÷»úÊ¹ÄÜ
 }   
 
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU963RA å…­è½´è‡ªæ£€ å†…éƒ¨è°ƒç”¨
-// å‚æ•°è¯´æ˜Ž     void
-// è¿”å›žå‚æ•°     uint8           1-è‡ªæ£€å¤±è´¥ 0-è‡ªæ£€æˆåŠŸ
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_acc_gyro_self_check();
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU963RA ÁùÖá×Ô¼ì ÄÚ²¿µ÷ÓÃ
+// ²ÎÊýËµÃ÷     void
+// ·µ»Ø²ÎÊý     uint8           1-×Ô¼ìÊ§°Ü 0-×Ô¼ì³É¹¦
+// Ê¹ÓÃÊ¾Àý     imu963ra_acc_gyro_self_check();
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static uint8 imu963ra_acc_gyro_self_check (void)
 {
@@ -581,7 +581,7 @@ static uint8 imu963ra_acc_gyro_self_check (void)
     uint8 dat = 0;
     uint16 timeout_count = 0;
 
-    while(0x6B != dat)                                                          // åˆ¤æ–­ ID æ˜¯å¦æ­£ç¡®
+    while(0x6B != dat)                                                          // ÅÐ¶Ï ID ÊÇ·ñÕýÈ·
     {
         if(timeout_count++ > IMU963RA_TIMEOUT_COUNT)
         {
@@ -595,11 +595,11 @@ static uint8 imu963ra_acc_gyro_self_check (void)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU963RA ç£åŠ›è®¡è‡ªæ£€ å†…éƒ¨è°ƒç”¨
-// å‚æ•°è¯´æ˜Ž     void
-// è¿”å›žå‚æ•°     uint8           1-è‡ªæ£€å¤±è´¥ 0-è‡ªæ£€æˆåŠŸ
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_mag_self_check();
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU963RA ´ÅÁ¦¼Æ×Ô¼ì ÄÚ²¿µ÷ÓÃ
+// ²ÎÊýËµÃ÷     void
+// ·µ»Ø²ÎÊý     uint8           1-×Ô¼ìÊ§°Ü 0-×Ô¼ì³É¹¦
+// Ê¹ÓÃÊ¾Àý     imu963ra_mag_self_check();
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static uint8 imu963ra_mag_self_check (void)
 {
@@ -607,7 +607,7 @@ static uint8 imu963ra_mag_self_check (void)
     uint8 dat = 0;
     uint16 timeout_count = 0;
 
-    while(0xff != dat)                                                          // åˆ¤æ–­ ID æ˜¯å¦æ­£ç¡®
+    while(0xff != dat)                                                          // ÅÐ¶Ï ID ÊÇ·ñÕýÈ·
     {
         if(timeout_count++ > IMU963RA_TIMEOUT_COUNT)
         {
@@ -621,11 +621,11 @@ static uint8 imu963ra_mag_self_check (void)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     èŽ·å– IMU963RA åŠ é€Ÿåº¦è®¡æ•°æ®
-// å‚æ•°è¯´æ˜Ž     void
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_get_acc();
-// å¤‡æ³¨ä¿¡æ¯     æ‰§è¡Œè¯¥å‡½æ•°åŽï¼Œç›´æŽ¥æŸ¥çœ‹å¯¹åº”çš„å˜é‡å³å¯
+// º¯Êý¼ò½é     »ñÈ¡ IMU963RA ¼ÓËÙ¶È¼ÆÊý¾Ý
+// ²ÎÊýËµÃ÷     void
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu963ra_get_acc();
+// ±¸×¢ÐÅÏ¢     Ö´ÐÐ¸Ãº¯Êýºó£¬Ö±½Ó²é¿´¶ÔÓ¦µÄ±äÁ¿¼´¿É
 //-------------------------------------------------------------------------------------------------------------------
 void imu963ra_get_acc (void)
 {
@@ -639,11 +639,11 @@ void imu963ra_get_acc (void)
 
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     èŽ·å–IMU963RAé™€èžºä»ªæ•°æ®
-// å‚æ•°è¯´æ˜Ž     void
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_get_gyro();
-// å¤‡æ³¨ä¿¡æ¯     æ‰§è¡Œè¯¥å‡½æ•°åŽï¼Œç›´æŽ¥æŸ¥çœ‹å¯¹åº”çš„å˜é‡å³å¯
+// º¯Êý¼ò½é     »ñÈ¡IMU963RAÍÓÂÝÒÇÊý¾Ý
+// ²ÎÊýËµÃ÷     void
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu963ra_get_gyro();
+// ±¸×¢ÐÅÏ¢     Ö´ÐÐ¸Ãº¯Êýºó£¬Ö±½Ó²é¿´¶ÔÓ¦µÄ±äÁ¿¼´¿É
 //-------------------------------------------------------------------------------------------------------------------
 void imu963ra_get_gyro (void)
 {
@@ -657,11 +657,11 @@ void imu963ra_get_gyro (void)
 
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     èŽ·å– IMU963RA ç£åŠ›è®¡æ•°æ®
-// å‚æ•°è¯´æ˜Ž     void
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_get_mag();
-// å¤‡æ³¨ä¿¡æ¯     æ‰§è¡Œè¯¥å‡½æ•°åŽï¼Œç›´æŽ¥æŸ¥çœ‹å¯¹åº”çš„å˜é‡å³å¯
+// º¯Êý¼ò½é     »ñÈ¡ IMU963RA ´ÅÁ¦¼ÆÊý¾Ý
+// ²ÎÊýËµÃ÷     void
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu963ra_get_mag();
+// ±¸×¢ÐÅÏ¢     Ö´ÐÐ¸Ãº¯Êýºó£¬Ö±½Ó²é¿´¶ÔÓ¦µÄ±äÁ¿¼´¿É
 //-------------------------------------------------------------------------------------------------------------------
 void imu963ra_get_mag (void)
 {
@@ -681,79 +681,79 @@ void imu963ra_get_mag (void)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     å°† IMU963RA åŠ é€Ÿåº¦è®¡æ•°æ®è½¬æ¢ä¸ºå®žé™…ç‰©ç†æ•°æ®
-// å‚æ•°è¯´æ˜Ž     gyro_value      ä»»æ„è½´çš„åŠ é€Ÿåº¦è®¡æ•°æ®
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     float dat = imu963ra_acc_transition(imu963ra_acc_x);           // å•ä½ä¸º g(m/s^2)
-// å¤‡æ³¨ä¿¡æ¯
+// º¯Êý¼ò½é     ½« IMU963RA ¼ÓËÙ¶È¼ÆÊý¾Ý×ª»»ÎªÊµ¼ÊÎïÀíÊý¾Ý
+// ²ÎÊýËµÃ÷     gyro_value      ÈÎÒâÖáµÄ¼ÓËÙ¶È¼ÆÊý¾Ý
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     float dat = imu963ra_acc_transition(imu963ra_acc_x);           // µ¥Î»Îª g(m/s^2)
+// ±¸×¢ÐÅÏ¢
 //-------------------------------------------------------------------------------------------------------------------
 float imu963ra_acc_transition (int16 acc_value)
 {
     float acc_dat = 0;
     switch(IMU963RA_ACC_SAMPLE)
     {
-        case 0x30: acc_dat = (float)acc_value / 16393; break;                  // 0x30 åŠ é€Ÿåº¦é‡ç¨‹ä¸º:Â±2G      èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥ 16393 ï¼Œå¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šg(m/s^2)
-        case 0x38: acc_dat = (float)acc_value / 8197;  break;                  // 0x38 åŠ é€Ÿåº¦é‡ç¨‹ä¸º:Â±4G      èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥ 8197 ï¼Œ å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šg(m/s^2)
-        case 0x3C: acc_dat = (float)acc_value / 4098;  break;                  // 0x3C åŠ é€Ÿåº¦é‡ç¨‹ä¸º:Â±8G      èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥ 4098 ï¼Œ å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šg(m/s^2)
-        case 0x34: acc_dat = (float)acc_value / 2049;  break;                  // 0x34 åŠ é€Ÿåº¦é‡ç¨‹ä¸º:Â±16G     èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥ 2049 ï¼Œ å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šg(m/s^2)
+        case 0x30: acc_dat = (float)acc_value / 16393; break;                  // 0x30 ¼ÓËÙ¶ÈÁ¿³ÌÎª:¡À2G      »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 16393 £¬¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºg(m/s^2)
+        case 0x38: acc_dat = (float)acc_value / 8197;  break;                  // 0x38 ¼ÓËÙ¶ÈÁ¿³ÌÎª:¡À4G      »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 8197 £¬ ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºg(m/s^2)
+        case 0x3C: acc_dat = (float)acc_value / 4098;  break;                  // 0x3C ¼ÓËÙ¶ÈÁ¿³ÌÎª:¡À8G      »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 4098 £¬ ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºg(m/s^2)
+        case 0x34: acc_dat = (float)acc_value / 2049;  break;                  // 0x34 ¼ÓËÙ¶ÈÁ¿³ÌÎª:¡À16G     »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 2049 £¬ ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºg(m/s^2)
         default: break;
     }
     return acc_dat;
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     å°† IMU963RA é™€èžºä»ªæ•°æ®è½¬æ¢ä¸ºå®žé™…ç‰©ç†æ•°æ®
-// å‚æ•°è¯´æ˜Ž     gyro_value      ä»»æ„è½´çš„é™€èžºä»ªæ•°æ®
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     float dat = imu963ra_gyro_transition(imu963ra_gyro_x);         // å•ä½ä¸ºÂ°/s
-// å¤‡æ³¨ä¿¡æ¯
+// º¯Êý¼ò½é     ½« IMU963RA ÍÓÂÝÒÇÊý¾Ý×ª»»ÎªÊµ¼ÊÎïÀíÊý¾Ý
+// ²ÎÊýËµÃ÷     gyro_value      ÈÎÒâÖáµÄÍÓÂÝÒÇÊý¾Ý
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     float dat = imu963ra_gyro_transition(imu963ra_gyro_x);         // µ¥Î»Îª¡ã/s
+// ±¸×¢ÐÅÏ¢
 //-------------------------------------------------------------------------------------------------------------------
 float imu963ra_gyro_transition (int16 gyro_value)
 {
     float gyro_dat = 0;
     switch(IMU963RA_GYR_SAMPLE)
     {
-        case 0x52: gyro_dat = (float)gyro_value / 228.6f;  break;              //  0x52 é™€èžºä»ªé‡ç¨‹ä¸º:Â±125dps  èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥ 228.6ï¼Œ   å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
-        case 0x50: gyro_dat = (float)gyro_value / 114.3f;  break;              //  0x50 é™€èžºä»ªé‡ç¨‹ä¸º:Â±250dps  èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥ 114.3ï¼Œ   å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
-        case 0x54: gyro_dat = (float)gyro_value / 57.1f;   break;              //  0x54 é™€èžºä»ªé‡ç¨‹ä¸º:Â±500dps  èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥ 57.1ï¼Œ    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
-        case 0x58: gyro_dat = (float)gyro_value / 28.6f;   break;              //  0x58 é™€èžºä»ªé‡ç¨‹ä¸º:Â±1000dps èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥ 28.6ï¼Œ    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
-        case 0x5C: gyro_dat = (float)gyro_value / 14.3f;   break;              //  0x5C é™€èžºä»ªé‡ç¨‹ä¸º:Â±2000dps èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥ 14.3ï¼Œ    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
-        case 0x51: gyro_dat = (float)gyro_value / 7.1f;    break;              //  0x51 é™€èžºä»ªé‡ç¨‹ä¸º:Â±4000dps èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥ 7.1ï¼Œ     å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
+        case 0x52: gyro_dat = (float)gyro_value / 228.6f;  break;              //  0x52 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À125dps  »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ 228.6£¬   ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
+        case 0x50: gyro_dat = (float)gyro_value / 114.3f;  break;              //  0x50 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À250dps  »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ 114.3£¬   ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
+        case 0x54: gyro_dat = (float)gyro_value / 57.1f;   break;              //  0x54 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À500dps  »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ 57.1£¬    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
+        case 0x58: gyro_dat = (float)gyro_value / 28.6f;   break;              //  0x58 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À1000dps »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ 28.6£¬    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
+        case 0x5C: gyro_dat = (float)gyro_value / 14.3f;   break;              //  0x5C ÍÓÂÝÒÇÁ¿³ÌÎª:¡À2000dps »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ 14.3£¬    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
+        case 0x51: gyro_dat = (float)gyro_value / 7.1f;    break;              //  0x51 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À4000dps »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ 7.1£¬     ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
         default: break;
     }
     return gyro_dat;
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     å°† IMU963RA åœ°ç£è®¡æ•°æ®è½¬æ¢ä¸ºå®žé™…ç‰©ç†æ•°æ®
-// å‚æ•°è¯´æ˜Ž     mag_value       ä»»æ„è½´çš„åœ°ç£è®¡æ•°æ®
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     float dat = imu963ra_mag_transition(imu963ra_mag_x);          // å•ä½ä¸ºG(é«˜æ–¯)
-// å¤‡æ³¨ä¿¡æ¯
+// º¯Êý¼ò½é     ½« IMU963RA µØ´Å¼ÆÊý¾Ý×ª»»ÎªÊµ¼ÊÎïÀíÊý¾Ý
+// ²ÎÊýËµÃ÷     mag_value       ÈÎÒâÖáµÄµØ´Å¼ÆÊý¾Ý
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     float dat = imu963ra_mag_transition(imu963ra_mag_x);          // µ¥Î»ÎªG(¸ßË¹)
+// ±¸×¢ÐÅÏ¢
 //-------------------------------------------------------------------------------------------------------------------
 float imu963ra_mag_transition (int16 mag_value)
 {
     float mag_dat = 0;
     switch(IMU963RA_MAG_SAMPLE)
     {
-        case 0x19: mag_dat = (float)mag_value / 3000;  break;                  //  0x19 ç£åŠ›è®¡é‡ç¨‹ä¸º:8G     èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥3000ï¼Œ å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šG(é«˜æ–¯)
-        case 0x09: mag_dat = (float)mag_value / 12000; break;                  //  0x09 ç£åŠ›è®¡é‡ç¨‹ä¸º:2G     èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥12000ï¼Œå¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šG(é«˜æ–¯)
+        case 0x19: mag_dat = (float)mag_value / 3000;  break;                  //  0x19 ´ÅÁ¦¼ÆÁ¿³ÌÎª:8G     »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ3000£¬ ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºG(¸ßË¹)
+        case 0x09: mag_dat = (float)mag_value / 12000; break;                  //  0x09 ´ÅÁ¦¼ÆÁ¿³ÌÎª:2G     »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ12000£¬¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºG(¸ßË¹)
         default: break;
     }
     return mag_dat;
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     åˆå§‹åŒ– IMU963RA
-// å‚æ•°è¯´æ˜Ž     void
-// è¿”å›žå‚æ•°     uint8           1-åˆå§‹åŒ–å¤±è´¥ 0-åˆå§‹åŒ–æˆåŠŸ
-// ä½¿ç”¨ç¤ºä¾‹     imu963ra_init();
-// å¤‡æ³¨ä¿¡æ¯     
+// º¯Êý¼ò½é     ³õÊ¼»¯ IMU963RA
+// ²ÎÊýËµÃ÷     void
+// ·µ»Ø²ÎÊý     uint8           1-³õÊ¼»¯Ê§°Ü 0-³õÊ¼»¯³É¹¦
+// Ê¹ÓÃÊ¾Àý     imu963ra_init();
+// ±¸×¢ÐÅÏ¢     
 //-------------------------------------------------------------------------------------------------------------------
 uint8 imu963ra_init (void)
 {
     uint8 return_state = 0;
-    delay_ms(10);                                                        // ä¸Šç”µå»¶æ—¶
+    delay_ms(10);                                                        // ÉÏµçÑÓÊ±
 
 //#if IMU963RA_USE_SOFT_IIC
 //    soft_iic_init(&imu963ra_iic_struct, IMU963RA_DEV_ADDR, IMU963RA_SOFT_IIC_DELAY, IMU963RA_SCL_PIN, IMU963RA_SDA_PIN);
@@ -764,10 +764,10 @@ uint8 imu963ra_init (void)
 
     do
     {
-        imu963ra_write_acc_gyro_register(IMU963RA_FUNC_CFG_ACCESS, 0x00);       // å…³é—­HUBå¯„å­˜å™¨è®¿é—®
-        imu963ra_write_acc_gyro_register(IMU963RA_CTRL3_C, 0x01);               // å¤ä½è®¾å¤‡
+        imu963ra_write_acc_gyro_register(IMU963RA_FUNC_CFG_ACCESS, 0x00);       // ¹Ø±ÕHUB¼Ä´æÆ÷·ÃÎÊ
+        imu963ra_write_acc_gyro_register(IMU963RA_CTRL3_C, 0x01);               // ¸´Î»Éè±¸
         delay_ms(2);                             
-        imu963ra_write_acc_gyro_register(IMU963RA_FUNC_CFG_ACCESS, 0x00);       // å…³é—­HUBå¯„å­˜å™¨è®¿é—®
+        imu963ra_write_acc_gyro_register(IMU963RA_FUNC_CFG_ACCESS, 0x00);       // ¹Ø±ÕHUB¼Ä´æÆ÷·ÃÎÊ
         if(imu963ra_acc_gyro_self_check())                   
         {                
 //			while(1)
@@ -781,37 +781,37 @@ uint8 imu963ra_init (void)
             break;            
         }                   
                             
-        imu963ra_write_acc_gyro_register(IMU963RA_INT1_CTRL, 0x03);             // å¼€å¯é™€èžºä»ª åŠ é€Ÿåº¦æ•°æ®å°±ç»ªä¸­æ–­
-        imu963ra_write_acc_gyro_register(IMU963RA_CTRL1_XL, IMU963RA_GYR_SAMPLE);   // è®¾ç½®åŠ é€Ÿåº¦è®¡é‡ç¨‹ Â±8G ä»¥åŠæ•°æ®è¾“å‡ºé€ŸçŽ‡ 52hz ä»¥åŠåŠ é€Ÿåº¦ä¿¡æ¯ä»Žç¬¬ä¸€çº§æ»¤æ³¢å™¨è¾“å‡º
-        // IMU963RA_CTRL1_XL å¯„å­˜å™¨
-        // è®¾ç½®ä¸º:0x30 åŠ é€Ÿåº¦é‡ç¨‹ä¸º:Â±2G      èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥16393ï¼Œå¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šg(m/s^2)
-        // è®¾ç½®ä¸º:0x38 åŠ é€Ÿåº¦é‡ç¨‹ä¸º:Â±4G      èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥8197ï¼Œ å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šg(m/s^2)
-        // è®¾ç½®ä¸º:0x3C åŠ é€Ÿåº¦é‡ç¨‹ä¸º:Â±8G      èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥4098ï¼Œ å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šg(m/s^2)
-        // è®¾ç½®ä¸º:0x34 åŠ é€Ÿåº¦é‡ç¨‹ä¸º:Â±16G     èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥2049ï¼Œ å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šg(m/s^2)
+        imu963ra_write_acc_gyro_register(IMU963RA_INT1_CTRL, 0x03);             // ¿ªÆôÍÓÂÝÒÇ ¼ÓËÙ¶ÈÊý¾Ý¾ÍÐ÷ÖÐ¶Ï
+        imu963ra_write_acc_gyro_register(IMU963RA_CTRL1_XL, IMU963RA_GYR_SAMPLE);   // ÉèÖÃ¼ÓËÙ¶È¼ÆÁ¿³Ì ¡À8G ÒÔ¼°Êý¾ÝÊä³öËÙÂÊ 52hz ÒÔ¼°¼ÓËÙ¶ÈÐÅÏ¢´ÓµÚÒ»¼¶ÂË²¨Æ÷Êä³ö
+        // IMU963RA_CTRL1_XL ¼Ä´æÆ÷
+        // ÉèÖÃÎª:0x30 ¼ÓËÙ¶ÈÁ¿³ÌÎª:¡À2G      »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ16393£¬¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºg(m/s^2)
+        // ÉèÖÃÎª:0x38 ¼ÓËÙ¶ÈÁ¿³ÌÎª:¡À4G      »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ8197£¬ ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºg(m/s^2)
+        // ÉèÖÃÎª:0x3C ¼ÓËÙ¶ÈÁ¿³ÌÎª:¡À8G      »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ4098£¬ ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºg(m/s^2)
+        // ÉèÖÃÎª:0x34 ¼ÓËÙ¶ÈÁ¿³ÌÎª:¡À16G     »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ2049£¬ ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºg(m/s^2)
         
-        imu963ra_write_acc_gyro_register(IMU963RA_CTRL2_G, IMU963RA_ACC_SAMPLE);    // è®¾ç½®é™€èžºä»ªè®¡é‡ç¨‹ Â±2000dps ä»¥åŠæ•°æ®è¾“å‡ºé€ŸçŽ‡ 208hz
-        // IMU963RA_CTRL2_G å¯„å­˜å™¨
-        // è®¾ç½®ä¸º:0x52 é™€èžºä»ªé‡ç¨‹ä¸º:Â±125dps  èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥228.6ï¼Œ   å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
-        // è®¾ç½®ä¸º:0x50 é™€èžºä»ªé‡ç¨‹ä¸º:Â±250dps  èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥114.3ï¼Œ   å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
-        // è®¾ç½®ä¸º:0x54 é™€èžºä»ªé‡ç¨‹ä¸º:Â±500dps  èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥57.1ï¼Œ    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
-        // è®¾ç½®ä¸º:0x58 é™€èžºä»ªé‡ç¨‹ä¸º:Â±1000dps èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥28.6ï¼Œ    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
-        // è®¾ç½®ä¸º:0x5C é™€èžºä»ªé‡ç¨‹ä¸º:Â±2000dps èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥14.3ï¼Œ    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
-        // è®¾ç½®ä¸º:0x51 é™€èžºä»ªé‡ç¨‹ä¸º:Â±4000dps èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥7.1ï¼Œ     å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ä¸ºï¼šÂ°/s
+        imu963ra_write_acc_gyro_register(IMU963RA_CTRL2_G, IMU963RA_ACC_SAMPLE);    // ÉèÖÃÍÓÂÝÒÇ¼ÆÁ¿³Ì ¡À2000dps ÒÔ¼°Êý¾ÝÊä³öËÙÂÊ 208hz
+        // IMU963RA_CTRL2_G ¼Ä´æÆ÷
+        // ÉèÖÃÎª:0x52 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À125dps  »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ228.6£¬   ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
+        // ÉèÖÃÎª:0x50 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À250dps  »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ114.3£¬   ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
+        // ÉèÖÃÎª:0x54 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À500dps  »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ57.1£¬    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
+        // ÉèÖÃÎª:0x58 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À1000dps »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ28.6£¬    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
+        // ÉèÖÃÎª:0x5C ÍÓÂÝÒÇÁ¿³ÌÎª:¡À2000dps »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ14.3£¬    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
+        // ÉèÖÃÎª:0x51 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À4000dps »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ7.1£¬     ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»Îª£º¡ã/s
         
-        imu963ra_write_acc_gyro_register(IMU963RA_CTRL3_C, 0x44);               // ä½¿èƒ½é™€èžºä»ªæ•°å­—ä½Žé€šæ»¤æ³¢å™¨
-        imu963ra_write_acc_gyro_register(IMU963RA_CTRL4_C, 0x02);               // ä½¿èƒ½æ•°å­—ä½Žé€šæ»¤æ³¢å™¨
-        imu963ra_write_acc_gyro_register(IMU963RA_CTRL5_C, 0x00);               // åŠ é€Ÿåº¦è®¡ä¸Žé™€èžºä»ªå››èˆäº”å…¥
-        imu963ra_write_acc_gyro_register(IMU963RA_CTRL6_C, 0x00);               // å¼€å¯åŠ é€Ÿåº¦è®¡é«˜æ€§èƒ½æ¨¡å¼ é™€èžºä»ªä½Žé€šæ»¤æ³¢ 133hz
-        imu963ra_write_acc_gyro_register(IMU963RA_CTRL7_G, 0x00);               // å¼€å¯é™€èžºä»ªé«˜æ€§èƒ½æ¨¡å¼ å…³é—­é«˜é€šæ»¤æ³¢
-        imu963ra_write_acc_gyro_register(IMU963RA_CTRL9_XL, 0x01);              // å…³é—­I3CæŽ¥å£
+        imu963ra_write_acc_gyro_register(IMU963RA_CTRL3_C, 0x44);               // Ê¹ÄÜÍÓÂÝÒÇÊý×ÖµÍÍ¨ÂË²¨Æ÷
+        imu963ra_write_acc_gyro_register(IMU963RA_CTRL4_C, 0x02);               // Ê¹ÄÜÊý×ÖµÍÍ¨ÂË²¨Æ÷
+        imu963ra_write_acc_gyro_register(IMU963RA_CTRL5_C, 0x00);               // ¼ÓËÙ¶È¼ÆÓëÍÓÂÝÒÇËÄÉáÎåÈë
+        imu963ra_write_acc_gyro_register(IMU963RA_CTRL6_C, 0x00);               // ¿ªÆô¼ÓËÙ¶È¼Æ¸ßÐÔÄÜÄ£Ê½ ÍÓÂÝÒÇµÍÍ¨ÂË²¨ 133hz
+        imu963ra_write_acc_gyro_register(IMU963RA_CTRL7_G, 0x00);               // ¿ªÆôÍÓÂÝÒÇ¸ßÐÔÄÜÄ£Ê½ ¹Ø±Õ¸ßÍ¨ÂË²¨
+        imu963ra_write_acc_gyro_register(IMU963RA_CTRL9_XL, 0x01);              // ¹Ø±ÕI3C½Ó¿Ú
 
-        imu963ra_write_acc_gyro_register(IMU963RA_FUNC_CFG_ACCESS, 0x40);       // å¼€å¯HUBå¯„å­˜å™¨è®¿é—® ç”¨äºŽé…ç½®åœ°ç£è®¡
-        imu963ra_write_acc_gyro_register(IMU963RA_MASTER_CONFIG, 0x80);         // å¤ä½I2Cä¸»æœº
+        imu963ra_write_acc_gyro_register(IMU963RA_FUNC_CFG_ACCESS, 0x40);       // ¿ªÆôHUB¼Ä´æÆ÷·ÃÎÊ ÓÃÓÚÅäÖÃµØ´Å¼Æ
+        imu963ra_write_acc_gyro_register(IMU963RA_MASTER_CONFIG, 0x80);         // ¸´Î»I2CÖ÷»ú
         delay_ms(2);                             
-        imu963ra_write_acc_gyro_register(IMU963RA_MASTER_CONFIG, 0x00);         // æ¸…é™¤å¤ä½æ ‡å¿—
+        imu963ra_write_acc_gyro_register(IMU963RA_MASTER_CONFIG, 0x00);         // Çå³ý¸´Î»±êÖ¾
         delay_ms(2);
         
-        imu963ra_write_mag_register(IMU963RA_MAG_ADDR, IMU963RA_MAG_CONTROL2, 0x80);// å¤ä½è¿žæŽ¥çš„å¤–è®¾
+        imu963ra_write_mag_register(IMU963RA_MAG_ADDR, IMU963RA_MAG_CONTROL2, 0x80);// ¸´Î»Á¬½ÓµÄÍâÉè
         delay_ms(2);
         imu963ra_write_mag_register(IMU963RA_MAG_ADDR, IMU963RA_MAG_CONTROL2, 0x00);
         delay_ms(2);
@@ -830,17 +830,17 @@ uint8 imu963ra_init (void)
             break;            
         }
 
-        imu963ra_write_mag_register(IMU963RA_MAG_ADDR, IMU963RA_MAG_CONTROL1, IMU963RA_MAG_SAMPLE); // è®¾ç½®ç£åŠ›è®¡é‡ç¨‹8G è¾“å‡ºé€ŸçŽ‡100hz è¿žç»­æ¨¡å¼
-        // IMU963RA_MAG_ADDR å¯„å­˜å™¨
-        // è®¾ç½®ä¸º:0x19 ç£åŠ›è®¡é‡ç¨‹ä¸º:8G     èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥3000ï¼Œ å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šG(é«˜æ–¯)
-        // è®¾ç½®ä¸º:0x09 ç£åŠ›è®¡é‡ç¨‹ä¸º:2G     èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥12000ï¼Œå¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ®ï¼Œå•ä½ï¼šG(é«˜æ–¯)
+        imu963ra_write_mag_register(IMU963RA_MAG_ADDR, IMU963RA_MAG_CONTROL1, IMU963RA_MAG_SAMPLE); // ÉèÖÃ´ÅÁ¦¼ÆÁ¿³Ì8G Êä³öËÙÂÊ100hz Á¬ÐøÄ£Ê½
+        // IMU963RA_MAG_ADDR ¼Ä´æÆ÷
+        // ÉèÖÃÎª:0x19 ´ÅÁ¦¼ÆÁ¿³ÌÎª:8G     »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ3000£¬ ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºG(¸ßË¹)
+        // ÉèÖÃÎª:0x09 ´ÅÁ¦¼ÆÁ¿³ÌÎª:2G     »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ12000£¬¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý£¬µ¥Î»£ºG(¸ßË¹)
         
         imu963ra_write_mag_register(IMU963RA_MAG_ADDR, IMU963RA_MAG_FBR, 0x01);
         imu963ra_connect_mag(IMU963RA_MAG_ADDR, IMU963RA_MAG_OUTX_L);
         
-        imu963ra_write_acc_gyro_register(IMU963RA_FUNC_CFG_ACCESS, 0x00);       // å…³é—­HUBå¯„å­˜å™¨è®¿é—®
+        imu963ra_write_acc_gyro_register(IMU963RA_FUNC_CFG_ACCESS, 0x00);       // ¹Ø±ÕHUB¼Ä´æÆ÷·ÃÎÊ
 
-        delay_ms(20);                                                    // ç­‰å¾…ç£åŠ›è®¡èŽ·å–æ•°æ®
+        delay_ms(20);                                                    // µÈ´ý´ÅÁ¦¼Æ»ñÈ¡Êý¾Ý
     }while(0);
     return return_state;
 }

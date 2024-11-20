@@ -1,39 +1,39 @@
 /*********************************************************************************************************************
  * COPYRIGHT NOTICE
- * Copyright (c) 2018,é€é£žç§‘æŠ€
+ * Copyright (c) 2018,Öð·É¿Æ¼¼
  * All rights reserved.
- * æŠ€æœ¯è®¨è®ºQQç¾¤ï¼šä¸€ç¾¤ï¼š179029047(å·²æ»¡)  äºŒç¾¤ï¼š244861897
+ * ¼¼ÊõÌÖÂÛQQÈº£ºÒ»Èº£º179029047(ÒÑÂú)  ¶þÈº£º244861897
  *
- * ä»¥ä¸‹æ‰€æœ‰å†…å®¹ç‰ˆæƒå‡å±žé€é£žç§‘æŠ€æ‰€æœ‰ï¼Œæœªç»å…è®¸ä¸å¾—ç”¨äºŽå•†ä¸šç”¨é€”ï¼Œ
- * æ¬¢è¿Žå„ä½ä½¿ç”¨å¹¶ä¼ æ’­æœ¬ç¨‹åºï¼Œä¿®æ”¹å†…å®¹æ—¶å¿…é¡»ä¿ç•™é€é£žç§‘æŠ€çš„ç‰ˆæƒå£°æ˜Žã€‚
+ * ÒÔÏÂËùÓÐÄÚÈÝ°æÈ¨¾ùÊôÖð·É¿Æ¼¼ËùÓÐ£¬Î´¾­ÔÊÐí²»µÃÓÃÓÚÉÌÒµÓÃÍ¾£¬
+ * »¶Ó­¸÷Î»Ê¹ÓÃ²¢´«²¥±¾³ÌÐò£¬ÐÞ¸ÄÄÚÈÝÊ±±ØÐë±£ÁôÖð·É¿Æ¼¼µÄ°æÈ¨ÉùÃ÷¡£
  *
  * @file       		IMU660RA
- * @company	   		æˆéƒ½é€é£žç§‘æŠ€æœ‰é™å…¬å¸
- * @author     		é€é£žç§‘æŠ€(QQ3184284598)
- * @version    		æŸ¥çœ‹docå†…versionæ–‡ä»¶ ç‰ˆæœ¬è¯´æ˜Ž
+ * @company	   		³É¶¼Öð·É¿Æ¼¼ÓÐÏÞ¹«Ë¾
+ * @author     		Öð·É¿Æ¼¼(QQ3184284598)
+ * @version    		²é¿´docÄÚversionÎÄ¼þ °æ±¾ËµÃ÷
  * @Software 		MDK FOR C251 V5.60
  * @Target core		STC32F12K
  * @Taobao   		https://seekfree.taobao.com/
  * @date       		2019-04-30
  * @note		
- * æŽ¥çº¿å®šä¹‰ï¼š
+ * ½ÓÏß¶¨Òå£º
  *                   ------------------------------------
- *                   æ¨¡å—ç®¡è„š            å•ç‰‡æœºç®¡è„š
- *                   // ç¡¬ä»¶ SPI å¼•è„š
- *                   SCL/SPC           æŸ¥çœ‹ SEEKFREE_IMU660RA.h ä¸­ IMU660RA_SPC_PIN å®å®šä¹‰
- *                   SDA/DSI           æŸ¥çœ‹ SEEKFREE_IMU660RA.h ä¸­ IMU660RA_SDI_PIN å®å®šä¹‰
- *                   SA0/SDO           æŸ¥çœ‹ SEEKFREE_IMU660RA.h ä¸­ IMU660RA_SDO_PIN å®å®šä¹‰
- *                   CS                æŸ¥çœ‹ SEEKFREE_IMU660RA.h ä¸­ IMU660RA_CS_PIN å®å®šä¹‰
- *                   VCC               3.3Vç”µæº
- *                   GND               ç”µæºåœ°
- *                   å…¶ä½™å¼•è„šæ‚¬ç©º
+ *                   Ä£¿é¹Ü½Å            µ¥Æ¬»ú¹Ü½Å
+ *                   // Ó²¼þ SPI Òý½Å
+ *                   SCL/SPC           ²é¿´ SEEKFREE_IMU660RA.h ÖÐ IMU660RA_SPC_PIN ºê¶¨Òå
+ *                   SDA/DSI           ²é¿´ SEEKFREE_IMU660RA.h ÖÐ IMU660RA_SDI_PIN ºê¶¨Òå
+ *                   SA0/SDO           ²é¿´ SEEKFREE_IMU660RA.h ÖÐ IMU660RA_SDO_PIN ºê¶¨Òå
+ *                   CS                ²é¿´ SEEKFREE_IMU660RA.h ÖÐ IMU660RA_CS_PIN ºê¶¨Òå
+ *                   VCC               3.3VµçÔ´
+ *                   GND               µçÔ´µØ
+ *                   ÆäÓàÒý½ÅÐü¿Õ
  *
- *                   // è½¯ä»¶ IIC å¼•è„š
- *                   SCL/SPC           æŸ¥çœ‹ SEEKFREE_IMU660RA.h ä¸­ IMU660RA_SCL_PIN å®å®šä¹‰
- *                   SDA/DSI           æŸ¥çœ‹ SEEKFREE_IMU660RA.h ä¸­ IMU660RA_SDA_PIN å®å®šä¹‰
- *                   VCC               3.3Vç”µæº
- *                   GND               ç”µæºåœ°
- *                   å…¶ä½™å¼•è„šæ‚¬ç©º
+ *                   // Èí¼þ IIC Òý½Å
+ *                   SCL/SPC           ²é¿´ SEEKFREE_IMU660RA.h ÖÐ IMU660RA_SCL_PIN ºê¶¨Òå
+ *                   SDA/DSI           ²é¿´ SEEKFREE_IMU660RA.h ÖÐ IMU660RA_SDA_PIN ºê¶¨Òå
+ *                   VCC               3.3VµçÔ´
+ *                   GND               µçÔ´µØ
+ *                   ÆäÓàÒý½ÅÐü¿Õ
  *                   ------------------------------------
 ********************************************************************************************************************/
 
@@ -50,26 +50,26 @@
 
 
 
-int16 imu660ra_gyro_x = 0, imu660ra_gyro_y = 0, imu660ra_gyro_z = 0;            // ä¸‰è½´é™€èžºä»ªæ•°æ®   gyro (é™€èžºä»ª)
-int16 imu660ra_acc_x = 0, imu660ra_acc_y = 0, imu660ra_acc_z = 0;               // ä¸‰è½´åŠ é€Ÿåº¦è®¡æ•°æ® acc  (accelerometer åŠ é€Ÿåº¦è®¡)
+int16 imu660ra_gyro_x = 0, imu660ra_gyro_y = 0, imu660ra_gyro_z = 0;            // ÈýÖáÍÓÂÝÒÇÊý¾Ý   gyro (ÍÓÂÝÒÇ)
+int16 imu660ra_acc_x = 0, imu660ra_acc_y = 0, imu660ra_acc_z = 0;               // ÈýÖá¼ÓËÙ¶È¼ÆÊý¾Ý acc  (accelerometer ¼ÓËÙ¶È¼Æ)
 
 #if IMU660RA_USE_SOFT_IIC
 
 #define GET_IMU660RA_SDA   		 		IMU660RA_SDA_PIN
-#define IMU660RA_SCL_LOW()          	IMU660RA_SCL_PIN = 0		//IOå£è¾“å‡ºä½Žç”µå¹³
-#define IMU660RA_SCL_HIGH()         	IMU660RA_SCL_PIN = 1		//IOå£è¾“å‡ºé«˜ç”µå¹³
-#define IMU660RA_SDA_LOW()          	IMU660RA_SDA_PIN = 0		//IOå£è¾“å‡ºä½Žç”µå¹³
-#define IMU660RA_SDA_HIGH()         	IMU660RA_SDA_PIN = 1		//IOå£è¾“å‡ºé«˜ç”µå¹³
+#define IMU660RA_SCL_LOW()          	IMU660RA_SCL_PIN = 0		//IO¿ÚÊä³öµÍµçÆ½
+#define IMU660RA_SCL_HIGH()         	IMU660RA_SCL_PIN = 1		//IO¿ÚÊä³ö¸ßµçÆ½
+#define IMU660RA_SDA_LOW()          	IMU660RA_SDA_PIN = 0		//IO¿ÚÊä³öµÍµçÆ½
+#define IMU660RA_SDA_HIGH()         	IMU660RA_SDA_PIN = 1		//IO¿ÚÊä³ö¸ßµçÆ½
 
 
-#define ack 1      //ä¸»åº”ç­”
-#define no_ack 0   //ä»Žåº”ç­”	
+#define ack 1      //Ö÷Ó¦´ð
+#define no_ack 0   //´ÓÓ¦´ð	
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      æ¨¡æ‹ŸIICå»¶æ—¶
+//  @brief      Ä£ÄâIICÑÓÊ±
 //  @return     void						
 //  @since      v1.0
-//  Sample usage:				å¦‚æžœIICé€šè®¯å¤±è´¥å¯ä»¥å°è¯•å¢žåŠ jçš„å€¼
+//  Sample usage:				Èç¹ûIICÍ¨Ñ¶Ê§°Ü¿ÉÒÔ³¢ÊÔÔö¼ÓjµÄÖµ
 //-------------------------------------------------------------------------------------------------------------------
 static void imu660ra_simiic_delay(void)
 {
@@ -77,7 +77,7 @@ static void imu660ra_simiic_delay(void)
 	while(j--);
 }
 
-//å†…éƒ¨ä½¿ç”¨ï¼Œç”¨æˆ·æ— éœ€è°ƒç”¨
+//ÄÚ²¿Ê¹ÓÃ£¬ÓÃ»§ÎÞÐèµ÷ÓÃ
 static void imu660ra_simiic_start(void)
 {
 	IMU660RA_SDA_HIGH();
@@ -88,7 +88,7 @@ static void imu660ra_simiic_start(void)
 	IMU660RA_SCL_LOW();
 }
 
-//å†…éƒ¨ä½¿ç”¨ï¼Œç”¨æˆ·æ— éœ€è°ƒç”¨
+//ÄÚ²¿Ê¹ÓÃ£¬ÓÃ»§ÎÞÐèµ÷ÓÃ
 static void imu660ra_simiic_stop(void)
 {
 	IMU660RA_SDA_LOW();
@@ -100,8 +100,8 @@ static void imu660ra_simiic_stop(void)
 	imu660ra_simiic_delay();
 }
 
-//ä¸»åº”ç­”(åŒ…å«ack:SDA=0å’Œno_ack:SDA=0)
-//å†…éƒ¨ä½¿ç”¨ï¼Œç”¨æˆ·æ— éœ€è°ƒç”¨
+//Ö÷Ó¦´ð(°üº¬ack:SDA=0ºÍno_ack:SDA=0)
+//ÄÚ²¿Ê¹ÓÃ£¬ÓÃ»§ÎÞÐèµ÷ÓÃ
 static void imu660ra_simiic_sendack(unsigned char ack_dat)
 {
     IMU660RA_SCL_LOW();
@@ -125,7 +125,7 @@ static int imu660ra_sccb_waitack(void)
 	IMU660RA_SCL_HIGH();
     imu660ra_simiic_delay();
 	
-    if(GET_IMU660RA_SDA)           //åº”ç­”ä¸ºé«˜ç”µå¹³ï¼Œå¼‚å¸¸ï¼Œé€šä¿¡å¤±è´¥
+    if(GET_IMU660RA_SDA)           //Ó¦´ðÎª¸ßµçÆ½£¬Òì³££¬Í¨ÐÅÊ§°Ü
     {
 
         IMU660RA_SCL_LOW();
@@ -137,30 +137,30 @@ static int imu660ra_sccb_waitack(void)
     return 1;
 }
 
-//å­—èŠ‚å‘é€ç¨‹åº
-//å‘é€c(å¯ä»¥æ˜¯æ•°æ®ä¹Ÿå¯æ˜¯åœ°å€)ï¼Œé€å®ŒåŽæŽ¥æ”¶ä»Žåº”ç­”
-//ä¸è€ƒè™‘ä»Žåº”ç­”ä½
-//å†…éƒ¨ä½¿ç”¨ï¼Œç”¨æˆ·æ— éœ€è°ƒç”¨
+//×Ö½Ú·¢ËÍ³ÌÐò
+//·¢ËÍc(¿ÉÒÔÊÇÊý¾ÝÒ²¿ÉÊÇµØÖ·)£¬ËÍÍêºó½ÓÊÕ´ÓÓ¦´ð
+//²»¿¼ÂÇ´ÓÓ¦´ðÎ»
+//ÄÚ²¿Ê¹ÓÃ£¬ÓÃ»§ÎÞÐèµ÷ÓÃ
 static void imu660ra_send_ch(uint8 c)
 {
 	uint8 i = 8;
     while(i--)
     {
-        if(c & 0x80)	IMU660RA_SDA_HIGH();//SDA è¾“å‡ºæ•°æ®
+        if(c & 0x80)	IMU660RA_SDA_HIGH();//SDA Êä³öÊý¾Ý
         else			IMU660RA_SDA_LOW();
         c <<= 1;
         imu660ra_simiic_delay();
-        IMU660RA_SCL_HIGH();                //SCL æ‹‰é«˜ï¼Œé‡‡é›†ä¿¡å·
+        IMU660RA_SCL_HIGH();                //SCL À­¸ß£¬²É¼¯ÐÅºÅ
         imu660ra_simiic_delay();
-        IMU660RA_SCL_LOW();                //SCL æ—¶é’Ÿçº¿æ‹‰ä½Ž
+        IMU660RA_SCL_LOW();                //SCL Ê±ÖÓÏßÀ­µÍ
     }
 	imu660ra_sccb_waitack();
 }
 
 
-//å­—èŠ‚æŽ¥æ”¶ç¨‹åº
-//æŽ¥æ”¶å™¨ä»¶ä¼ æ¥çš„æ•°æ®ï¼Œæ­¤ç¨‹åºåº”é…åˆ|ä¸»åº”ç­”å‡½æ•°|ä½¿ç”¨
-//å†…éƒ¨ä½¿ç”¨ï¼Œç”¨æˆ·æ— éœ€è°ƒç”¨
+//×Ö½Ú½ÓÊÕ³ÌÐò
+//½ÓÊÕÆ÷¼þ´«À´µÄÊý¾Ý£¬´Ë³ÌÐòÓ¦ÅäºÏ|Ö÷Ó¦´ðº¯Êý|Ê¹ÓÃ
+//ÄÚ²¿Ê¹ÓÃ£¬ÓÃ»§ÎÞÐèµ÷ÓÃ
 static uint8 imu660ra_read_ch(uint8 ack_x)
 {
     uint8 i;
@@ -173,14 +173,14 @@ static uint8 imu660ra_read_ch(uint8 ack_x)
     for(i=0;i<8;i++)
     {
         imu660ra_simiic_delay();
-        IMU660RA_SCL_LOW();         //ç½®æ—¶é’Ÿçº¿ä¸ºä½Žï¼Œå‡†å¤‡æŽ¥æ”¶æ•°æ®ä½
+        IMU660RA_SCL_LOW();         //ÖÃÊ±ÖÓÏßÎªµÍ£¬×¼±¸½ÓÊÕÊý¾ÝÎ»
         imu660ra_simiic_delay();
-        IMU660RA_SCL_HIGH();         //ç½®æ—¶é’Ÿçº¿ä¸ºé«˜ï¼Œä½¿æ•°æ®çº¿ä¸Šæ•°æ®æœ‰æ•ˆ
+        IMU660RA_SCL_HIGH();         //ÖÃÊ±ÖÓÏßÎª¸ß£¬Ê¹Êý¾ÝÏßÉÏÊý¾ÝÓÐÐ§
         imu660ra_simiic_delay();
         c<<=1;
         if(GET_IMU660RA_SDA) 
         {
-            c+=1;   //è¯»æ•°æ®ä½ï¼Œå°†æŽ¥æ”¶çš„æ•°æ®å­˜c
+            c+=1;   //¶ÁÊý¾ÝÎ»£¬½«½ÓÊÕµÄÊý¾Ý´æc
         }
     }
 
@@ -193,10 +193,10 @@ static uint8 imu660ra_read_ch(uint8 ack_x)
 
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      æ¨¡æ‹ŸIICå†™æ•°æ®åˆ°è®¾å¤‡å¯„å­˜å™¨å‡½æ•°
-//  @param      dev_add			è®¾å¤‡åœ°å€(ä½Žä¸ƒä½åœ°å€)
-//  @param      reg				å¯„å­˜å™¨åœ°å€
-//  @param      dat				å†™å…¥çš„æ•°æ®
+//  @brief      Ä£ÄâIICÐ´Êý¾Ýµ½Éè±¸¼Ä´æÆ÷º¯Êý
+//  @param      dev_add			Éè±¸µØÖ·(µÍÆßÎ»µØÖ·)
+//  @param      reg				¼Ä´æÆ÷µØÖ·
+//  @param      dat				Ð´ÈëµÄÊý¾Ý
 //  @return     void						
 //  @since      v1.0
 //  Sample usage:				
@@ -204,17 +204,17 @@ static uint8 imu660ra_read_ch(uint8 ack_x)
 static void imu660ra_simiic_write_reg(uint8 dev_add, uint8 reg, uint8 dat)
 {
 	imu660ra_simiic_start();
-    imu660ra_send_ch( (dev_add<<1) | 0x00);   //å‘é€å™¨ä»¶åœ°å€åŠ å†™ä½
-	imu660ra_send_ch( reg );   				 //å‘é€ä»Žæœºå¯„å­˜å™¨åœ°å€
-	imu660ra_send_ch( dat );   				 //å‘é€éœ€è¦å†™å…¥çš„æ•°æ®
+    imu660ra_send_ch( (dev_add<<1) | 0x00);   //·¢ËÍÆ÷¼þµØÖ·¼ÓÐ´Î»
+	imu660ra_send_ch( reg );   				 //·¢ËÍ´Ó»ú¼Ä´æÆ÷µØÖ·
+	imu660ra_send_ch( dat );   				 //·¢ËÍÐèÒªÐ´ÈëµÄÊý¾Ý
 	imu660ra_simiic_stop();
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      æ¨¡æ‹ŸIICå†™æ•°æ®åˆ°è®¾å¤‡å¯„å­˜å™¨å‡½æ•°
-//  @param      dev_add			è®¾å¤‡åœ°å€(ä½Žä¸ƒä½åœ°å€)
-//  @param      reg				å¯„å­˜å™¨åœ°å€
-//  @param      dat				å†™å…¥çš„æ•°æ®
+//  @brief      Ä£ÄâIICÐ´Êý¾Ýµ½Éè±¸¼Ä´æÆ÷º¯Êý
+//  @param      dev_add			Éè±¸µØÖ·(µÍÆßÎ»µØÖ·)
+//  @param      reg				¼Ä´æÆ÷µØÖ·
+//  @param      dat				Ð´ÈëµÄÊý¾Ý
 //  @return     void						
 //  @since      v1.0
 //  Sample usage:				
@@ -223,23 +223,23 @@ static void imu660ra_simiic_write_regs(uint8 dev_add, uint8 reg, uint8 *dat, uin
 {
 	uint16 i = 0;
 	imu660ra_simiic_start();
-    imu660ra_send_ch( (dev_add<<1) | 0x00);   //å‘é€å™¨ä»¶åœ°å€åŠ å†™ä½
-	imu660ra_send_ch( reg );   				 //å‘é€ä»Žæœºå¯„å­˜å™¨åœ°å€
+    imu660ra_send_ch( (dev_add<<1) | 0x00);   //·¢ËÍÆ÷¼þµØÖ·¼ÓÐ´Î»
+	imu660ra_send_ch( reg );   				 //·¢ËÍ´Ó»ú¼Ä´æÆ÷µØÖ·
 
 	while(len--)
 	{
-		imu660ra_send_ch( *dat++ );   				 //å‘é€éœ€è¦å†™å…¥çš„æ•°æ®
+		imu660ra_send_ch( *dat++ );   				 //·¢ËÍÐèÒªÐ´ÈëµÄÊý¾Ý
 	}
 
 	
 	imu660ra_simiic_stop();
 }
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      æ¨¡æ‹ŸIICä»Žè®¾å¤‡å¯„å­˜å™¨è¯»å–æ•°æ®
-//  @param      dev_add			è®¾å¤‡åœ°å€(ä½Žä¸ƒä½åœ°å€)
-//  @param      reg				å¯„å­˜å™¨åœ°å€
-//  @param      type			é€‰æ‹©é€šä¿¡æ–¹å¼æ˜¯IIC  è¿˜æ˜¯ SCCB
-//  @return     uint8			è¿”å›žå¯„å­˜å™¨çš„æ•°æ®			
+//  @brief      Ä£ÄâIIC´ÓÉè±¸¼Ä´æÆ÷¶ÁÈ¡Êý¾Ý
+//  @param      dev_add			Éè±¸µØÖ·(µÍÆßÎ»µØÖ·)
+//  @param      reg				¼Ä´æÆ÷µØÖ·
+//  @param      type			Ñ¡ÔñÍ¨ÐÅ·½Ê½ÊÇIIC  »¹ÊÇ SCCB
+//  @return     uint8			·µ»Ø¼Ä´æÆ÷µÄÊý¾Ý			
 //  @since      v1.0
 //  Sample usage:				
 //-------------------------------------------------------------------------------------------------------------------
@@ -247,42 +247,42 @@ static uint8 imu660ra_simiic_read_reg(uint8 dev_add, uint8 reg)
 {
 	uint8 dat;
 	imu660ra_simiic_start();
-    imu660ra_send_ch( (dev_add<<1) | 0x00);  //å‘é€å™¨ä»¶åœ°å€åŠ å†™ä½
-	imu660ra_send_ch( reg );   				//å‘é€ä»Žæœºå¯„å­˜å™¨åœ°å€
+    imu660ra_send_ch( (dev_add<<1) | 0x00);  //·¢ËÍÆ÷¼þµØÖ·¼ÓÐ´Î»
+	imu660ra_send_ch( reg );   				//·¢ËÍ´Ó»ú¼Ä´æÆ÷µØÖ·
 	
 	imu660ra_simiic_start();
-	imu660ra_send_ch( (dev_add<<1) | 0x01);  //å‘é€å™¨ä»¶åœ°å€åŠ è¯»ä½
-	dat = imu660ra_read_ch(no_ack);   				//è¯»å–æ•°æ®
+	imu660ra_send_ch( (dev_add<<1) | 0x01);  //·¢ËÍÆ÷¼þµØÖ·¼Ó¶ÁÎ»
+	dat = imu660ra_read_ch(no_ack);   				//¶ÁÈ¡Êý¾Ý
 	imu660ra_simiic_stop();
 	
 	return dat;
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      æ¨¡æ‹ŸIICè¯»å–å¤šå­—èŠ‚æ•°æ®
-//  @param      dev_add			è®¾å¤‡åœ°å€(ä½Žä¸ƒä½åœ°å€)
-//  @param      reg				å¯„å­˜å™¨åœ°å€
-//  @param      dat_add			æ•°æ®ä¿å­˜çš„åœ°å€æŒ‡é’ˆ
-//  @param      num				è¯»å–å­—èŠ‚æ•°é‡
-//  @param      type			é€‰æ‹©é€šä¿¡æ–¹å¼æ˜¯IIC  è¿˜æ˜¯ SCCB
-//  @return     uint8			è¿”å›žå¯„å­˜å™¨çš„æ•°æ®			
+//  @brief      Ä£ÄâIIC¶ÁÈ¡¶à×Ö½ÚÊý¾Ý
+//  @param      dev_add			Éè±¸µØÖ·(µÍÆßÎ»µØÖ·)
+//  @param      reg				¼Ä´æÆ÷µØÖ·
+//  @param      dat_add			Êý¾Ý±£´æµÄµØÖ·Ö¸Õë
+//  @param      num				¶ÁÈ¡×Ö½ÚÊýÁ¿
+//  @param      type			Ñ¡ÔñÍ¨ÐÅ·½Ê½ÊÇIIC  »¹ÊÇ SCCB
+//  @return     uint8			·µ»Ø¼Ä´æÆ÷µÄÊý¾Ý			
 //  @since      v1.0
 //  Sample usage:				
 //-------------------------------------------------------------------------------------------------------------------
 static void imu660ra_simiic_read_regs(uint8 dev_add, uint8 reg, uint8 *dat_add, uint32 num)
 {
 	imu660ra_simiic_start();
-    imu660ra_send_ch( (dev_add<<1) | 0x00);  //å‘é€å™¨ä»¶åœ°å€åŠ å†™ä½
-	imu660ra_send_ch( reg );   				//å‘é€ä»Žæœºå¯„å­˜å™¨åœ°å€
+    imu660ra_send_ch( (dev_add<<1) | 0x00);  //·¢ËÍÆ÷¼þµØÖ·¼ÓÐ´Î»
+	imu660ra_send_ch( reg );   				//·¢ËÍ´Ó»ú¼Ä´æÆ÷µØÖ·
 	
 	imu660ra_simiic_start();
-	imu660ra_send_ch( (dev_add<<1) | 0x01);  //å‘é€å™¨ä»¶åœ°å€åŠ è¯»ä½
+	imu660ra_send_ch( (dev_add<<1) | 0x01);  //·¢ËÍÆ÷¼þµØÖ·¼Ó¶ÁÎ»
     while(--num)
     {
-        *dat_add = imu660ra_read_ch(ack); //è¯»å–æ•°æ®
+        *dat_add = imu660ra_read_ch(ack); //¶ÁÈ¡Êý¾Ý
         dat_add++;
     }
-    *dat_add = imu660ra_read_ch(no_ack); //è¯»å–æ•°æ®
+    *dat_add = imu660ra_read_ch(no_ack); //¶ÁÈ¡Êý¾Ý
 	imu660ra_simiic_stop();
 }
 
@@ -301,9 +301,9 @@ static void imu660ra_simiic_read_regs(uint8 dev_add, uint8 reg, uint8 *dat_add, 
 
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      é€šè¿‡SPIå†™ä¸€ä¸ªbyte,åŒæ—¶è¯»å–ä¸€ä¸ªbyte
-//  @param      byte        å‘é€çš„æ•°æ®    
-//  @return     uint8       return è¿”å›žstatusçŠ¶æ€
+//  @brief      Í¨¹ýSPIÐ´Ò»¸öbyte,Í¬Ê±¶ÁÈ¡Ò»¸öbyte
+//  @param      byte        ·¢ËÍµÄÊý¾Ý    
+//  @return     uint8       return ·µ»Østatus×´Ì¬
 //  @since      v1.0
 //  Sample usage:
 //-------------------------------------------------------------------------------------------------------------------
@@ -325,9 +325,9 @@ static uint8 imu660ra_simspi_wr_byte(uint8 byte)
     return(byte);                                      		
 }
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      å°†valå†™å…¥cmdå¯¹åº”çš„å¯„å­˜å™¨åœ°å€,åŒæ—¶è¿”å›žstatuså­—èŠ‚
-//  @param      cmd         å‘½ä»¤å­—
-//  @param      val         å¾…å†™å…¥å¯„å­˜å™¨çš„æ•°å€¼
+//  @brief      ½«valÐ´Èëcmd¶ÔÓ¦µÄ¼Ä´æÆ÷µØÖ·,Í¬Ê±·µ»Østatus×Ö½Ú
+//  @param      cmd         ÃüÁî×Ö
+//  @param      val         ´ýÐ´Èë¼Ä´æÆ÷µÄÊýÖµ
 //  @since      v1.0
 //  Sample usage:
 //-------------------------------------------------------------------------------------------------------------------
@@ -340,9 +340,9 @@ static void imu660ra_simspi_w_reg_byte(uint8 cmd, uint8 val)
 
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      å°†valå†™å…¥cmdå¯¹åº”çš„å¯„å­˜å™¨åœ°å€
-//  @param      cmd         å‘½ä»¤å­—
-//  @param      val         å¾…å†™å…¥å¯„å­˜å™¨çš„æ•°å€¼
+//  @brief      ½«valÐ´Èëcmd¶ÔÓ¦µÄ¼Ä´æÆ÷µØÖ·
+//  @param      cmd         ÃüÁî×Ö
+//  @param      val         ´ýÐ´Èë¼Ä´æÆ÷µÄÊýÖµ
 //  @since      v1.0
 //  Sample usage:
 //-------------------------------------------------------------------------------------------------------------------
@@ -357,9 +357,9 @@ static void imu660ra_simspi_w_reg_bytes(uint8 cmd, uint8 *dat_addr, uint32 len)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      è¯»å–cmdæ‰€å¯¹åº”çš„å¯„å­˜å™¨åœ°å€
-//  @param      cmd         å‘½ä»¤å­—
-//  @param      *val        å­˜å‚¨è¯»å–çš„æ•°æ®åœ°å€
+//  @brief      ¶ÁÈ¡cmdËù¶ÔÓ¦µÄ¼Ä´æÆ÷µØÖ·
+//  @param      cmd         ÃüÁî×Ö
+//  @param      *val        ´æ´¢¶ÁÈ¡µÄÊý¾ÝµØÖ·
 //  @since      v1.0
 //  Sample usage:
 //-------------------------------------------------------------------------------------------------------------------
@@ -373,10 +373,10 @@ static void imu660ra_simspi_w_reg_bytes(uint8 cmd, uint8 *dat_addr, uint32 len)
 //}
 
 //-------------------------------------------------------------------------------------------------------------------
-//  @brief      è¯»å–cmdæ‰€å¯¹åº”çš„å¯„å­˜å™¨åœ°å€
-//  @param      cmd         å‘½ä»¤å­—
-//  @param      *val        å­˜å‚¨è¯»å–çš„æ•°æ®åœ°å€
-//  @param      num         è¯»å–çš„æ•°é‡
+//  @brief      ¶ÁÈ¡cmdËù¶ÔÓ¦µÄ¼Ä´æÆ÷µØÖ·
+//  @param      cmd         ÃüÁî×Ö
+//  @param      *val        ´æ´¢¶ÁÈ¡µÄÊý¾ÝµØÖ·
+//  @param      num         ¶ÁÈ¡µÄÊýÁ¿
 //  @since      v1.0
 //  Sample usage:
 //-------------------------------------------------------------------------------------------------------------------
@@ -393,12 +393,12 @@ static void imu660ra_simspi_r_reg_bytes(uint8 cmd, uint8 *val, uint32 num)
 
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU660RA å†™å¯„å­˜å™¨
-// å‚æ•°è¯´æ˜Ž     reg             å¯„å­˜å™¨åœ°å€
-// å‚æ•°è¯´æ˜Ž     dat            æ•°æ®
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu660ra_write_register(IMU660RA_PWR_CONF, 0x00);                   // å…³é—­é«˜çº§çœç”µæ¨¡å¼
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU660RA Ð´¼Ä´æÆ÷
+// ²ÎÊýËµÃ÷     reg             ¼Ä´æÆ÷µØÖ·
+// ²ÎÊýËµÃ÷     dat            Êý¾Ý
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu660ra_write_register(IMU660RA_PWR_CONF, 0x00);                   // ¹Ø±Õ¸ß¼¶Ê¡µçÄ£Ê½
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static void imu660ra_write_register(uint8 reg, uint8 dat)
 {
@@ -408,12 +408,12 @@ static void imu660ra_write_register(uint8 reg, uint8 dat)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU660RA å†™æ•°æ®
-// å‚æ•°è¯´æ˜Ž     reg             å¯„å­˜å™¨åœ°å€
-// å‚æ•°è¯´æ˜Ž     dat            æ•°æ®
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu660ra_write_registers(IMU660RA_INIT_dat, imu660ra_config_file, sizeof(imu660ra_config_file));
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU660RA Ð´Êý¾Ý
+// ²ÎÊýËµÃ÷     reg             ¼Ä´æÆ÷µØÖ·
+// ²ÎÊýËµÃ÷     dat            Êý¾Ý
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu660ra_write_registers(IMU660RA_INIT_dat, imu660ra_config_file, sizeof(imu660ra_config_file));
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static void imu660ra_write_registers(uint8 reg, const uint8 *dat, uint32 len)
 {
@@ -424,11 +424,11 @@ static void imu660ra_write_registers(uint8 reg, const uint8 *dat, uint32 len)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU660RA è¯»å¯„å­˜å™¨
-// å‚æ•°è¯´æ˜Ž     reg             å¯„å­˜å™¨åœ°å€
-// è¿”å›žå‚æ•°     uint8           æ•°æ®
-// ä½¿ç”¨ç¤ºä¾‹     imu660ra_read_register(IMU660RA_CHIP_ID);
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU660RA ¶Á¼Ä´æÆ÷
+// ²ÎÊýËµÃ÷     reg             ¼Ä´æÆ÷µØÖ·
+// ·µ»Ø²ÎÊý     uint8           Êý¾Ý
+// Ê¹ÓÃÊ¾Àý     imu660ra_read_register(IMU660RA_CHIP_ID);
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static uint8 imu660ra_read_register(uint8 reg)
 {
@@ -440,13 +440,13 @@ static uint8 imu660ra_read_register(uint8 reg)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU660RA è¯»æ•°æ®
-// å‚æ•°è¯´æ˜Ž     reg             å¯„å­˜å™¨åœ°å€
-// å‚æ•°è¯´æ˜Ž     dat            æ•°æ®ç¼“å†²åŒº
-// å‚æ•°è¯´æ˜Ž     len             æ•°æ®é•¿åº¦
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu660ra_read_registers(IMU660RA_ACC_ADDRESS, dat, 6);
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU660RA ¶ÁÊý¾Ý
+// ²ÎÊýËµÃ÷     reg             ¼Ä´æÆ÷µØÖ·
+// ²ÎÊýËµÃ÷     dat            Êý¾Ý»º³åÇø
+// ²ÎÊýËµÃ÷     len             Êý¾Ý³¤¶È
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu660ra_read_registers(IMU660RA_ACC_ADDRESS, dat, 6);
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static void imu660ra_read_registers(uint8 reg, uint8 *dat, uint32 len)
 {
@@ -457,11 +457,11 @@ static void imu660ra_read_registers(uint8 reg, uint8 *dat, uint32 len)
 #endif
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     IMU660RA è‡ªæ£€
-// å‚æ•°è¯´æ˜Ž     void
-// è¿”å›žå‚æ•°     uint8           1-è‡ªæ£€å¤±è´¥ 0-è‡ªæ£€æˆåŠŸ
-// ä½¿ç”¨ç¤ºä¾‹     imu660ra_self_check();
-// å¤‡æ³¨ä¿¡æ¯     å†…éƒ¨è°ƒç”¨
+// º¯Êý¼ò½é     IMU660RA ×Ô¼ì
+// ²ÎÊýËµÃ÷     void
+// ·µ»Ø²ÎÊý     uint8           1-×Ô¼ìÊ§°Ü 0-×Ô¼ì³É¹¦
+// Ê¹ÓÃÊ¾Àý     imu660ra_self_check();
+// ±¸×¢ÐÅÏ¢     ÄÚ²¿µ÷ÓÃ
 //-------------------------------------------------------------------------------------------------------------------
 static uint8 imu660ra_self_check (void)
 {
@@ -476,17 +476,17 @@ static uint8 imu660ra_self_check (void)
         }
         dat = imu660ra_read_register(IMU660RA_CHIP_ID);
         delay_ms(1);
-    }while(0x24 != dat);                                                        // è¯»å–è®¾å¤‡IDæ˜¯å¦ç­‰äºŽ0X24ï¼Œå¦‚æžœä¸æ˜¯0X24åˆ™è®¤ä¸ºæ²¡æ£€æµ‹åˆ°è®¾å¤‡
+    }while(0x24 != dat);                                                        // ¶ÁÈ¡Éè±¸IDÊÇ·ñµÈÓÚ0X24£¬Èç¹û²»ÊÇ0X24ÔòÈÏÎªÃ»¼ì²âµ½Éè±¸
     return return_state;
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     èŽ·å– IMU660RA åŠ é€Ÿåº¦è®¡æ•°æ®
-// å‚æ•°è¯´æ˜Ž     void
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu660ra_get_acc();                                             // æ‰§è¡Œè¯¥å‡½æ•°åŽï¼Œç›´æŽ¥æŸ¥çœ‹å¯¹åº”çš„å˜é‡å³å¯
-// å¤‡æ³¨ä¿¡æ¯     ä½¿ç”¨ SPI çš„é‡‡é›†æ—¶é—´ä¸º69us
-//             ä½¿ç”¨ IIC çš„é‡‡é›†æ—¶é—´ä¸º126us        é‡‡é›†åŠ é€Ÿåº¦è®¡çš„æ—¶é—´ä¸Žé‡‡é›†é™€èžºä»ªçš„æ—¶é—´ä¸€è‡´çš„åŽŸå› æ˜¯éƒ½åªæ˜¯è¯»å–å¯„å­˜å™¨æ•°æ®
+// º¯Êý¼ò½é     »ñÈ¡ IMU660RA ¼ÓËÙ¶È¼ÆÊý¾Ý
+// ²ÎÊýËµÃ÷     void
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu660ra_get_acc();                                             // Ö´ÐÐ¸Ãº¯Êýºó£¬Ö±½Ó²é¿´¶ÔÓ¦µÄ±äÁ¿¼´¿É
+// ±¸×¢ÐÅÏ¢     Ê¹ÓÃ SPI µÄ²É¼¯Ê±¼äÎª69us
+//             Ê¹ÓÃ IIC µÄ²É¼¯Ê±¼äÎª126us        ²É¼¯¼ÓËÙ¶È¼ÆµÄÊ±¼äÓë²É¼¯ÍÓÂÝÒÇµÄÊ±¼äÒ»ÖÂµÄÔ­ÒòÊÇ¶¼Ö»ÊÇ¶ÁÈ¡¼Ä´æÆ÷Êý¾Ý
 //-------------------------------------------------------------------------------------------------------------------
 void imu660ra_get_acc (void)
 {
@@ -497,7 +497,7 @@ void imu660ra_get_acc (void)
     imu660ra_acc_y = (int16)(((uint16)dat[3]<<8 | dat[2]));
     imu660ra_acc_z = (int16)(((uint16)dat[5]<<8 | dat[4]));
 #else
-	// SPIè¯»å–ç¬¬ä¸€ä¸ªåœ°å€ä¸ºç©º
+	// SPI¶ÁÈ¡µÚÒ»¸öµØÖ·Îª¿Õ
 	uint8 dat[7];
 	imu660ra_read_registers(IMU660RA_ACC_ADDRESS, dat, 7);
     imu660ra_acc_x = (int16)(((uint16)dat[2]<<8 | dat[1]));
@@ -506,12 +506,12 @@ void imu660ra_get_acc (void)
 #endif
 }
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     èŽ·å– IMU660RA é™€èžºä»ªæ•°æ®
-// å‚æ•°è¯´æ˜Ž     void
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     imu660ra_get_gyro();                                            // æ‰§è¡Œè¯¥å‡½æ•°åŽï¼Œç›´æŽ¥æŸ¥çœ‹å¯¹åº”çš„å˜é‡å³å¯
-// å¤‡æ³¨ä¿¡æ¯     ä½¿ç”¨ SPI çš„é‡‡é›†æ—¶é—´ä¸º69us
-//             ä½¿ç”¨ IIC çš„é‡‡é›†æ—¶é—´ä¸º126us
+// º¯Êý¼ò½é     »ñÈ¡ IMU660RA ÍÓÂÝÒÇÊý¾Ý
+// ²ÎÊýËµÃ÷     void
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     imu660ra_get_gyro();                                            // Ö´ÐÐ¸Ãº¯Êýºó£¬Ö±½Ó²é¿´¶ÔÓ¦µÄ±äÁ¿¼´¿É
+// ±¸×¢ÐÅÏ¢     Ê¹ÓÃ SPI µÄ²É¼¯Ê±¼äÎª69us
+//             Ê¹ÓÃ IIC µÄ²É¼¯Ê±¼äÎª126us
 //-------------------------------------------------------------------------------------------------------------------
 void imu660ra_get_gyro (void)
 {
@@ -522,7 +522,7 @@ void imu660ra_get_gyro (void)
     imu660ra_gyro_y = (int16)(((uint16)dat[3]<<8 | dat[2]));
     imu660ra_gyro_z = (int16)(((uint16)dat[5]<<8 | dat[4]));
 #else
-	// SPIè¯»å–ç¬¬ä¸€ä¸ªåœ°å€ä¸ºç©º
+	// SPI¶ÁÈ¡µÚÒ»¸öµØÖ·Îª¿Õ
 	uint8 dat[7];
 	imu660ra_read_registers(IMU660RA_GYRO_ADDRESS, dat, 7);
     imu660ra_gyro_x = (int16)(((uint16)dat[2]<<8 | dat[1]));
@@ -532,76 +532,76 @@ void imu660ra_get_gyro (void)
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     å°† IMU660RA åŠ é€Ÿåº¦è®¡æ•°æ®è½¬æ¢ä¸ºå®žé™…ç‰©ç†æ•°æ®
-// å‚æ•°è¯´æ˜Ž     gyro_value      ä»»æ„è½´çš„åŠ é€Ÿåº¦è®¡æ•°æ®
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     float dat = imu660ra_acc_transition(imu660ra_acc_x);           // å•ä½ä¸º g(m/s^2)
-// å¤‡æ³¨ä¿¡æ¯
+// º¯Êý¼ò½é     ½« IMU660RA ¼ÓËÙ¶È¼ÆÊý¾Ý×ª»»ÎªÊµ¼ÊÎïÀíÊý¾Ý
+// ²ÎÊýËµÃ÷     gyro_value      ÈÎÒâÖáµÄ¼ÓËÙ¶È¼ÆÊý¾Ý
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     float dat = imu660ra_acc_transition(imu660ra_acc_x);           // µ¥Î»Îª g(m/s^2)
+// ±¸×¢ÐÅÏ¢
 //-------------------------------------------------------------------------------------------------------------------
 float imu660ra_acc_transition (int16 acc_value)
 {
     float acc_dat = 0;
     switch((uint8)IMU660RA_ACC_SAMPLE)
     {
-        case 0x00: acc_dat = (float)acc_value / 16384; break;                  // 0x00 åŠ é€Ÿåº¦è®¡é‡ç¨‹ä¸º:Â±2g     èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥ 16384     å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ï¼šg(m/s^2)
-        case 0x01: acc_dat = (float)acc_value / 8192; break;                   // 0x01 åŠ é€Ÿåº¦è®¡é‡ç¨‹ä¸º:Â±4g     èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥ 8192      å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ï¼šg(m/s^2)
-        case 0x02: acc_dat = (float)acc_value / 4096; break;                   // 0x02 åŠ é€Ÿåº¦è®¡é‡ç¨‹ä¸º:Â±8g     èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥ 4096      å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ï¼šg(m/s^2)
-        case 0x03: acc_dat = (float)acc_value / 2048; break;                   // 0x03 åŠ é€Ÿåº¦è®¡é‡ç¨‹ä¸º:Â±16g    èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥ 2048      å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ï¼šg(m/s^2)
+        case 0x00: acc_dat = (float)acc_value / 16384; break;                  // 0x00 ¼ÓËÙ¶È¼ÆÁ¿³ÌÎª:¡À2g     »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 16384     ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»£ºg(m/s^2)
+        case 0x01: acc_dat = (float)acc_value / 8192; break;                   // 0x01 ¼ÓËÙ¶È¼ÆÁ¿³ÌÎª:¡À4g     »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 8192      ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»£ºg(m/s^2)
+        case 0x02: acc_dat = (float)acc_value / 4096; break;                   // 0x02 ¼ÓËÙ¶È¼ÆÁ¿³ÌÎª:¡À8g     »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 4096      ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»£ºg(m/s^2)
+        case 0x03: acc_dat = (float)acc_value / 2048; break;                   // 0x03 ¼ÓËÙ¶È¼ÆÁ¿³ÌÎª:¡À16g    »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 2048      ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»£ºg(m/s^2)
         default: break;
     }
     return acc_dat;
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     å°† IMU660RA é™€èžºä»ªæ•°æ®è½¬æ¢ä¸ºå®žé™…ç‰©ç†æ•°æ®
-// å‚æ•°è¯´æ˜Ž     gyro_value      ä»»æ„è½´çš„é™€èžºä»ªæ•°æ®
-// è¿”å›žå‚æ•°     void
-// ä½¿ç”¨ç¤ºä¾‹     float dat = imu660ra_gyro_transition(imu660ra_gyro_x);         // å•ä½ä¸ºÂ°/s
-// å¤‡æ³¨ä¿¡æ¯
+// º¯Êý¼ò½é     ½« IMU660RA ÍÓÂÝÒÇÊý¾Ý×ª»»ÎªÊµ¼ÊÎïÀíÊý¾Ý
+// ²ÎÊýËµÃ÷     gyro_value      ÈÎÒâÖáµÄÍÓÂÝÒÇÊý¾Ý
+// ·µ»Ø²ÎÊý     void
+// Ê¹ÓÃÊ¾Àý     float dat = imu660ra_gyro_transition(imu660ra_gyro_x);         // µ¥Î»Îª¡ã/s
+// ±¸×¢ÐÅÏ¢
 //-------------------------------------------------------------------------------------------------------------------
 float imu660ra_gyro_transition (int16 gyro_value)
 {
     float gyro_dat = 0;
     switch(IMU660RA_GYR_SAMPLE)
     {
-        case 0x00: gyro_dat = (float)gyro_value / 16.4f;  break;               //  0x00 é™€èžºä»ªé‡ç¨‹ä¸º:Â±2000dps    èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥ 16.4    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ä¸ºï¼šÂ°/s
-        case 0x01: gyro_dat = (float)gyro_value / 32.8f;  break;               //  0x01 é™€èžºä»ªé‡ç¨‹ä¸º:Â±1000dps    èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥ 32.8    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ä¸ºï¼šÂ°/s
-        case 0x02: gyro_dat = (float)gyro_value / 65.6f;  break;               //  0x02 é™€èžºä»ªé‡ç¨‹ä¸º:Â±500 dps    èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥ 65.6    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ä¸ºï¼šÂ°/s
-        case 0x03: gyro_dat = (float)gyro_value / 131.2f; break;               //  0x03 é™€èžºä»ªé‡ç¨‹ä¸º:Â±250 dps    èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥ 131.2   å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ä¸ºï¼šÂ°/s
-        case 0x04: gyro_dat = (float)gyro_value / 262.4f; break;               //  0x04 é™€èžºä»ªé‡ç¨‹ä¸º:Â±125 dps    èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ®é™¤ä»¥ 262.4   å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ä¸ºï¼šÂ°/s
+        case 0x00: gyro_dat = (float)gyro_value / 16.4f;  break;               //  0x00 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À2000dps    »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ 16.4    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»Îª£º¡ã/s
+        case 0x01: gyro_dat = (float)gyro_value / 32.8f;  break;               //  0x01 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À1000dps    »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ 32.8    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»Îª£º¡ã/s
+        case 0x02: gyro_dat = (float)gyro_value / 65.6f;  break;               //  0x02 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À500 dps    »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ 65.6    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»Îª£º¡ã/s
+        case 0x03: gyro_dat = (float)gyro_value / 131.2f; break;               //  0x03 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À250 dps    »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ 131.2   ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»Îª£º¡ã/s
+        case 0x04: gyro_dat = (float)gyro_value / 262.4f; break;               //  0x04 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À125 dps    »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý³ýÒÔ 262.4   ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»Îª£º¡ã/s
         default: break;
     }
     return gyro_dat;
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-// å‡½æ•°ç®€ä»‹     åˆå§‹åŒ– IMU660RA
-// å‚æ•°è¯´æ˜Ž     void
-// è¿”å›žå‚æ•°     uint8           1-åˆå§‹åŒ–å¤±è´¥ 0-åˆå§‹åŒ–æˆåŠŸ
-// ä½¿ç”¨ç¤ºä¾‹     imu660ra_init();
-// å¤‡æ³¨ä¿¡æ¯
+// º¯Êý¼ò½é     ³õÊ¼»¯ IMU660RA
+// ²ÎÊýËµÃ÷     void
+// ·µ»Ø²ÎÊý     uint8           1-³õÊ¼»¯Ê§°Ü 0-³õÊ¼»¯³É¹¦
+// Ê¹ÓÃÊ¾Àý     imu660ra_init();
+// ±¸×¢ÐÅÏ¢
 //-------------------------------------------------------------------------------------------------------------------
 uint8 imu660ra_init (void)
 {
     uint8 return_state = 0;
 	
-    delay_ms(20);                                                        		// ç­‰å¾…è®¾å¤‡ä¸Šç”µæˆåŠŸ
+    delay_ms(20);                                                        		// µÈ´ýÉè±¸ÉÏµç³É¹¦
 
 //#if IMU660RA_USE_SOFT_IIC 
 
 //#else
-//	imu660ra_read_register(IMU660RA_CHIP_ID);                                   // è¯»å–ä¸€ä¸‹è®¾å¤‡ID å°†è®¾å¤‡è®¾ç½®ä¸ºSPIæ¨¡å¼
-//	imu660ra_read_register(IMU660RA_CHIP_ID);                                   // è¯»å–ä¸€ä¸‹è®¾å¤‡ID å°†è®¾å¤‡è®¾ç½®ä¸ºSPIæ¨¡å¼
-//	imu660ra_read_register(IMU660RA_CHIP_ID);                                   // è¯»å–ä¸€ä¸‹è®¾å¤‡ID å°†è®¾å¤‡è®¾ç½®ä¸ºSPIæ¨¡å¼
+//	imu660ra_read_register(IMU660RA_CHIP_ID);                                   // ¶ÁÈ¡Ò»ÏÂÉè±¸ID ½«Éè±¸ÉèÖÃÎªSPIÄ£Ê½
+//	imu660ra_read_register(IMU660RA_CHIP_ID);                                   // ¶ÁÈ¡Ò»ÏÂÉè±¸ID ½«Éè±¸ÉèÖÃÎªSPIÄ£Ê½
+//	imu660ra_read_register(IMU660RA_CHIP_ID);                                   // ¶ÁÈ¡Ò»ÏÂÉè±¸ID ½«Éè±¸ÉèÖÃÎªSPIÄ£Ê½
 
 //#endif
 	
     do{
-        if(imu660ra_self_check())                                               // IMU660RA è‡ªæ£€
+        if(imu660ra_self_check())                                               // IMU660RA ×Ô¼ì
         {
-            // å¦‚æžœç¨‹åºåœ¨è¾“å‡ºäº†æ–­è¨€ä¿¡æ¯ å¹¶ä¸”æç¤ºå‡ºé”™ä½ç½®åœ¨è¿™é‡Œ
-            // é‚£ä¹ˆå°±æ˜¯ IMU660RA è‡ªæ£€å‡ºé”™å¹¶è¶…æ—¶é€€å‡ºäº†
-            // æ£€æŸ¥ä¸€ä¸‹æŽ¥çº¿æœ‰æ²¡æœ‰é—®é¢˜ å¦‚æžœæ²¡é—®é¢˜å¯èƒ½å°±æ˜¯åäº†
+            // Èç¹û³ÌÐòÔÚÊä³öÁË¶ÏÑÔÐÅÏ¢ ²¢ÇÒÌáÊ¾³ö´íÎ»ÖÃÔÚÕâÀï
+            // ÄÇÃ´¾ÍÊÇ IMU660RA ×Ô¼ì³ö´í²¢³¬Ê±ÍË³öÁË
+            // ¼ì²éÒ»ÏÂ½ÓÏßÓÐÃ»ÓÐÎÊÌâ Èç¹ûÃ»ÎÊÌâ¿ÉÄÜ¾ÍÊÇ»µÁË
 			while(1)
 			{
 				printf("imu660ra self check error.\r\n");
@@ -611,17 +611,17 @@ uint8 imu660ra_init (void)
             //break;
         }
 
-        imu660ra_write_register(IMU660RA_PWR_CONF, 0x00);                       // å…³é—­é«˜çº§çœç”µæ¨¡å¼
+        imu660ra_write_register(IMU660RA_PWR_CONF, 0x00);                       // ¹Ø±Õ¸ß¼¶Ê¡µçÄ£Ê½
         delay_ms(10);
-        imu660ra_write_register(IMU660RA_INIT_CTRL, 0x00);                      // å¼€å§‹å¯¹æ¨¡å—è¿›è¡Œåˆå§‹åŒ–é…ç½®
-        imu660ra_write_registers(IMU660RA_INIT_DATA, imu660ra_config_file, sizeof(imu660ra_config_file));   // è¾“å‡ºé…ç½®æ–‡ä»¶
-        imu660ra_write_register(IMU660RA_INIT_CTRL, 0x01);                      // åˆå§‹åŒ–é…ç½®ç»“æŸ
+        imu660ra_write_register(IMU660RA_INIT_CTRL, 0x00);                      // ¿ªÊ¼¶ÔÄ£¿é½øÐÐ³õÊ¼»¯ÅäÖÃ
+        imu660ra_write_registers(IMU660RA_INIT_DATA, imu660ra_config_file, sizeof(imu660ra_config_file));   // Êä³öÅäÖÃÎÄ¼þ
+        imu660ra_write_register(IMU660RA_INIT_CTRL, 0x01);                      // ³õÊ¼»¯ÅäÖÃ½áÊø
         delay_ms(20);
-        if(imu660ra_read_register(IMU660RA_INT_STA) != 1)                       // æ£€æŸ¥æ˜¯å¦é…ç½®å®Œæˆ
+        if(imu660ra_read_register(IMU660RA_INT_STA) != 1)                       // ¼ì²éÊÇ·ñÅäÖÃÍê³É
         {
-            // å¦‚æžœç¨‹åºåœ¨è¾“å‡ºäº†æ–­è¨€ä¿¡æ¯ å¹¶ä¸”æç¤ºå‡ºé”™ä½ç½®åœ¨è¿™é‡Œ
-            // é‚£ä¹ˆå°±æ˜¯ IMU660RA é…ç½®åˆå§‹åŒ–æ–‡ä»¶å‡ºé”™äº†
-            // æ£€æŸ¥IMU660RAåˆå§‹åŒ–ä¹‹å‰ï¼Œæ˜¯å¦æ‰“å¼€äº†å®šæ—¶å™¨ä¸­æ–­ï¼Œåœ¨å®šæ—¶å™¨ä¸­æ–­é‡Œé¢é‡‡é›†äº†660RAçš„æ•°æ®
+            // Èç¹û³ÌÐòÔÚÊä³öÁË¶ÏÑÔÐÅÏ¢ ²¢ÇÒÌáÊ¾³ö´íÎ»ÖÃÔÚÕâÀï
+            // ÄÇÃ´¾ÍÊÇ IMU660RA ÅäÖÃ³õÊ¼»¯ÎÄ¼þ³ö´íÁË
+            // ¼ì²éIMU660RA³õÊ¼»¯Ö®Ç°£¬ÊÇ·ñ´ò¿ªÁË¶¨Ê±Æ÷ÖÐ¶Ï£¬ÔÚ¶¨Ê±Æ÷ÖÐ¶ÏÀïÃæ²É¼¯ÁË660RAµÄÊý¾Ý
 //			while(1)
 //			{
 				printf("imu660ra init error.\r\n");
@@ -630,24 +630,24 @@ uint8 imu660ra_init (void)
             return_state = 1;
             //break;
         }
-        imu660ra_write_register(IMU660RA_PWR_CTRL, 0x0E);                       // å¼€å¯æ€§èƒ½æ¨¡å¼  ä½¿èƒ½é™€èžºä»ªã€åŠ é€Ÿåº¦ã€æ¸©åº¦ä¼ æ„Ÿå™¨
-        imu660ra_write_register(IMU660RA_ACC_CONF, 0xA7);                       // åŠ é€Ÿåº¦é‡‡é›†é…ç½® æ€§èƒ½æ¨¡å¼ æ­£å¸¸é‡‡é›† 50Hz  é‡‡æ ·é¢‘çŽ‡
-        imu660ra_write_register(IMU660RA_GYR_CONF, 0xA9);                       // é™€èžºä»ªé‡‡é›†é…ç½® æ€§èƒ½æ¨¡å¼ æ­£å¸¸é‡‡é›† 200Hz é‡‡æ ·é¢‘çŽ‡
+        imu660ra_write_register(IMU660RA_PWR_CTRL, 0x0E);                       // ¿ªÆôÐÔÄÜÄ£Ê½  Ê¹ÄÜÍÓÂÝÒÇ¡¢¼ÓËÙ¶È¡¢ÎÂ¶È´«¸ÐÆ÷
+        imu660ra_write_register(IMU660RA_ACC_CONF, 0xA7);                       // ¼ÓËÙ¶È²É¼¯ÅäÖÃ ÐÔÄÜÄ£Ê½ Õý³£²É¼¯ 50Hz  ²ÉÑùÆµÂÊ
+        imu660ra_write_register(IMU660RA_GYR_CONF, 0xA9);                       // ÍÓÂÝÒÇ²É¼¯ÅäÖÃ ÐÔÄÜÄ£Ê½ Õý³£²É¼¯ 200Hz ²ÉÑùÆµÂÊ
 		
-        imu660ra_write_register(IMU660RA_ACC_RANGE, IMU660RA_ACC_SAMPLE);       // åŠ é€Ÿåº¦é‡ç¨‹é…ç½® é…ç½®é‡ç¨‹ä¸º:Â±8g
-		// IMU660RA_ACC_SAMPLE å¯„å­˜å™¨
-        // è®¾ç½®ä¸º:0x00 åŠ é€Ÿåº¦è®¡é‡ç¨‹ä¸º:Â±2g         èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥ 16384   å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ï¼šg(m/s^2)
-        // è®¾ç½®ä¸º:0x01 åŠ é€Ÿåº¦è®¡é‡ç¨‹ä¸º:Â±4g         èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥ 8192    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ï¼šg(m/s^2)
-        // è®¾ç½®ä¸º:0x02 åŠ é€Ÿåº¦è®¡é‡ç¨‹ä¸º:Â±8g         èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥ 4096    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ï¼šg(m/s^2)
-        // è®¾ç½®ä¸º:0x03 åŠ é€Ÿåº¦è®¡é‡ç¨‹ä¸º:Â±16g        èŽ·å–åˆ°çš„åŠ é€Ÿåº¦è®¡æ•°æ® é™¤ä»¥ 2048    å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ï¼šg(m/s^2)
+        imu660ra_write_register(IMU660RA_ACC_RANGE, IMU660RA_ACC_SAMPLE);       // ¼ÓËÙ¶ÈÁ¿³ÌÅäÖÃ ÅäÖÃÁ¿³ÌÎª:¡À8g
+		// IMU660RA_ACC_SAMPLE ¼Ä´æÆ÷
+        // ÉèÖÃÎª:0x00 ¼ÓËÙ¶È¼ÆÁ¿³ÌÎª:¡À2g         »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 16384   ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»£ºg(m/s^2)
+        // ÉèÖÃÎª:0x01 ¼ÓËÙ¶È¼ÆÁ¿³ÌÎª:¡À4g         »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 8192    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»£ºg(m/s^2)
+        // ÉèÖÃÎª:0x02 ¼ÓËÙ¶È¼ÆÁ¿³ÌÎª:¡À8g         »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 4096    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»£ºg(m/s^2)
+        // ÉèÖÃÎª:0x03 ¼ÓËÙ¶È¼ÆÁ¿³ÌÎª:¡À16g        »ñÈ¡µ½µÄ¼ÓËÙ¶È¼ÆÊý¾Ý ³ýÒÔ 2048    ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»£ºg(m/s^2)
 		
-        imu660ra_write_register(IMU660RA_GYR_RANGE, IMU660RA_GYR_SAMPLE);       // é™€èžºä»ªé‡ç¨‹é…ç½® é…ç½®é‡ç¨‹ä¸º:Â±2000dps
-        // IMU660RA_GYR_RANGE å¯„å­˜å™¨
-        // è®¾ç½®ä¸º:0x00 é™€èžºä»ªé‡ç¨‹ä¸º:Â±2000dps     èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ® é™¤ä»¥ 16.4       å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ä¸ºï¼šÂ°/s
-        // è®¾ç½®ä¸º:0x01 é™€èžºä»ªé‡ç¨‹ä¸º:Â±1000dps     èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ® é™¤ä»¥ 32.8       å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ä¸ºï¼šÂ°/s
-        // è®¾ç½®ä¸º:0x02 é™€èžºä»ªé‡ç¨‹ä¸º:Â±500 dps     èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ® é™¤ä»¥ 65.6       å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ä¸ºï¼šÂ°/s
-        // è®¾ç½®ä¸º:0x03 é™€èžºä»ªé‡ç¨‹ä¸º:Â±250 dps     èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ® é™¤ä»¥ 131.2      å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ä¸ºï¼šÂ°/s
-        // è®¾ç½®ä¸º:0x04 é™€èžºä»ªé‡ç¨‹ä¸º:Â±125 dps     èŽ·å–åˆ°çš„é™€èžºä»ªæ•°æ® é™¤ä»¥ 262.4      å¯ä»¥è½¬åŒ–ä¸ºå¸¦ç‰©ç†å•ä½çš„æ•°æ® å•ä½ä¸ºï¼šÂ°/s
+        imu660ra_write_register(IMU660RA_GYR_RANGE, IMU660RA_GYR_SAMPLE);       // ÍÓÂÝÒÇÁ¿³ÌÅäÖÃ ÅäÖÃÁ¿³ÌÎª:¡À2000dps
+        // IMU660RA_GYR_RANGE ¼Ä´æÆ÷
+        // ÉèÖÃÎª:0x00 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À2000dps     »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý ³ýÒÔ 16.4       ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»Îª£º¡ã/s
+        // ÉèÖÃÎª:0x01 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À1000dps     »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý ³ýÒÔ 32.8       ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»Îª£º¡ã/s
+        // ÉèÖÃÎª:0x02 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À500 dps     »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý ³ýÒÔ 65.6       ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»Îª£º¡ã/s
+        // ÉèÖÃÎª:0x03 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À250 dps     »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý ³ýÒÔ 131.2      ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»Îª£º¡ã/s
+        // ÉèÖÃÎª:0x04 ÍÓÂÝÒÇÁ¿³ÌÎª:¡À125 dps     »ñÈ¡µ½µÄÍÓÂÝÒÇÊý¾Ý ³ýÒÔ 262.4      ¿ÉÒÔ×ª»¯Îª´øÎïÀíµ¥Î»µÄÊý¾Ý µ¥Î»Îª£º¡ã/s
 		
 
 	

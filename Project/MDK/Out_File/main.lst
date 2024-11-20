@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               20/11/24  18:16:18  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               20/11/24  20:41:05  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -64,26 +64,28 @@ stmt  level    source
    50          {   
    51   1          char str[64];
    52   1          int recv = 32;
-   53   1          straight_entrance();
-   54   1          sprintf(str, "Vehicle init finished\n");
-C251 COMPILER V5.60.0,  main                                                               20/11/24  18:16:18  PAGE 2   
+   53   1      
+   54   1          straight_entrance(); //这是小车的主要代码，直线行驶，要看小车怎么跑的点这里
+C251 COMPILER V5.60.0,  main                                                               20/11/24  20:41:05  PAGE 2   
 
-   55   1          wireless_uart_send_buff(str, strlen(str));
-   56   1          while (1)
-   57   1          {
-   58   2              delay_ms(100);
-   59   2              memset(str, 0, sizeof(str));
-   60   2              if (wireless_uart_read_buff(str,recv) != 0)
-   61   2              {
-   62   3                  wireless_uart_send_buff("Copy, you sent:\n", 17);
-   63   3                  wireless_uart_send_buff(str, recv);
-   64   3              }
-   65   2          }
-   66   1      }
-   67          
-   68          
-   69          //真扯淡，串口只要发中文，管他UTF-8还是GBK，都会乱码，这个串口库真是个垃圾
-   70          //老子服了，用英语吧
+   55   1          
+   56   1          sprintf(str, "Vehicle init finished\n");
+   57   1          wireless_uart_send_buff(str, strlen(str));
+   58   1          while (1)
+   59   1          {
+   60   2              delay_ms(100);
+   61   2              memset(str, 0, sizeof(str));
+   62   2              if (wireless_uart_read_buff(str,recv) != 0)
+   63   2              {
+   64   3                  wireless_uart_send_buff("Copy, you sent:\n", 17);
+   65   3                  wireless_uart_send_buff(str, recv);
+   66   3              }
+   67   2          }
+   68   1      }
+   69          
+   70          
+   71          //真扯淡，串口只要发中文，管他UTF-8还是GBK，都会乱码，这个串口库真是个垃圾
+   72          //老子服了，用英语吧
 
 
 Module Information          Static   Overlayable

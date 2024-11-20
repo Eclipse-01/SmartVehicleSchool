@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  line                                                               20/11/24  18:24:44  PAGE 1   
+C251 COMPILER V5.60.0,  line                                                               20/11/24  20:41:06  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE line
@@ -66,7 +66,7 @@ stmt  level    source
    54          //  * @return int 线的位置，或错误代码
    55          //  * @warning 小心使用
    56          //  */
-C251 COMPILER V5.60.0,  line                                                               20/11/24  18:24:44  PAGE 2   
+C251 COMPILER V5.60.0,  line                                                               20/11/24  20:41:06  PAGE 2   
 
    57          // int Line_calculate_position()
    58          // {
@@ -134,7 +134,7 @@ stmt  level    source
   120   2              if (adc_value.ADC1 > max_adc1)
   121   2                  max_adc1 = adc_value.ADC1;
   122   2              if (adc_value.ADC2 < min_adc2)
-C251 COMPILER V5.60.0,  line                                                               20/11/24  18:24:44  PAGE 3   
+C251 COMPILER V5.60.0,  line                                                               20/11/24  20:41:06  PAGE 3   
 
   123   2                  min_adc2 = adc_value.ADC2;
   124   2              if (adc_value.ADC2 > max_adc2)
@@ -202,7 +202,7 @@ stmt  level    source
   181   4                      if (command >= 'A' && command <= 'Z')
   182   4                      {
   183   5                          command += 32;
-C251 COMPILER V5.60.0,  line                                                               20/11/24  18:24:44  PAGE 4   
+C251 COMPILER V5.60.0,  line                                                               20/11/24  20:41:06  PAGE 4   
 
   184   5                      }
   185   4                      wireless_uart_send_byte(command);
