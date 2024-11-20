@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  encoder                                                            18/11/24  22:53:53  PAGE 1   
+C251 COMPILER V5.60.0,  encoder                                                            20/11/24  18:54:50  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE encoder
@@ -34,7 +34,7 @@ stmt  level    source
    20          
    21          #include "headfile.h"
    22          
-   23          static uint16 TravelDistanceL = 0, TravelDistanceR = 0, TravelDistance = 0;
+   23          static uint32 TravelDistanceL = 0, TravelDistanceR = 0, TravelDistance = 0;
    24          
    25          /**
    26           * @brief ³õÊ¼»¯±àÂëÆ÷
@@ -66,7 +66,7 @@ stmt  level    source
    52   1          else
    53   1          {
    54   2              dat = -ctimer_count_read(CTIM0_P34);
-C251 COMPILER V5.60.0,  encoder                                                            18/11/24  22:53:53  PAGE 2   
+C251 COMPILER V5.60.0,  encoder                                                            20/11/24  18:54:50  PAGE 2   
 
    55   2          }
    56   1          TravelDistanceL += dat;
@@ -134,7 +134,7 @@ stmt  level    source
   118          
   119          /**
   120           * @brief Çå³ý±àÂëÆ÷ÐÐÊ»¾àÀë
-C251 COMPILER V5.60.0,  encoder                                                            18/11/24  22:53:53  PAGE 3   
+C251 COMPILER V5.60.0,  encoder                                                            20/11/24  18:54:50  PAGE 3   
 
   121           * 
   122           * ½«×ó²à¡¢ÓÒ²àºÍ×ÜÐÐÊ»¾àÀëÇåÁã
@@ -149,14 +149,14 @@ stmt  level    source
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       295     ------
+  code size            =       318     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
   pdata size           =    ------     ------
   xdata size           =    ------     ------
   xdata-const size     =    ------     ------
-  edata size           =        10     ------
+  edata size           =        16     ------
   bit size             =    ------     ------
   ebit size            =    ------     ------
   bitaddressable size  =    ------     ------
@@ -164,7 +164,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =        18     ------
+  hconst size          =        24     ------
 End of Module Information.
 
 

@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  straight                                                           18/11/24  23:30:20  PAGE 1   
+C251 COMPILER V5.60.0,  straight                                                           20/11/24  19:07:57  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE straight
@@ -11,62 +11,62 @@ COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\Algorithms\straight.c 
 stmt  level    source
 
     1          /*
-    2          *此代码可以使小车沿着直线前进
-    3          *By JNU-Fly
-    4          */
+    2           *此代码可以使小车沿着直线前进
+    3           *By JNU-Fly
+    4           */
     5          
     6          #include "headfile.h"
     7          #include "straight.h"
     8          
-    9          #define XINGS 1 //定义十字的数量
+    9          #define XINGS 1 // 定义十字的数量
    10          int recv = 32;
    11          char str[64];
    12          /*PID参数调节器*/
    13          float Kp = 0.5;
    14          float Ki = 0;
    15          float Kd = 0.35;
-   16          float reactFactor = 1; 
+   16          float reactFactor = 1;
    17          
    18          // 添加积分和微分的最大值变量
-   19          float MAX_INTEGRAL = 100.0;   // 根据需要调整
+   19          float MAX_INTEGRAL = 100.0;    // 根据需要调整
    20          float MAX_DERIVATIVE = 1000.0; // 根据需要调整
    21          
    22          /**
    23           * @brief 直行入口函数
    24           * @return uint8 返回值
    25           */
-   26          uint8 straight_entrance(void){
-   27   1          ips200_clear();
-   28   1          wireless_uart_send_buff("Straight mode\n", 13);
-   29   1          while(1){
-   30   2          PID_control_straint();
-   31   2          if (wireless_uart_read_buff(str,recv) != 0)
-   32   2              {
-   33   3                      drv8701_stop(MOTOR_BOTH);
-   34   3                      while(1){;}
-   35   3              }
-   36   2          delay_ms(10);
-   37   2          }
-   38   1          return 0;
-   39   1      }
-   40          
-   41          /**
-   42           * @brief PID控制函数
-   43           */
-   44          
-   45          int position;
-   46          static int last_error = 0;
-   47          static int integral = 0;
-   48          int angle;
-   49          
-   50          void PID_control_straint(void) {
+   26          uint8 straight_entrance(void)
+   27          {
+   28   1          ips200_clear();
+   29   1          ips200_show_string(0, 0, "Straight mode");
+   30   1          wireless_uart_send_buff("Straight mode\n", 13);
+   31   1          while (1)
+   32   1          {
+   33   2              Remote_Stop();
+   34   2              PID_control_straint();
+   35   2              delay_ms(10);
+   36   2          }
+   37   1          return 0;
+   38   1      }
+   39          
+   40          /**
+   41           * @brief PID控制函数
+   42           */
+   43          
+   44          int position;
+   45          static int last_error = 0;
+   46          static int integral = 0;
+   47          int angle;
+   48          
+   49          void PID_control_straint(void)
+   50          {
    51   1      
    52   1          position = Line_calculate_position();
    53   1          integral += position;
    54   1          angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
    55   1          last_error = position;
    56   1          servo_set_position(angle);
-C251 COMPILER V5.60.0,  straight                                                           18/11/24  23:30:20  PAGE 2   
+C251 COMPILER V5.60.0,  straight                                                           20/11/24  19:07:57  PAGE 2   
 
    57   1          drv8701_control(MOTOR_BOTH, 35);
    58   1      
@@ -78,135 +78,133 @@ stmt  level    source
    64   1              last_error = MAX_DERIVATIVE;
    65   1          if (last_error < -MAX_DERIVATIVE)
    66   1              last_error = -MAX_DERIVATIVE;
-   67   1      
-   68   1      }
-   69          
-   70          
-   71          void PID_control_ring(void) {
-   72   1      
-   73   1          position = Line_calculate_position_ring();
-   74   1          integral += position;
-   75   1          angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
-   76   1          last_error = position;
-   77   1          servo_set_position(angle);
-   78   1          drv8701_control(MOTOR_BOTH, 35);
-   79   1      
-   80   1          if (integral > MAX_INTEGRAL)
-   81   1              integral = MAX_INTEGRAL;
-   82   1          if (integral < -MAX_INTEGRAL)
-   83   1              integral = -MAX_INTEGRAL;
-   84   1          if (last_error > MAX_DERIVATIVE)
-   85   1              last_error = MAX_DERIVATIVE;
-   86   1          if (last_error < -MAX_DERIVATIVE)
-   87   1              last_error = -MAX_DERIVATIVE;
-   88   1      
-   89   1      }
-   90          
-   91          
-   92          /**
-   93           * @brief 异常处理函数
-   94           * @param exception_code 异常代码
-   95           */
-   96          void exception_handler(int exception_code)
-   97          {
-   98   1          ips200_clear();
-   99   1          ips200_show_string(0,0,"Exception occured");
-  100   1          switch(exception_code){
-  101   2              case 999:
-  102   2                  ips200_show_string(16,0,"System error");
-  103   2                  break;
-  104   2              case 998:
-  105   2                  ips200_show_string(16,0,"Divide by zero");
-  106   2                  break;
-  107   2              case 997:
-  108   2                  ips200_show_string(16,0,"Line lost");
-  109   2                  break;
-  110   2              case 996:
-  111   2                  ips200_show_string(16,0,"Cross line");
-  112   2                  return;
-  113   2              case 995:
-  114   2                  ips200_show_string(16,0,"Left roundabout");
-  115   2                  break;
-  116   2              case 994:
-  117   2                  ips200_show_string(16,0,"Right roundabout");
-  118   2                  break;
-  119   2              default:
-  120   2                  ips200_show_string(16,0,"Unknown error");
-  121   2          }
-  122   1      }
-C251 COMPILER V5.60.0,  straight                                                           18/11/24  23:30:20  PAGE 3   
+   67   1      }
+   68          
+   69          void PID_control_ring(void)
+   70          {
+   71   1      
+   72   1          position = Line_calculate_position_ring();
+   73   1          integral += position;
+   74   1          angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
+   75   1          last_error = position;
+   76   1          servo_set_position(angle);
+   77   1          drv8701_control(MOTOR_BOTH, 35);
+   78   1      
+   79   1          if (integral > MAX_INTEGRAL)
+   80   1              integral = MAX_INTEGRAL;
+   81   1          if (integral < -MAX_INTEGRAL)
+   82   1              integral = -MAX_INTEGRAL;
+   83   1          if (last_error > MAX_DERIVATIVE)
+   84   1              last_error = MAX_DERIVATIVE;
+   85   1          if (last_error < -MAX_DERIVATIVE)
+   86   1              last_error = -MAX_DERIVATIVE;
+   87   1      }
+   88          
+   89          /**
+   90           * @brief 异常处理函数
+   91           * @param exception_code 异常代码
+   92           */
+   93          void exception_handler(int exception_code)
+   94          {
+   95   1          ips200_clear();
+   96   1          ips200_show_string(0, 0, "Exception occured");
+   97   1          switch (exception_code)
+   98   1          {
+   99   2          case 999:
+  100   2              ips200_show_string(16, 0, "System error");
+  101   2              break;
+  102   2          case 998:
+  103   2              ips200_show_string(16, 0, "Divide by zero");
+  104   2              break;
+  105   2          case 997:
+  106   2              ips200_show_string(16, 0, "Line lost");
+  107   2              break;
+  108   2          case 996:
+  109   2              ips200_show_string(16, 0, "Cross line");
+  110   2              return;
+  111   2          case 995:
+  112   2              ips200_show_string(16, 0, "Left roundabout");
+  113   2              break;
+  114   2          case 994:
+  115   2              ips200_show_string(16, 0, "Right roundabout");
+  116   2              break;
+  117   2          default:
+  118   2              ips200_show_string(16, 0, "Unknown error");
+  119   2          }
+  120   1      }
+  121          
+  122          /**
+C251 COMPILER V5.60.0,  straight                                                           20/11/24  19:07:57  PAGE 3   
 
-  123          
-  124          /**
-  125           * @brief 计算线的位置
-  126           * 
-  127           * 根据滤波后的ADC值计算线的位置，还能检测环岛
-  128           * 
-  129           * @return int 线的位置
-  130           * @warning 小心使用
-  131           */
-  132          
-  133          extern uint8 RING_FLAG; // 声明外部变量
-  134          int Line_calculate_position()
-  135          {
-  136   1          float adc1, adc2, adc3, adc4, denominator, position;
-  137   1          Line_read_raw();
-  138   1      
-  139   1          //归一化处理，范围是0-100
-  140   1          adc1 = ((float)adc_value.ADC1 * 100) / 4095;
-  141   1          adc2 = ((float)adc_value.ADC2 * 100) / 4095;
-  142   1          adc3 = ((float)adc_value.ADC3 * 100) / 4095;
-  143   1          adc4 = ((float)adc_value.ADC4 * 100) / 4095;
-  144   1      
-  145   1          if ((adc1 + adc4 > 160 ) && RING_FLAG == 0)
-  146   1              {
-  147   2                  Beep_set(1);
-  148   2              }
-  149   1          denominator = adc1 + adc4;
-  150   1          if (denominator == 0)
-  151   1              denominator = 1;
-  152   1          position = (adc4 - adc1) / denominator * 100;
-  153   1          sprintf(str, "Position: %f, adc1: %f, adc4: %f\n", position, adc1, adc4);
-  154   1          wireless_uart_send_buff(str, strlen(str));
-  155   1          return position;
-  156   1      }
-  157          
-  158          
-  159          /**
-  160           * @brief 计算线的位置
-  161           * 
-  162           * 根据滤波后的ADC值计算线的位置，在环岛内使用
-  163           * 
-  164           * @return int 线的位置
-  165           * @warning 小心使用
-  166           */
-  167          
-  168          extern uint8 RING_FLAG; // 声明外部变量
-  169          int Line_calculate_position_ring()
-  170          {
-  171   1          float adc1, adc2, adc3, adc4, denominator, position;
-  172   1          Line_read_raw();
-  173   1      
-  174   1          //归一化处理，范围是0-100
-  175   1          adc1 = ((float)adc_value.ADC1 * 100) / 4095;
-  176   1          adc2 = ((float)adc_value.ADC2 * 100) / 4095;
-  177   1          adc3 = ((float)adc_value.ADC3 * 100) / 4095;
-  178   1          adc4 = ((float)adc_value.ADC4 * 100) / 4095;
-  179   1          denominator = adc1 + adc4;
-  180   1          if (denominator == 0)
-  181   1              denominator = 1;
-  182   1          position = (adc4 - adc1) / denominator * 100;
-  183   1          sprintf(str, "Position: %f\n, adc1: %f, adc4: %f\n", position, adc1, adc4);
-  184   1          wireless_uart_send_buff(str, strlen(str));
-  185   1          return position;
-  186   1      }
+  123           * @brief 计算线的位置
+  124           *
+  125           * 根据滤波后的ADC值计算线的位置，还能检测环岛
+  126           *
+  127           * @return int 线的位置
+  128           * @warning 小心使用
+  129           */
+  130          
+  131          extern uint8 RING_FLAG; // 声明外部变量
+  132          int Line_calculate_position()
+  133          {
+  134   1          float adc1, adc2, adc3, adc4, denominator, position;
+  135   1          Line_read_raw();
+  136   1      
+  137   1          // 归一化处理，范围是0-100
+  138   1          adc1 = ((float)adc_value.ADC1 * 100) / 4095;
+  139   1          adc2 = ((float)adc_value.ADC2 * 100) / 4095;
+  140   1          adc3 = ((float)adc_value.ADC3 * 100) / 4095;
+  141   1          adc4 = ((float)adc_value.ADC4 * 100) / 4095;
+  142   1      
+  143   1          if ((adc1 + adc4 > 160) && RING_FLAG == 0) // 检测到环岛
+  144   1          {
+  145   2              Beep_set(1);
+  146   2              ring_handler();
+  147   2          }
+  148   1          denominator = adc1 + adc4;
+  149   1          if (denominator == 0)
+  150   1              denominator = 1;
+  151   1          position = (adc4 - adc1) / denominator * 100;
+  152   1          sprintf(str, "Position: %f, adc1: %f, adc4: %f\n", position, adc1, adc4);
+  153   1          wireless_uart_send_buff(str, strlen(str));
+  154   1          return position;
+  155   1      }
+  156          
+  157          /**
+  158           * @brief 计算线的位置
+  159           *
+  160           * 根据滤波后的ADC值计算线的位置，在环岛内使用
+  161           *
+  162           * @return int 线的位置
+  163           * @warning 小心使用
+  164           */
+  165          
+  166          extern uint8 RING_FLAG; // 声明外部变量
+  167          int Line_calculate_position_ring()
+  168          {
+  169   1          float adc1, adc2, adc3, adc4, denominator, position;
+  170   1          Line_read_raw();
+  171   1      
+  172   1          // 归一化处理，范围是0-100
+  173   1          adc1 = ((float)adc_value.ADC1 * 100) / 4095;
+  174   1          adc2 = ((float)adc_value.ADC2 * 100) / 4095;
+  175   1          adc3 = ((float)adc_value.ADC3 * 100) / 4095;
+  176   1          adc4 = ((float)adc_value.ADC4 * 100) / 4095;
+  177   1          denominator = adc1 + adc4;
+  178   1          if (denominator == 0)
+  179   1              denominator = 1;
+  180   1          position = (adc4 - adc1) / denominator * 100;
+  181   1          sprintf(str, "Position: %f\n, adc1: %f, adc4: %f\n", position, adc1, adc4);
+  182   1          wireless_uart_send_buff(str, strlen(str));
+  183   1          return position;
+  184   1      }
 
-
-C251 COMPILER V5.60.0,  straight                                                           18/11/24  23:30:20  PAGE 4   
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      1308     ------
+  code size            =      1301     ------
+C251 COMPILER V5.60.0,  straight                                                           20/11/24  19:07:57  PAGE 4   
+
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
@@ -221,7 +219,7 @@ Module Information          Static   Overlayable
   far data size        =    ------     ------
   huge data size       =    ------     ------
   const size           =    ------     ------
-  hconst size          =       264     ------
+  hconst size          =       278     ------
 End of Module Information.
 
 

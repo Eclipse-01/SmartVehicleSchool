@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  main                                                               18/11/24  22:53:52  PAGE 1   
+C251 COMPILER V5.60.0,  main                                                               20/11/24  18:16:18  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE main
@@ -43,46 +43,52 @@ stmt  level    source
    29          uint8 dir = 0;
    30          int16 duty = 0;
    31          
-   32          void main()
+   32          void main(void)
    33          {
-   34   1          char str[64];
-   35   1          int recv = 32;
+   34   1          clock_init(SYSTEM_CLOCK_52M); // 初始化系统频率,勿删除此句代码。
+   35   1          board_init();                 // 初始化寄存器,勿删除此句代码。
    36   1      
-   37   1          clock_init(SYSTEM_CLOCK_52M); // 初始化系统频率,勿删除此句代码。
-   38   1          board_init();                 // 初始化寄存器,勿删除此句代码。
-   39   1      
-   40   1          // 此处编写用户代码 例如外设初始化代码等
-   41   1          ips200_init_spi();
-   42   1          servo_init();
-   43   1          drv8701_init();
-   44   1          encoder_init(); 
-   45   1          Line_init();
-   46   1          Beep_init();
-   47   1          wireless_uart_init();
-   48   1          straight_entrance();
-   49   1      
-   50   1          // 此处编写用户代码 例如外设初始化代码等
-   51   1          sprintf(str, "Vehicle init finished\n");
-   52   1          wireless_uart_send_buff(str, strlen(str));
-   53   1      
-   54   1          while (1)
-C251 COMPILER V5.60.0,  main                                                               18/11/24  22:53:52  PAGE 2   
+   37   1          // 此处编写用户代码 例如外设初始化代码等
+   38   1          ips200_init_spi();
+   39   1          servo_init();
+   40   1          drv8701_init();
+   41   1          encoder_init(); 
+   42   1          Line_init();
+   43   1          Beep_init();
+   44   1          wireless_uart_init();
+   45   1          // 此处编写用户代码 例如外设初始化代码等
+   46   1          code_entrance();
+   47   1      }
+   48          
+   49          void code_entrance()
+   50          {   
+   51   1          char str[64];
+   52   1          int recv = 32;
+   53   1          straight_entrance();
+   54   1          sprintf(str, "Vehicle init finished\n");
+C251 COMPILER V5.60.0,  main                                                               20/11/24  18:16:18  PAGE 2   
 
-   55   1          {
-   56   2              delay_ms(100);
-   57   2              memset(str, 0, sizeof(str));
-   58   2              if (wireless_uart_read_buff(str,recv) != 0)
-   59   2              {
-   60   3                  wireless_uart_send_buff("Copy, you sent:\n", 17);
-   61   3                  wireless_uart_send_buff(str, recv);
-   62   3              }
-   63   2          }
-   64   1      }
+   55   1          wireless_uart_send_buff(str, strlen(str));
+   56   1          while (1)
+   57   1          {
+   58   2              delay_ms(100);
+   59   2              memset(str, 0, sizeof(str));
+   60   2              if (wireless_uart_read_buff(str,recv) != 0)
+   61   2              {
+   62   3                  wireless_uart_send_buff("Copy, you sent:\n", 17);
+   63   3                  wireless_uart_send_buff(str, recv);
+   64   3              }
+   65   2          }
+   66   1      }
+   67          
+   68          
+   69          //真扯淡，串口只要发中文，管他UTF-8还是GBK，都会乱码，这个串口库真是个垃圾
+   70          //老子服了，用英语吧
 
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =       148     ------
+  code size            =       152     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------

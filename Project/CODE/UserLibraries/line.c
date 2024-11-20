@@ -182,6 +182,8 @@ void Remote_Stop()
                 {
                     command += 32;
                 }
+                wireless_uart_send_byte(command);
+                delay_ms(10000);
                 switch (command)
                 {
                 case 'w':
@@ -205,7 +207,7 @@ void Remote_Stop()
                     drv8701_stop(MOTOR_BOTH);
                     break;
                 case 'r':
-                    main();
+                    code_entrance();
                     break;
 
                 default:

@@ -61,6 +61,8 @@
 #include "straight.h" //直行
 #include "ring.h" //转弯
 
+extern void code_entrance(void);//用户函数
+
 //参数
 #define Servo_MaxAngle 50
 #define Servo_Center 585

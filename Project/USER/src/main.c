@@ -29,11 +29,8 @@
 uint8 dir = 0;
 int16 duty = 0;
 
-void main()
+void main(void)
 {
-    char str[64];
-    int recv = 32;
-
     clock_init(SYSTEM_CLOCK_52M); // 初始化系统频率,勿删除此句代码。
     board_init();                 // 初始化寄存器,勿删除此句代码。
 
@@ -45,12 +42,17 @@ void main()
     Line_init();
     Beep_init();
     wireless_uart_init();
-    straight_entrance();
-
     // 此处编写用户代码 例如外设初始化代码等
+    code_entrance();
+}
+
+void code_entrance()
+{   
+    char str[64];
+    int recv = 32;
+    straight_entrance();
     sprintf(str, "Vehicle init finished\n");
     wireless_uart_send_buff(str, strlen(str));
-
     while (1)
     {
         delay_ms(100);

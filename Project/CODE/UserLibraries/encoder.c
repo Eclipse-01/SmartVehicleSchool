@@ -20,7 +20,7 @@
 
 #include "headfile.h"
 
-static uint16 TravelDistanceL = 0, TravelDistanceR = 0, TravelDistance = 0;
+static uint32 TravelDistanceL = 0, TravelDistanceR = 0, TravelDistance = 0;
 
 /**
  * @brief ³õÊ¼»¯±àÂëÆ÷

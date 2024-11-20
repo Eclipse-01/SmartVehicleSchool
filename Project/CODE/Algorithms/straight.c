@@ -26,9 +26,11 @@ float MAX_DERIVATIVE = 1000.0; // 根据需要调整
 uint8 straight_entrance(void)
 {
     ips200_clear();
+    ips200_show_string(0, 0, "Straight mode");
     wireless_uart_send_buff("Straight mode\n", 13);
     while (1)
     {
+        Remote_Stop();
         PID_control_straint();
         delay_ms(10);
     }
