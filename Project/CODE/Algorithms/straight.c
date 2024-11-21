@@ -14,7 +14,7 @@
 #include "straight.h"
 
 #define XINGS 1 // 定义十字的数量
-#define VELOCITY 40
+#define VELOCITY 35
 int recv = 32;
 char str[64];
 /*PID参数调节器*/
