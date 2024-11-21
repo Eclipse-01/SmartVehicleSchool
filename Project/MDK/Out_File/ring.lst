@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  ring                                                               20/11/24  20:41:06  PAGE 1   
+C251 COMPILER V5.60.0,  ring                                                               21/11/24  15:45:57  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE ring
@@ -66,7 +66,7 @@ stmt  level    source
    53   1          wireless_uart_send_buff("We have reached the ring point, setting servo angle\n", 52);
    54   1      
    55   1          servo_set_position(SERVO_ENTER_RING_ANGLE); // 舵机打角
-C251 COMPILER V5.60.0,  ring                                                               20/11/24  20:41:06  PAGE 2   
+C251 COMPILER V5.60.0,  ring                                                               21/11/24  15:45:57  PAGE 2   
 
    56   1          while ( distance - normal_distance < RETURN_TRACK ) // 判断是否到达入环后恢复循迹前的距离，即控制舵机
              -打角的时长

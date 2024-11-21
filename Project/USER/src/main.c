@@ -22,12 +22,7 @@
 // 关于内核频率的设定，可以查看board.h文件
 // 在board_init中,已经将P54引脚设置为复位
 // 如果需要使用P54引脚,可以在board.c文件中的board_init()函数中删除SET_P54_RESRT即可
-#define DIR_2 P10
-#define DIR_1 P24
-#define PWM_2 PWMA_CH2N_P13
-#define PWM_1 PWMA_CH4P_P26
-uint8 dir = 0;
-int16 duty = 0;
+
 
 void main(void)
 {

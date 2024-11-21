@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  encoder                                                            20/11/24  20:41:06  PAGE 1   
+C251 COMPILER V5.60.0,  encoder                                                            21/11/24  15:45:56  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE encoder
@@ -66,7 +66,7 @@ stmt  level    source
    53   1          if(P35 == 1) // DIR1 注意出于安装原因，左侧编码器方向与右侧编码器方向相反
    54   1          {
    55   2              dat = ctimer_count_read(CTIM0_P34);
-C251 COMPILER V5.60.0,  encoder                                                            20/11/24  20:41:06  PAGE 2   
+C251 COMPILER V5.60.0,  encoder                                                            21/11/24  15:45:56  PAGE 2   
 
    56   2          }
    57   1          else
@@ -134,7 +134,7 @@ stmt  level    source
   119          {
   120   1          TravelDistanceL = 0;
   121   1          TravelDistanceR = 0;
-C251 COMPILER V5.60.0,  encoder                                                            20/11/24  20:41:06  PAGE 3   
+C251 COMPILER V5.60.0,  encoder                                                            21/11/24  15:45:56  PAGE 3   
 
   122   1          TravelDistance = 0;
   123   1      }

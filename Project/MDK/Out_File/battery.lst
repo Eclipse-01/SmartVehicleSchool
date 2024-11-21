@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  battery                                                            20/11/24  20:41:06  PAGE 1   
+C251 COMPILER V5.60.0,  battery                                                            21/11/24  15:45:56  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE battery
@@ -66,7 +66,7 @@ stmt  level    source
    53          
    54          /**
    55           * @brief 获取电池电压
-C251 COMPILER V5.60.0,  battery                                                            20/11/24  20:41:06  PAGE 2   
+C251 COMPILER V5.60.0,  battery                                                            21/11/24  15:45:56  PAGE 2   
 
    56           * 
    57           * 该函数通过ADC读取电池电压，并根据分压电阻计算实际电池电压。
@@ -135,7 +135,7 @@ Module Information          Static   Overlayable
   huge data size       =    ------     ------
   const size           =    ------     ------
   hconst size          =        30     ------
-C251 COMPILER V5.60.0,  battery                                                            20/11/24  20:41:06  PAGE 3   
+C251 COMPILER V5.60.0,  battery                                                            21/11/24  15:45:56  PAGE 3   
 
 End of Module Information.
 

@@ -14,6 +14,7 @@
 #include "straight.h"
 
 #define XINGS 1 // 定义十字的数量
+#define VELOCITY 40
 int recv = 32;
 char str[64];
 /*PID参数调节器*/
@@ -61,7 +62,7 @@ void PID_control_straint(void)
     angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
     last_error = position;
     servo_set_position(angle);
-    drv8701_control(MOTOR_BOTH, 35);
+    drv8701_control(MOTOR_BOTH, VELOCITY);
 
     if (integral > MAX_INTEGRAL)
         integral = MAX_INTEGRAL;
@@ -81,7 +82,7 @@ void PID_control_ring(void)
     angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
     last_error = position;
     servo_set_position(angle);
-    drv8701_control(MOTOR_BOTH, 35);
+    drv8701_control(MOTOR_BOTH, VELOCITY);
 
     if (integral > MAX_INTEGRAL)
         integral = MAX_INTEGRAL;
