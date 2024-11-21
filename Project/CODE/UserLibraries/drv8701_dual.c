@@ -30,8 +30,8 @@ void drv8701_init(void)
     pwm_init(PWM_2, 17000, 0);
 
     // 初始化方向控制引脚为推挽输出模式
-    gpio_mode(DIR_1, GPO_PP);
-    gpio_mode(DIR_2, GPO_PP);
+	gpio_mode(P1_0, GPO_PP);	// P10引脚设置为推挽输出
+	gpio_mode(P2_4, GPO_PP);	// P24引脚设置为推挽输出
 }
 
 /**
@@ -41,31 +41,29 @@ void drv8701_init(void)
  */
 void drv8701_control(Motor_Select motor_select, int32 speed)//speed范围-100到100
 {
+    int dir = speed > 0 ? 1 : 0;//若速度大于0，speed_sign为1，否则为0
+    speed = abs(speed);//取绝对值
     if (speed > 100) // 限制速度范围
     {
         speed = 100;
     }
-    else if (speed < -100)
-    {
-        speed = -100;
-    }
     speed = ((speed * PWM_DUTY_MAX) / 200); // 将速度值转换为PWM占空比
     if (motor_select == MOTOR_L || motor_select == MOTOR_BOTH)//控制左边舵机
     {
-        if (speed >= 0)
+        if (dir)
         {
-            DIR_1 = 1;
+            DIR_1 = 0;
             pwm_duty(PWM_1, speed);
         }
         else
         {
-            DIR_1 = 0;
-            pwm_duty(PWM_1, -speed);
+            DIR_1 = 1;
+            pwm_duty(PWM_1, speed);
         }
     }
     if (motor_select == MOTOR_R || motor_select == MOTOR_BOTH)//控制右边舵机
     {
-        if (speed >= 0)
+        if (dir)
         {
             DIR_2 = 1;
             pwm_duty(PWM_2, speed);
@@ -73,7 +71,7 @@ void drv8701_control(Motor_Select motor_select, int32 speed)//speed范围-100到100
         else
         {
             DIR_2 = 0;
-            pwm_duty(PWM_2, -speed);
+            pwm_duty(PWM_2, speed);
         }
     }
 }

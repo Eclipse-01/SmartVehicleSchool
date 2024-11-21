@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  straight                                                           21/11/24  16:17:34  PAGE 1   
+C251 COMPILER V5.60.0,  straight                                                           21/11/24  16:32:52  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE straight
@@ -27,7 +27,7 @@ stmt  level    source
    14          #include "straight.h"
    15          
    16          #define XINGS 1 // 定义十字的数量
-   17          #define VELOCITY 35
+   17          #define VELOCITY 40
    18          int recv = 32;
    19          char str[64];
    20          /*PID参数调节器*/
@@ -66,7 +66,7 @@ stmt  level    source
    53          static int last_error = 0;
    54          static int integral = 0;
    55          int angle;
-C251 COMPILER V5.60.0,  straight                                                           21/11/24  16:17:34  PAGE 2   
+C251 COMPILER V5.60.0,  straight                                                           21/11/24  16:32:52  PAGE 2   
 
    56          
    57          void PID_control_straint(void)
@@ -134,7 +134,7 @@ stmt  level    source
   119   2          case 995:
   120   2              ips200_show_string(16, 0, "Left roundabout");
   121   2              break;
-C251 COMPILER V5.60.0,  straight                                                           21/11/24  16:17:34  PAGE 3   
+C251 COMPILER V5.60.0,  straight                                                           21/11/24  16:32:52  PAGE 3   
 
   122   2          case 994:
   123   2              ips200_show_string(16, 0, "Right roundabout");
@@ -202,7 +202,7 @@ stmt  level    source
   185   1          denominator = adc1 + adc4;
   186   1          if (denominator == 0)
   187   1              denominator = 1;
-C251 COMPILER V5.60.0,  straight                                                           21/11/24  16:17:34  PAGE 4   
+C251 COMPILER V5.60.0,  straight                                                           21/11/24  16:32:52  PAGE 4   
 
   188   1          position = (adc4 - adc1) / denominator * 100;
   189   1          sprintf(str, "Position: %f\n, adc1: %f, adc4: %f\n", position, adc1, adc4);

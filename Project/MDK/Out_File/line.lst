@@ -1,4 +1,4 @@
-C251 COMPILER V5.60.0,  line                                                               21/11/24  15:45:57  PAGE 1   
+C251 COMPILER V5.60.0,  line                                                               21/11/24  16:55:15  PAGE 1   
 
 
 C251 COMPILER V5.60.0, COMPILATION OF MODULE line
@@ -66,7 +66,7 @@ stmt  level    source
    54          //  * @return int 线的位置，或错误代码
    55          //  * @warning 小心使用
    56          //  */
-C251 COMPILER V5.60.0,  line                                                               21/11/24  15:45:57  PAGE 2   
+C251 COMPILER V5.60.0,  line                                                               21/11/24  16:55:15  PAGE 2   
 
    57          // int Line_calculate_position()
    58          // {
@@ -134,7 +134,7 @@ stmt  level    source
   120   2              if (adc_value.ADC1 > max_adc1)
   121   2                  max_adc1 = adc_value.ADC1;
   122   2              if (adc_value.ADC2 < min_adc2)
-C251 COMPILER V5.60.0,  line                                                               21/11/24  15:45:57  PAGE 3   
+C251 COMPILER V5.60.0,  line                                                               21/11/24  16:55:15  PAGE 3   
 
   123   2                  min_adc2 = adc_value.ADC2;
   124   2              if (adc_value.ADC2 > max_adc2)
@@ -181,68 +181,61 @@ stmt  level    source
   165          {
   166   1          char str[256];
   167   1          char command;
-  168   1          if (wireless_uart_read_buff(str, 99) != 0)
+  168   1          if (wireless_uart_read_buff(str, 99) != 0) // 读取串口数据
   169   1          {
   170   2              drv8701_stop(MOTOR_BOTH);
-  171   2              str[0] = "Recieved stop signal, motor stopped\n Activating remote control\n";
-*** WARNING C161 IN LINE 171 OF ..\CODE\UserLibraries\line.c: 'huge const' pointer truncated to 'char'
-*** WARNING C10 IN LINE 171 OF ..\CODE\UserLibraries\line.c: conversion: 'pointer' to 'char'
+  171   2              sprintf(str, "Recieved stop signal, motor stopped\n Activating remote control\n");
   172   2              wireless_uart_send_buff(str, strlen(str));
   173   2              memset(str, 0, sizeof(str));
-  174   2              str[0] = "Activating RC\n";
-*** WARNING C161 IN LINE 174 OF ..\CODE\UserLibraries\line.c: 'huge const' pointer truncated to 'char'
-*** WARNING C10 IN LINE 174 OF ..\CODE\UserLibraries\line.c: conversion: 'pointer' to 'char'
+  174   2              sprintf(str, "Activating RC\n");
   175   2              wireless_uart_send_buff(str, strlen(str));
-  176   2              while (1)
-  177   2              {
-  178   3                  if (wireless_uart_read_buff(command, 1) != 0)
-*** WARNING C40 IN LINE 178 OF ..\CODE\UserLibraries\line.c: 'char' converted to 'far' pointer
-  179   3                  {
-  180   4                      // 大小写处理
-  181   4                      if (command >= 'A' && command <= 'Z')
-  182   4                      {
-  183   5                          command += 32;
-C251 COMPILER V5.60.0,  line                                                               21/11/24  15:45:57  PAGE 4   
+  176   2              memset(str, 0, sizeof(str));
+  177   2              servo_set_position(0);
+  178   2              while (1)
+  179   2              {
+  180   3                  if (wireless_uart_read_buff(str, 99) != 0)
+  181   3                  {
+  182   4                      command = str[0];
+  183   4                      // 大小写处理
+  184   4                      if (command >= 'A' && command <= 'Z')
+  185   4                      {
+  186   5                          command += 32;
+  187   5                      }
+  188   4                      wireless_uart_send_byte(command);
+C251 COMPILER V5.60.0,  line                                                               21/11/24  16:55:15  PAGE 4   
 
-  184   5                      }
-  185   4                      wireless_uart_send_byte(command);
-  186   4                      delay_ms(10000);
-  187   4                      switch (command)
-  188   4                      {
-  189   5                      case 'w':
-  190   5                          drv8701_control(MOTOR_BOTH, 35);
-  191   5                          delay_ms(100);
-  192   5                          drv8701_stop(MOTOR_BOTH);
-  193   5                          break;
-  194   5                      case 's':
-  195   5                          drv8701_control(MOTOR_BOTH, -35);
-  196   5                          delay_ms(100);
-  197   5                          drv8701_stop(MOTOR_BOTH);
-  198   5                          break;
-  199   5                      case 'a':
-  200   5                          drv8701_control(MOTOR_R, 35);
-  201   5                          delay_ms(100);
-  202   5                          drv8701_stop(MOTOR_BOTH);
-  203   5                          break;
-  204   5                      case 'd':
-  205   5                          drv8701_control(MOTOR_L, 35);
-  206   5                          delay_ms(100);
-  207   5                          drv8701_stop(MOTOR_BOTH);
-  208   5                          break;
-  209   5                      case 'r':
-  210   5                          code_entrance();
-  211   5                          break;
-  212   5      
-  213   5                      default:
-  214   5                          drv8701_stop(MOTOR_BOTH);
-  215   5                          str[0] = "Invalid command, motor stopped\n";
-*** WARNING C161 IN LINE 215 OF ..\CODE\UserLibraries\line.c: 'huge const' pointer truncated to 'char'
-*** WARNING C10 IN LINE 215 OF ..\CODE\UserLibraries\line.c: conversion: 'pointer' to 'char'
-  216   5                          wireless_uart_send_buff(str, strlen(str));
-  217   5                          break;
-  218   5                      
-  219   5                      delay_ms(10);
-  220   5                      }
+  189   4                      switch (command)
+  190   4                      {
+  191   5                      case 'w':
+  192   5                          drv8701_control(MOTOR_BOTH, 35);
+  193   5                          delay_ms(300);
+  194   5                          drv8701_stop(MOTOR_BOTH);
+  195   5                          break;
+  196   5                      case 's':
+  197   5                          drv8701_control(MOTOR_BOTH, -35);
+  198   5                          delay_ms(300);
+  199   5                          drv8701_stop(MOTOR_BOTH);
+  200   5                          break;
+  201   5                      case 'a':
+  202   5                          drv8701_control(MOTOR_R, 50);
+  203   5                          delay_ms(300);
+  204   5                          drv8701_stop(MOTOR_BOTH);
+  205   5                          break;
+  206   5                      case 'd':
+  207   5                          drv8701_control(MOTOR_L, 50);
+  208   5                          delay_ms(300);
+  209   5                          drv8701_stop(MOTOR_BOTH);
+  210   5                          break;
+  211   5                      case 'r':
+  212   5                          code_entrance();
+  213   5      
+  214   5                      default:
+  215   5                          drv8701_stop(MOTOR_BOTH);
+  216   5                          sprintf(str, "Invalid command, motor stopped\n");
+  217   5                          wireless_uart_send_buff(str, strlen(str));
+  218   5                          memset(str, 0, sizeof(str));
+  219   5                      }
+  220   4                      delay_ms(10);
   221   4                  }
   222   3              }
   223   2          }
@@ -251,7 +244,7 @@ stmt  level    source
 
 Module Information          Static   Overlayable
 ------------------------------------------------
-  code size            =      1266     ------
+  code size            =      1293     ------
   ecode size           =    ------     ------
   data size            =    ------     ------
   idata size           =    ------     ------
@@ -270,4 +263,4 @@ Module Information          Static   Overlayable
 End of Module Information.
 
 
-C251 COMPILATION COMPLETE.  7 WARNING(S),  0 ERROR(S)
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
