@@ -13,9 +13,9 @@
 #include "headfile.h"
 #include "ring.h"
 
-#define DISTANCE 7000 // 触发入环信号到入环的距离
-#define RETURN_TRACK 13000 // 入环后恢复循迹前的距离
-#define SERVO_ENTER_RING_ANGLE -39 // 舵机打角
+#define DISTANCE 4500 // 触发入环信号到入环的距离
+#define RETURN_TRACK 12000 // 入环后恢复循迹前的距离
+#define SERVO_ENTER_RING_ANGLE -33 // 舵机打角
 
 uint8 RING_FLAG = 0; // 定义外部变量
 
@@ -59,6 +59,7 @@ void ring_handler(void){
         real_distance = distance - normal_distance;
         delay_ms(10);
     }
+		Beep_set(0);
     wireless_uart_send_buff("Ring enterance operation finished\n", 36);
     // 退出环岛控制，恢复循迹
 }

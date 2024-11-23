@@ -14,13 +14,13 @@
 #include "straight.h"
 
 #define XINGS 1 // 定义十字的数量
-#define VELOCITY 35
+#define VELOCITY 47
 int recv = 32;
 char str[64];
 /*PID参数调节器*/
 float Kp = 0.5;
-float Ki = 0;
-float Kd = 0.35;
+float Ki = 0.18;
+float Kd = 18;
 float reactFactor = 1;
 
 // 添加积分和微分的最大值变量

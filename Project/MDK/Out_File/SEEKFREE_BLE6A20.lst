@@ -1,16 +1,0 @@
-C251 COMPILER V5.60.0,  SEEKFREE_BLE6A20                                                   14/11/24  21:38:35  PAGE 1   
-
-
-C251 COMPILER V5.60.0, COMPILATION OF MODULE SEEKFREE_BLE6A20
-OBJECT MODULE PLACED IN .\Out_File\SEEKFREE_BLE6A20.obj
-COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\..\Libraries\seekfree_peripheral\SEEKFREE_BLE6A20.c XSMALL WARNINGL
-                    -EVEL(3) OPTIMIZE(0,SPEED) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\see
-                    -kfree_peripheral;..\CODE;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\CODE\Algor
-                    -ithms) DEBUG PRINT(.\Out_File\SEEKFREE_BLE6A20.lst) TABS(2) OBJECT(.\Out_File\SEEKFREE_BLE6A20.obj) 
-
-stmt  level    source
-
-*** ERROR C318 OF ..\..\Libraries\seekfree_peripheral\SEEKFREE_BLE6A20.c: can't open file '..\..\Libraries\seekfree_peri
-             -pheral\SEEKFREE_BLE6A20.c'
-
-C251 COMPILATION COMPLETE.  0 WARNING(S),  1 ERROR(S)
