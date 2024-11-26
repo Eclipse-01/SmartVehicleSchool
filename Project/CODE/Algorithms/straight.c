@@ -14,13 +14,22 @@
 #include "straight.h"
 
 #define XINGS 1 // 定义十字的数量
-#define VELOCITY 47
+#define VELOCITY 40
+
+#define USE_DYNAMIC_SPEED 
+
+#ifdef USE_DYNAMIC_SPEED
+#define MOTOR_SPEED dynamic_speed()
+#else
+#define MOTOR_SPEED VELOCITY
+#endif // USE_DYNAMIC_SPEED
 int recv = 32;
 char str[64];
+int dynamic_speed();
 /*PID参数调节器*/
-float Kp = 0.5;
-float Ki = 0.18;
-float Kd = 18;
+float Kp = 0.595;
+float Ki = 0.00000;
+float Kd = 3.145;
 float reactFactor = 1;
 
 // 添加积分和微分的最大值变量
@@ -62,16 +71,16 @@ void PID_control_straint(void)
     angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
     last_error = position;
     servo_set_position(angle);
-    drv8701_control(MOTOR_BOTH, VELOCITY);
+    drv8701_control(MOTOR_BOTH, MOTOR_SPEED);
 
     if (integral > MAX_INTEGRAL)
         integral = MAX_INTEGRAL;
     if (integral < -MAX_INTEGRAL)
         integral = -MAX_INTEGRAL;
-    if (last_error > MAX_DERIVATIVE)
-        last_error = MAX_DERIVATIVE;
-    if (last_error < -MAX_DERIVATIVE)
-        last_error = -MAX_DERIVATIVE;
+    // if (last_error > MAX_DERIVATIVE)
+    //     last_error = MAX_DERIVATIVE;
+    // if (last_error < -MAX_DERIVATIVE)
+    //     last_error = -MAX_DERIVATIVE;
 }
 
 void PID_control_ring(void)
@@ -82,16 +91,33 @@ void PID_control_ring(void)
     angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
     last_error = position;
     servo_set_position(angle);
-    drv8701_control(MOTOR_BOTH, VELOCITY);
+    drv8701_control(MOTOR_BOTH,25);
 
     if (integral > MAX_INTEGRAL)
         integral = MAX_INTEGRAL;
     if (integral < -MAX_INTEGRAL)
         integral = -MAX_INTEGRAL;
-    if (last_error > MAX_DERIVATIVE)
-        last_error = MAX_DERIVATIVE;
-    if (last_error < -MAX_DERIVATIVE)
-        last_error = -MAX_DERIVATIVE;
+    // if (last_error > MAX_DERIVATIVE)
+    //     last_error = MAX_DERIVATIVE;
+    // if (last_error < -MAX_DERIVATIVE)
+    //     last_error = -MAX_DERIVATIVE;
+}
+
+static float last_speed = 0;
+/**
+ * @brief 动态速度控制函数
+ * @return int 返回速度
+ */
+int dynamic_speed()
+{
+    float this_speed;
+    this_speed = VELOCITY - abs(servo_position) * 0.2 - abs(position) * 0.07;
+    if (this_speed - last_speed > 0.7)
+        this_speed = last_speed + 0.7;
+    if (this_speed < 30)
+        this_speed = 30;
+    last_speed = this_speed;
+    return this_speed;
 }
 
 /**
@@ -136,7 +162,7 @@ void exception_handler(int exception_code)
  * @warning 小心使用
  */
 
-extern uint8 RING_FLAG; // 声明外部变量
+extern uint8 RING_FLAG = 0; // 声明外部变量
 int Line_calculate_position()
 {
     float adc1, adc2, adc3, adc4, denominator, position;
@@ -148,10 +174,13 @@ int Line_calculate_position()
     adc3 = ((float)adc_value.ADC3 * 100) / 4095;
     adc4 = ((float)adc_value.ADC4 * 100) / 4095;
 
-    if ((adc1 + adc4 > 160) && RING_FLAG == 0) // 检测到环岛
+    if ((adc1 + adc4 > 160)) // 检测到环岛
     {
+        RING_FLAG = RING_FLAG ^ 1;
+        if (RING_FLAG == 1){
         Beep_set(1);
-        ring_handler();
+        last_speed = 30;
+        ring_handler();}
     }
     denominator = adc1 + adc4;
     if (denominator == 0)
@@ -190,3 +219,4 @@ int Line_calculate_position_ring()
     wireless_uart_send_buff(str, strlen(str));
     return position;
 }
+

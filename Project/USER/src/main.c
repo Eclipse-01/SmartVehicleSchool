@@ -53,12 +53,7 @@ void code_entrance()
     while (1)
     {
         delay_ms(100);
-        memset(str, 0, sizeof(str));
-        if (wireless_uart_read_buff(str,recv) != 0)
-        {
-            wireless_uart_send_buff("Copy, you sent:\n", 17);
-            wireless_uart_send_buff(str, recv);
-        }
+        Get_ADC_Range();
     }
 }
 

@@ -1,0 +1,164 @@
+C251 COMPILER V5.60.0,  encoder                                                            26/11/24  16:35:21  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE encoder
+OBJECT MODULE PLACED IN .\Out_File\encoder.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\UserLibraries\encoder.c XSMALL WARNINGLEVEL(3) OPTIMIZE(0,SPEE
+                    -D) BROWSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\COD
+                    -E;..\USER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\CODE\Algorithms) DEBUG PRINT(.\Ou
+                    -t_File\encoder.lst) TABS(2) OBJECT(.\Out_File\encoder.obj) 
+
+stmt  level    source
+
+    1          /*********************
+    2           * encoder.c
+    3           * 
+    4           * 作者: COTOMO
+    5           * 项目地址: https://github.com/Eclipse-01/SmartVehicleSchool
+    6           * MIT开源证书
+    7           * JNU-FLY at Jiangnan University
+    8           * 2024 November
+    9           * 
+   10           * 本文件实现了编码器的初始化、读取及距离计算功能。
+   11           *
+   12           * 许可协议详见 LICENSE 文件。
+   13           ********************************************************************************************************
+             -************/
+   14          
+   15          #include "headfile.h"
+   16          
+   17          static uint32 TravelDistanceL = 0, TravelDistanceR = 0, TravelDistance = 0;
+   18          
+   19          /**
+   20           * @brief 初始化编码器
+   21           * 
+   22           * 初始化编码器1和编码器2的计数引脚和方向引脚
+   23           */
+   24          void encoder_init(void)
+   25          {
+   26   1          // 初始化编码器1，引脚CTIM0_P34（LSB1），方向引脚P35（DIR1）
+   27   1          ctimer_count_init(CTIM0_P34);
+   28   1          // 初始化编码器2，引脚CTIM3_P04（LSB2），方向引脚P53（DIR2）
+   29   1          ctimer_count_init(CTIM3_P04);
+   30   1      }
+   31          
+   32          /**
+   33           * @brief 读取编码器1的值
+   34           * 
+   35           * 清除计数器，延时后根据方向引脚读取编码器1的计数值
+   36           * 
+   37           * @return int16 编码器1的计数值
+   38           */
+   39          int16 encoder_read1(void)
+   40          {
+   41   1          int16 dat;
+   42   1          if(P35 == 1) // DIR1 注意出于安装原因，左侧编码器方向与右侧编码器方向相反
+   43   1          {
+   44   2              dat = ctimer_count_read(CTIM0_P34);
+   45   2          }
+   46   1          else
+   47   1          {
+   48   2              dat = -ctimer_count_read(CTIM0_P34);
+   49   2          }
+   50   1          TravelDistanceL += dat;
+   51   1          ctimer_count_clean(CTIM0_P34);
+   52   1          delay_ms(encoder_time);
+   53   1          if(P35 == 1) // DIR1 注意出于安装原因，左侧编码器方向与右侧编码器方向相反
+   54   1          {
+   55   2              dat = ctimer_count_read(CTIM0_P34);
+C251 COMPILER V5.60.0,  encoder                                                            26/11/24  16:35:21  PAGE 2   
+
+   56   2          }
+   57   1          else
+   58   1          {
+   59   2              dat = -ctimer_count_read(CTIM0_P34);
+   60   2          }
+   61   1          TravelDistanceL += dat;
+   62   1          return dat;
+   63   1      }
+   64          
+   65          /**
+   66           * @brief 读取编码器2的值
+   67           * 
+   68           * 清除计数器，延时后根据方向引脚读取编码器2的计数值
+   69           * 
+   70           * @return int16 编码器2的计数值
+   71           */
+   72          int16 encoder_read2(void)
+   73          {
+   74   1          int16 dat;
+   75   1          if(P53 == 0) // DIR2
+   76   1          {
+   77   2              dat = ctimer_count_read(CTIM3_P04);
+   78   2          }
+   79   1          else
+   80   1          {
+   81   2              dat = -ctimer_count_read(CTIM3_P04);
+   82   2          }
+   83   1          TravelDistanceR += dat;
+   84   1          ctimer_count_clean(CTIM3_P04);
+   85   1          delay_ms(encoder_time);
+   86   1          if(P53 == 0) // DIR2
+   87   1          {
+   88   2              dat = ctimer_count_read(CTIM3_P04);
+   89   2          }
+   90   1          else
+   91   1          {
+   92   2              dat = -ctimer_count_read(CTIM3_P04);
+   93   2          }
+   94   1          TravelDistanceR += dat;
+   95   1          return dat;
+   96   1      }
+   97          
+   98          /**
+   99           * @brief 获取平均行驶距离
+  100           * 
+  101           * 计算左侧和右侧编码器的平均行驶距离
+  102           * 
+  103           * @return int16 平均行驶距离
+  104           */
+  105          int16 get_encoder_distance(void)
+  106          {
+  107   1          encoder_read1();
+  108   1          encoder_read2(); // 更新左右编码器的行驶距离
+  109   1          TravelDistance = (TravelDistanceL + TravelDistanceR) / 2;
+  110   1          return TravelDistance;
+  111   1      }
+  112          
+  113          /**
+  114           * @brief 清除编码器行驶距离
+  115           * 
+  116           * 将左侧、右侧和总行驶距离清零
+  117           */
+  118          void clear_encoder_distance(void)
+  119          {
+  120   1          TravelDistanceL = 0;
+  121   1          TravelDistanceR = 0;
+C251 COMPILER V5.60.0,  encoder                                                            26/11/24  16:35:21  PAGE 3   
+
+  122   1          TravelDistance = 0;
+  123   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       318     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        16     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =        24     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

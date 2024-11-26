@@ -33,6 +33,7 @@
         "seekfree_imu660ra.h": "c",
         "seekfree_function.h": "c",
         "seekfree_mpu6050.h": "c",
-        "seekfree_18tft.h": "c"
+        "seekfree_18tft.h": "c",
+        "ring.h": "c"
     }
 }
