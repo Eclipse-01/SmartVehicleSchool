@@ -14,7 +14,8 @@
 #include "straight.h"
 
 #define XINGS 1 // 定义十字的数量
-#define VELOCITY 40
+#define VELOCITY 52
+#define MAX_VELOCITY 42
 
 #define USE_DYNAMIC_SPEED 
 
@@ -28,13 +29,13 @@ char str[64];
 int dynamic_speed();
 /*PID参数调节器*/
 float Kp = 0.595;
-float Ki = 0.00000;
+float Ki = 0.000;
 float Kd = 3.145;
 float reactFactor = 1;
 
 // 添加积分和微分的最大值变量
 float MAX_INTEGRAL = 100.0;    // 根据需要调整
-float MAX_DERIVATIVE = 1000.0; // 根据需要调整
+float MAX_DERIVATIVE = 100.0; // 根据需要调整
 
 /**
  * @brief 直行入口函数
@@ -77,10 +78,10 @@ void PID_control_straint(void)
         integral = MAX_INTEGRAL;
     if (integral < -MAX_INTEGRAL)
         integral = -MAX_INTEGRAL;
-    // if (last_error > MAX_DERIVATIVE)
-    //     last_error = MAX_DERIVATIVE;
-    // if (last_error < -MAX_DERIVATIVE)
-    //     last_error = -MAX_DERIVATIVE;
+    if (last_error > MAX_DERIVATIVE)
+        last_error = MAX_DERIVATIVE;
+    if (last_error < -MAX_DERIVATIVE)
+        last_error = -MAX_DERIVATIVE;
 }
 
 void PID_control_ring(void)
@@ -91,16 +92,16 @@ void PID_control_ring(void)
     angle = (position * Kp + integral * Ki + (position - last_error) * Kd) * reactFactor;
     last_error = position;
     servo_set_position(angle);
-    drv8701_control(MOTOR_BOTH,25);
+    drv8701_control(MOTOR_BOTH,30);
 
     if (integral > MAX_INTEGRAL)
         integral = MAX_INTEGRAL;
     if (integral < -MAX_INTEGRAL)
         integral = -MAX_INTEGRAL;
-    // if (last_error > MAX_DERIVATIVE)
-    //     last_error = MAX_DERIVATIVE;
-    // if (last_error < -MAX_DERIVATIVE)
-    //     last_error = -MAX_DERIVATIVE;
+    if (last_error > MAX_DERIVATIVE)
+        last_error = MAX_DERIVATIVE;
+    if (last_error < -MAX_DERIVATIVE)
+        last_error = -MAX_DERIVATIVE;
 }
 
 static float last_speed = 0;
@@ -111,11 +112,13 @@ static float last_speed = 0;
 int dynamic_speed()
 {
     float this_speed;
-    this_speed = VELOCITY - abs(servo_position) * 0.2 - abs(position) * 0.07;
+    this_speed = VELOCITY - abs(servo_position) * 0.16 - abs(position) * 0.16;
     if (this_speed - last_speed > 0.7)
         this_speed = last_speed + 0.7;
-    if (this_speed < 30)
-        this_speed = 30;
+    if (this_speed < 33)
+        this_speed = 33;
+    if (this_speed > MAX_VELOCITY)
+        this_speed = MAX_VELOCITY;
     last_speed = this_speed;
     return this_speed;
 }
@@ -176,11 +179,9 @@ int Line_calculate_position()
 
     if ((adc1 + adc4 > 160)) // 检测到环岛
     {
-        RING_FLAG = RING_FLAG ^ 1;
-        if (RING_FLAG == 1){
         Beep_set(1);
         last_speed = 30;
-        ring_handler();}
+        ring_handler();
     }
     denominator = adc1 + adc4;
     if (denominator == 0)

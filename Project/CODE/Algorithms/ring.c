@@ -17,7 +17,7 @@
 #define RETURN_TRACK 13000 // 入环后恢复循迹前的距离
 #define SERVO_ENTER_RING_ANGLE -31 // 舵机打角
 
-static uint8 RING_FLAG; // 定义外部变量
+static uint8 RING_FLAG = 0; // 定义外部变量
 
 /**
  * @brief 处理环岛的函数
@@ -49,6 +49,12 @@ void ring_handler(void){
         real_distance = distance - normal_distance;
         PID_control_ring();
         delay_ms(10);
+    }
+    RING_FLAG = RING_FLAG ^ 1; // 环岛标志位取反
+    if (RING_FLAG == 0)
+    {
+        Beep_set(0);
+        return;
     }
     wireless_uart_send_buff("We have reached the ring point, setting servo angle\n", 52);
 
