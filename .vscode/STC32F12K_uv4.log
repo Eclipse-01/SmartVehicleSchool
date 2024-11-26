@@ -1,10 +1,12 @@
 Build target 'STC32F12K'
+compiling straight.c...
+compiling ring.c...
 linking...
 *** WARNING L48: IGNORED RECURSIVE CALL
     CALLED:  code_entrance/main
     CALLER:  Remote_Stop/line
 
-Program Size: data=8.0 edata+hdata=5145 xdata=0 const=1711 code=44433
+Program Size: data=8.0 edata+hdata=5154 xdata=0 const=1702 code=45119
 creating hex file from ".\Out_File\SEEKFREE"...
 ".\Out_File\SEEKFREE" - 0 Error(s), 1 Warning(s).
 Build Time Elapsed:  00:00:01

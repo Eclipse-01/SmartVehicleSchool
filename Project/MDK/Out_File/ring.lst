@@ -1,0 +1,105 @@
+C251 COMPILER V5.60.0,  ring                                                               26/11/24  18:20:42  PAGE 1   
+
+
+C251 COMPILER V5.60.0, COMPILATION OF MODULE ring
+OBJECT MODULE PLACED IN .\Out_File\ring.obj
+COMPILER INVOKED BY: C:\Keil_v5\C251\BIN\C251.EXE ..\CODE\Algorithms\ring.c XSMALL WARNINGLEVEL(3) OPTIMIZE(0,SPEED) BRO
+                    -WSE INCDIR(..\..\Libraries\libraries;..\..\Libraries\seekfree_libraries;..\..\Libraries\seekfree_peripheral;..\CODE;..\U
+                    -SER\inc;..\USER\src;..\..\Libraries\seekfree_components;..\CODE\UserLibraries;..\CODE\Algorithms) DEBUG PRINT(.\Out_File
+                    -\ring.lst) TABS(2) OBJECT(.\Out_File\ring.obj) 
+
+stmt  level    source
+
+    1          /*********************
+    2           * ring.c
+    3           * 
+    4           * 作者: COTOMO
+    5           * 项目地址: https://github.com/Eclipse-01/SmartVehicleSchool
+    6           * MIT开源证书
+    7           * JNU-FLY at Jiangnan University
+    8           * 2024 November
+    9           * 
+   10           * 本文件实现了车辆进入和退出环岛的处理逻辑，包括距离计算和舵机角度控制。
+   11           ********************************************************************************************************
+             -************/
+   12          
+   13          #include "headfile.h"
+   14          #include "ring.h"
+   15          
+   16          #define DISTANCE 7500 // 触发入环信号到入环的距离
+   17          #define RETURN_TRACK 13000 // 入环后恢复循迹前的距离
+   18          #define SERVO_ENTER_RING_ANGLE -31 // 舵机打角
+   19          
+   20          static uint8 RING_FLAG; // 定义外部变量
+   21          
+   22          /**
+   23           * @brief 处理环岛的函数
+   24           *
+   25           * 该函数用于处理车辆进入环岛的逻辑，包括距离计算和舵机角度设置。
+   26           */
+   27          void ring_handler(void){
+   28   1          uint32 distance = 0;
+   29   1          uint32 normal_distance = 0; // 记录入环前的距离
+   30   1          uint32 real_distance = 0; // 记录实际距离
+   31   1      
+   32   1          /*
+   33   1          * 为什么要用三个distance呢？因为有时候在调用clear_encoder_distance()函数时，
+   34   1          * 这个值并不一定会被清到0，所以需要一个normal_distance来记录入环前的读数，至于real_distance
+   35   1          * 则是单纯用来减少逻辑表达式的复杂度
+   36   1          */
+   37   1      
+   38   1          char str[64];
+   39   1          clear_encoder_distance();
+   40   1          normal_distance = get_encoder_distance();
+   41   1          sprintf(str, "Normal distance: %d\n", normal_distance);
+   42   1          wireless_uart_send_buff(str, strlen(str));
+   43   1      
+   44   1          while ( real_distance < DISTANCE ) // 判断是否到达入环点，这个循环控制了舵机打角的时机
+   45   1          {
+   46   2              sprintf(str, "Distance: %d\n", distance - normal_distance);
+   47   2              wireless_uart_send_buff(str, strlen(str));
+   48   2              distance = get_encoder_distance();
+   49   2              real_distance = distance - normal_distance;
+   50   2              PID_control_ring();
+   51   2              delay_ms(10);
+   52   2          }
+   53   1          wireless_uart_send_buff("We have reached the ring point, setting servo angle\n", 52);
+   54   1      
+   55   1          servo_set_position(SERVO_ENTER_RING_ANGLE); // 舵机打角
+C251 COMPILER V5.60.0,  ring                                                               26/11/24  18:20:42  PAGE 2   
+
+   56   1          while ( distance - normal_distance < RETURN_TRACK ) // 判断是否到达入环后恢复循迹前的距离，即控制舵机
+             -打角的时长
+   57   1          {
+   58   2              distance = get_encoder_distance();
+   59   2              real_distance = distance - normal_distance;
+   60   2              delay_ms(10);
+   61   2          }
+   62   1          Beep_set(0);
+   63   1          wireless_uart_send_buff("Ring enterance operation finished\n", 36);
+   64   1          // 退出环岛控制，恢复循迹
+   65   1      }
+
+
+Module Information          Static   Overlayable
+------------------------------------------------
+  code size            =       251     ------
+  ecode size           =    ------     ------
+  data size            =    ------     ------
+  idata size           =    ------     ------
+  pdata size           =    ------     ------
+  xdata size           =    ------     ------
+  xdata-const size     =    ------     ------
+  edata size           =        77     ------
+  bit size             =    ------     ------
+  ebit size            =    ------     ------
+  bitaddressable size  =    ------     ------
+  ebitaddressable size =    ------     ------
+  far data size        =    ------     ------
+  huge data size       =    ------     ------
+  const size           =    ------     ------
+  hconst size          =       123     ------
+End of Module Information.
+
+
+C251 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

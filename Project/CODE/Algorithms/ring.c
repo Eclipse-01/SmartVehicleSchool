@@ -13,11 +13,11 @@
 #include "headfile.h"
 #include "ring.h"
 
-#define DISTANCE 4500 // 触发入环信号到入环的距离
-#define RETURN_TRACK 12000 // 入环后恢复循迹前的距离
-#define SERVO_ENTER_RING_ANGLE -33 // 舵机打角
+#define DISTANCE 7500 // 触发入环信号到入环的距离
+#define RETURN_TRACK 13000 // 入环后恢复循迹前的距离
+#define SERVO_ENTER_RING_ANGLE -31 // 舵机打角
 
-uint8 RING_FLAG = 0; // 定义外部变量
+static uint8 RING_FLAG; // 定义外部变量
 
 /**
  * @brief 处理环岛的函数
